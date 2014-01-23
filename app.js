@@ -27,8 +27,7 @@ app.use(passport.session());
 //-------------------------------------------------------------------
 
 // Routes initialized here
-// Change to whereever the routes are actually located
-//require('./app/routes.js')(app, passport);
+require('./app/routes.js')(app, passport);
 
 app.listen(port);
 console.log('App listening on port ' + port);
