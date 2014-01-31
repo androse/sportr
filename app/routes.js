@@ -1,3 +1,5 @@
+var database = require("./database.js");
+
 module.exports = function(app, passport) {
 
 	//homepage
@@ -29,6 +31,22 @@ module.exports = function(app, passport) {
 	app.get('/logout', function(req, res) {
 		req.logout();
 		res.redirect('/');
+	});
+
+	//testing DB connection
+	app.get('/testadd', function(req, res){
+		database.addUser("123", "Jordan", function(temp){
+			res.writeHeader(200, {"Content-Type": "text/plain"});
+            res.write(temp);
+            res.end();
+		});
+	});
+	app.get('/testquery', function(req, res){
+		database.checkUser("kfm", "dkjfb", function(temp){
+			res.writeHeader(200, {"Content-Type": "text/plain"});
+            res.write("check log");
+            res.end();
+		});
 	});
 
 	// A route middleware that checks whether a user is authenticated

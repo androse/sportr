@@ -33,21 +33,21 @@ module.exports = function(passport) {
 	// Verify callback which accepts the returned user credentials and a done
 	// callback function that is called when finished
 	}, function(accessToken, refreshToken, profile, done) {
-		/* 
+		 
 		// This may need to be put in a next tick call so that the user is not 
 		// redirected before the done is returned
-		fakeuser.findByID(profile.id, function(err, user) {
-			// Access the user in the DB if they exist through profile.id
-			if (user) {
-				return done(null, user);
-			// Or create a new user if they do not
-			} else {
-				fakeuser.newUser(profile, function(err, user) {
-					return done(null, user);
-				});
-			}
-		});
-		*/
+		// fakeuser.findByID(profile.id, function(err, user) {
+		// 	// Access the user in the DB if they exist through profile.id
+		// 	if (user) {
+		// 		return done(null, user);
+		// 	// Or create a new user if they do not
+		// 	} else {
+		// 		fakeuser.newUser(profile, function(err, user) {
+		// 			return done(null, user);
+		// 		});
+		// 	}
+		// });
+		
 	}
 	));
 }
