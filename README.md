@@ -13,3 +13,4 @@ McGill ECSE 428 project that allows people to spontaneously set up sporting acti
 ###Contributors
 
 * Andrew Larose
+* Voula Theophanous
