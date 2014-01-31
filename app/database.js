@@ -4,7 +4,7 @@ mongoose.connect('mongodb://jstirl:ecse428@dharma.mongohq.com:10086/sportr', fun
                  if (err) throw err;
     });
 
-var User = mongoose.model('Cat', { name: String });
+var User = mongoose.model('User', {userID: String, userName: String});
 
 exports.checkUser = function checkUser(userID, userName, callback){
 	User.find({}, function(err, documents) {
