@@ -1,5 +1,10 @@
 module.exports = function(app, passport) {
 
+	//homepage
+	app.get('/', function(req, res) {
+		res.sendfile('./views/index.html');
+	});
+
 	// Use this route on any facebook login button
 	// Use the facebook authentication strategy found in config/passport.js as
 	// a route middleware
