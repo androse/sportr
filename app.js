@@ -9,9 +9,9 @@ require('./config/passport.js')(passport);
 //-------------------------------------------------------------------
 
 // Configure templating engine
-// app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/views');
 // Change to the desired templating engine
-// app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // Configure express
 app.use(express.logger('dev'));
