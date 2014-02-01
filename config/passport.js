@@ -9,7 +9,7 @@ module.exports = function(passport) {
 	// When the user is authenticated successfully their id is serialized to
 	// the session via a cookie
 	passport.serializeUser(function(user, done) {
-		done(null, user.userID);
+		done(null, user);
 	});
 
 	// When the user visits another page the id from the cookie is deserialized
@@ -28,6 +28,9 @@ module.exports = function(passport) {
 	}, function(accessToken, refreshToken, profile, done) {
 		// This may need to be put in a next tick call so that the user is not 
 		// redirected before the done is returned
-		db.findOrAddUser(profile.id, profile.name.givenName + ' ' + profile.name.familyName, done);
+		// db.findOrAddUser(profile.id, profile.name.givenName + ' ' + profile.name.familyName, done);
+		process.nextTick(function () {
+   			return done(null, profile);
+ 		});
 	}));
 }

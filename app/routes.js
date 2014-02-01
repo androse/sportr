@@ -15,9 +15,23 @@ module.exports = function(app, passport) {
 	// If the authentication is successful redirect to the user's profile
 	// If it fails redirect them back to the index page
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-		successRedirect: '/profile',
-		failureRedirect: '/'
-	}));
+		// successRedirect: '/profile',
+		failureRedirect: '/'}),
+	function(req, res) {
+		database.findOrAddUser(req.user.userID, req.user.userName, function(isNew){
+			if(isNew){
+				res.writeHeader(200, {"Content-Type": "text/plain"});
+            	res.write("Welcome!");
+            	res.end();
+			}
+			else{
+				res.writeHeader(200, {"Content-Type": "text/plain"});
+            	res.write("Welcome back");
+            	res.end();
+			}
+		});
+ 		//xres.redirect('/profile');
+	});
 
 	// The ensureAuthenticated middleware only allows authenticated users to
 	// access /profile. The rendered page uses req.user to display the user's

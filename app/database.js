@@ -20,14 +20,14 @@ exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
         if (err) throw err;
         else if (user) {
             console.log('User: ' + user.userID + ' already exist!');
-            return callback(null, user);
+            callback(false);
         } else {
             var newUser = new User({userID: userID, userName: userName});
             newUser.save(function(err) {
                 if (err) throw err;
                 else {
                     console.log('New User: ' + newUser.userID + ' added!');
-                    return callback(null, newUser);
+                    callback(true);
                 }
             })
         }
