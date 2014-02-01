@@ -1,5 +1,6 @@
 var authConfig = require('./auth.js');
 var FacebookStrategy = require('passport-facebook').Strategy;
+var db = require('../app/database.js');
 
 module.exports = function(passport) {
 
@@ -8,7 +9,7 @@ module.exports = function(passport) {
 	// When the user is authenticated successfully their id is serialized to
 	// the session via a cookie
 	passport.serializeUser(function(user, done) {
-		done(null, user.id);
+		done(null, user.userID);
 	});
 
 	// When the user visits another page the id from the cookie is deserialized
@@ -17,12 +18,7 @@ module.exports = function(passport) {
 	passport.deserializeUser(function(id, done) {
 		// Call a function which finds the user based on the id
 		// then call done(err, user) in that functions callback
-		
-		/*
-		fakeuser.findByID(id, function(err, user) {
-			done(err, user);
-		});
-		*/
+		db.checkUser(id, done);
 	});
 	
 	passport.use(new FacebookStrategy({
@@ -31,23 +27,9 @@ module.exports = function(passport) {
 		clientSecret: authConfig.facebookAuth.clientSecret,
 		callbackURL: authConfig.facebookAuth.callbackURL
 	// Verify callback which accepts the returned user credentials and a done
-	// callback function that is called when finished
 	}, function(accessToken, refreshToken, profile, done) {
-		 
 		// This may need to be put in a next tick call so that the user is not 
 		// redirected before the done is returned
-		// fakeuser.findByID(profile.id, function(err, user) {
-		// 	// Access the user in the DB if they exist through profile.id
-		// 	if (user) {
-		// 		return done(null, user);
-		// 	// Or create a new user if they do not
-		// 	} else {
-		// 		fakeuser.newUser(profile, function(err, user) {
-		// 			return done(null, user);
-		// 		});
-		// 	}
-		// });
-		
-	}
-	));
+		db.findOrAddUser(profile.id, profile.name.givenName + ' ' + profile.name.familyName, done);
+	}));
 }

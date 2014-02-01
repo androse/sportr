@@ -4,7 +4,7 @@ module.exports = function(app, passport) {
 
 	//homepage
 	app.get('/', function(req, res) {
-		res.sendfile('index.html');
+		res.render('index');
 	});
 
 	// Use this route on any facebook login button
@@ -13,10 +13,10 @@ module.exports = function(app, passport) {
 	app.get('/auth/facebook', passport.authenticate('facebook'));
 
 	// If the authentication is successful redirect to the user's profile
-	// If it fails redirect them back to the login page
+	// If it fails redirect them back to the index page
 	app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 		successRedirect: '/profile',
-		failureRedirect: '/login'
+		failureRedirect: '/'
 	}));
 
 	// The ensureAuthenticated middleware only allows authenticated users to
@@ -24,7 +24,7 @@ module.exports = function(app, passport) {
 	// info
 	app.get('/profile', ensureAuthenticated, function(req, res) {
 		// Views are what are rendered and need to be made
-		//res.render('profile', { user: req.user });
+		res.render('profile', { user: req.user });
 	});
 
 	// Simple logout route, that sends the user to the home page post logout
@@ -55,7 +55,7 @@ module.exports = function(app, passport) {
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
-			res.redirect('/login');
+			res.redirect('/');
 		}
 	}
 }
