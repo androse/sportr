@@ -16,7 +16,8 @@ module.exports = function(passport) {
 	// so that it can be used to retrieve a user that is passed to done and
 	// accessable later through req.user
 	passport.deserializeUser(function(id, done) {
-		db.checkUser(id, done);
+		done(null, id);
+		//db.checkUser(id, done);
 	});
 	
 	passport.use(new FacebookStrategy({
@@ -30,7 +31,7 @@ module.exports = function(passport) {
 		// redirected before the done is returned
 		// db.findOrAddUser(profile.id, profile.name.givenName + ' ' + profile.name.familyName, done);
 		process.nextTick(function () {
-   			return done(null, profile);
+   			return done(null, profile._json);
  		});
 	}));
 }
