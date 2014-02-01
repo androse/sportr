@@ -16,8 +16,6 @@ module.exports = function(passport) {
 	// so that it can be used to retrieve a user that is passed to done and
 	// accessable later through req.user
 	passport.deserializeUser(function(id, done) {
-		// Call a function which finds the user based on the id
-		// then call done(err, user) in that functions callback
 		db.checkUser(id, done);
 	});
 	
@@ -26,7 +24,7 @@ module.exports = function(passport) {
 		clientID: authConfig.facebookAuth.clientID,
 		clientSecret: authConfig.facebookAuth.clientSecret,
 		callbackURL: authConfig.facebookAuth.callbackURL
-	// Verify callback which accepts the returned user credentials and a done
+	// Verify callback which accepts the returned user credentials and the done callback
 	}, function(accessToken, refreshToken, profile, done) {
 		// This may need to be put in a next tick call so that the user is not 
 		// redirected before the done is returned

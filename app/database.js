@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var User = require('./models/user.js');
 
+// Find a user by their ID
 exports.checkUser = function checkUser(userID, callback) {
     User.findOne({'userID': userID}, function(err, user) {
         if (user) {    
@@ -12,6 +13,8 @@ exports.checkUser = function checkUser(userID, callback) {
   });
 }
 
+// If a user is already in the db then that user is returned in the callback
+// If not a new user is created, added then returned in the callback
 exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
 	User.findOne({'userID': userID}, function(err, user) {
         if (err) throw err;
