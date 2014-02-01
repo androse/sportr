@@ -1,10 +1,16 @@
 var express = require('express'),
+	mongoose = require('mongoose'),
 	app = express(),
 	port = process.env.PORT || 8080,
 	passport = require('passport');
 
 // Configure passport using the passport object just created
 require('./config/passport.js')(passport);
+
+// Connect to the mongo database
+mongoose.connect(require('./config/database.js').address, function(err) {
+	if (err) throw err;
+});
 
 //-------------------------------------------------------------------
 
