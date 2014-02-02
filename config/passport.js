@@ -24,7 +24,7 @@ module.exports = function(passport) {
 		// Options and credentials
 		clientID: authConfig.facebookAuth.clientID,
 		clientSecret: authConfig.facebookAuth.clientSecret,
-		callbackURL: "./auth/facebook/callback"
+		callbackURL: authConfig.facebookAuth.callbackURL
 	// Verify callback which accepts the returned user credentials and the done callback
 	}, function(accessToken, refreshToken, profile, done) {
 		// This may need to be put in a next tick call so that the user is not 
