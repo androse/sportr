@@ -1,45 +1,21 @@
-<!DOCTYPE html>
-<html>
-<html lang="en">
- <meta charset="utf-8">
-<head>
-<title>Sportr - Sweat.. with strangers!</title>
-  <meta name="description" content="Sweat.. with strangers!">
-  <meta name="JAVVAJS" content="SitePoint">
- <link rel="shortcut icon" href="img/sportr.ico">
-<style>
-body
-{
-background-color:#174d6c;
-height:100%;
-}
-
-a:visited{
-     color: inherit;
-}
-
-</style>
-</head>
-
+<% include header %>
 <body>
 	<div style="width:100%; height:100%;">
-		<div>
-			<img src = "img/banner.png" style="position:absolute; float:left; left:0px; top:0px; height:15%" alt = "Sportr - Sweat.. with strangers!" />
-		</div>
-
-		<div >
-			<img src="img/sportsmap.png" style="position:absolute; float:left; left:5%; top:20%; height:80%;">
-		</div>
-		
-		<div style=>
-			<a href="/auth/facebook">
-				<img src = "img/fbsignin.png" style="position:absolute; float:right; left:750px; top:40%; width:250px;" alt = "Sportr - Sweat.. with strangers!" />
-			</a>
-		</div>
-		<div style="position:absolute; left:500px; top:50px; font-family:tahoma;">
-			<a href="/profile" style="color:white; text-decoration:none">Profile</a>
+		<% include banner-logo %>
+		<%if (!user) {%>
+			<div>
+				<a href="/auth/facebook">
+					<img src = "img/fbsignin.png" style="position:absolute; float:left; left:200px; top:0px; width:250px;" alt = "Sportr - Sweat.. with strangers!" />
+				</a>
+			</div>
+		<% } %>
+		<div style="position:absolute; left:450px; top:25px; font-family:tahoma;">
+			<%if (user) {%>
+				<p class="white">You are logged in as:<%= user.userName%> </p>
+				<a href="/profile">Profile</a>
+			<% } %>
 			<br>
-			<a href="/logout" style="color:white; text-decoration:none">Logout</a>
+			<%if (user) {%><a href="/logout">Logout</a><% } %>
 		</div>
 	</div>
 

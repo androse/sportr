@@ -4,7 +4,7 @@ module.exports = function(app, passport) {
 
 	//homepage
 	app.get('/', function(req, res) {
-		res.render('index');
+		res.render('index', {user: req.user});
 	});
 
 	// Use this route on any facebook login button

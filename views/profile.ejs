@@ -1,13 +1,12 @@
-<html>
-	<head>
-	   <title>Sportr Profile</title>
-	</head>
-	    
-	<body>
-		<h1>Sportr</h1>
-		<h3> <%= user.userID%> </h3>
-		<h3> <%= user.userName%> </h3>
-
-		<a href="/logout">Logout</a>
+<% include header %>
+<body>
+	<div style="width:100%; height:100%;">
+		<% include banner-logo %>
+		<div style="position:absolute; left:450px; top:25px; font-family:tahoma;">
+			<h3 class="white"> ID: <%= user.userID%> </h3>	
+			<h3 class="white"> Name: <%= user.userName%> </h3>
+			<a href="/">Homepage</a><br>
+			<a href="/logout">Logout</a>
+		</div>
 	</body>
 </html>
