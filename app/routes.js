@@ -26,6 +26,24 @@ module.exports = function(app, passport) {
 		// Views are what are rendered and need to be made
 		res.render('profile', { user: req.user });
 	});
+	
+	//Edit Account page
+	app.get('/editaccount', ensureAuthenticated, function(req, res) {
+		// Views are what are rendered and need to be made
+		res.render('editaccount', { user: req.user });
+	});
+	
+	//Edit Sports page
+	app.get('/managesports', ensureAuthenticated, function(req, res) {
+		// Views are what are rendered and need to be made
+		res.render('editsports', { user: req.user });
+	});
+	
+	//Edit Location page
+	app.get('/changelocation', ensureAuthenticated, function(req, res) {
+		// Views are what are rendered and need to be made
+		res.render('editlocation', { user: req.user });
+	});
 
 	// Simple logout route, that sends the user to the home page post logout
 	app.get('/logout', function(req, res) {
