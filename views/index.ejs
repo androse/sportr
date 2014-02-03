@@ -1,12 +1,25 @@
 <% include header %>
 <body>
 	<div style="width:100%; height:100%;">
-		<% include banner-logo %>
+		<% include navbar %>
+		
 		<%if (!user) {%>
-			<div>
-				<a href="/auth/facebook">
-					<img src = "img/fbsignin.png" style="position:absolute; float:left; left:200px; top:0px; width:250px;" alt = "Sportr - Sweat.. with strangers!" />
-				</a>
+			<div class="container" id="content">
+				<p>
+					<img src = "img/sportsmap.png" alt = "Sportr - Sweat.. with strangers!" />
+				</p>
+				<p>
+					<a href="/auth/facebook">
+					<img src = "img/fbsignin.png" alt = "Sportr - Sweat.. with strangers!" />
+					</a>
+				</p>
+				<p style="font-family:Tahoma;font-size:20px; color:white;">
+					Meeting people who are game has never been easier.<br>
+					Build the perfect team.<br>
+					Create the most epic of rivalries.<br>
+					Have legendary amounts of fun.<br>
+					Get in the game!
+				</p>
 			</div>
 		<% } %>
 		<div style="position:absolute; left:450px; top:25px; font-family:tahoma;">
@@ -18,6 +31,8 @@
 			<%if (user) {%><a href="/logout">Logout</a><% } %>
 		</div>
 	</div>
-
+	
+	<% include jquery %>
+	
 </body>
 </html>
