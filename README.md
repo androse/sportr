@@ -15,3 +15,4 @@ McGill ECSE 428 project that allows people to spontaneously set up sporting acti
 * Andrew Larose
 * Voula Theophanous
 * Vasily Rassokhin
+* Shawn Bramson
