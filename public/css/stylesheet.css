@@ -1,0 +1,36 @@
+@font-face{
+    font-family: 'coolveticaregular';
+    src: url('../fonts/coolvetica_rg-webfont.eot');
+    src: url('../fonts/coolvetica_rg-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/coolvetica_rg-webfont.woff') format('woff'),
+         url('../fonts/coolvetica_rg-webfont.ttf') format('truetype'),
+         url('../fonts/coolvetica_rg-webfont.svg#coolveticaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+	font-family: coolveticaregular;
+	font-size: 14px;
+	line-height: 1.428571429;
+	color: #333;
+	background-color:#174d6c;
+	white-space: nowrap
+	margin: 0;
+}
+
+#content{
+	padding-top:125px;
+}
+
+.navbar-collapse{
+	font-size: 18px;
+}
+
+navbar{
+	font-size: 18px;
+}
+
+a:visited{
+     color: inherit;
+}
