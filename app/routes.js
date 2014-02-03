@@ -29,19 +29,16 @@ module.exports = function(app, passport) {
 	
 	//Edit Account page
 	app.get('/editaccount', ensureAuthenticated, function(req, res) {
-		// Views are what are rendered and need to be made
 		res.render('editaccount', { user: req.user });
 	});
 	
 	//Edit Sports page
-	app.get('/managesports', ensureAuthenticated, function(req, res) {
-		// Views are what are rendered and need to be made
+	app.get('/editsports', ensureAuthenticated, function(req, res) {
 		res.render('editsports', { user: req.user });
 	});
 	
 	//Edit Location page
-	app.get('/changelocation', ensureAuthenticated, function(req, res) {
-		// Views are what are rendered and need to be made
+	app.get('/editlocation', ensureAuthenticated, function(req, res) {
 		res.render('editlocation', { user: req.user });
 	});
 
