@@ -48,22 +48,6 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
-	//testing DB connection
-	app.get('/testadd', function(req, res){
-		database.addUser("123", "Jordan", function(temp){
-			res.writeHeader(200, {"Content-Type": "text/plain"});
-            res.write(temp);
-            res.end();
-		});
-	});
-	app.get('/testquery', function(req, res){
-		database.checkUser("kfm", "dkjfb", function(temp){
-			res.writeHeader(200, {"Content-Type": "text/plain"});
-            res.write("check log");
-            res.end();
-		});
-	});
-
 	// A route middleware that checks whether a user is authenticated
 	// If they are the request proceeds, if not they are redirected to login
 	function ensureAuthenticated(req, res, next) {
