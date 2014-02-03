@@ -12,11 +12,14 @@
 body{
 	font-family: coolveticaregular;
 	font-size: 14px;
+	color: white;
 	line-height: 1.428571429;
-	color: #333;
 	background-color:#174d6c;
 	white-space: nowrap
 	margin: 0;
+}
+.white{
+	color:white;
 }
 
 #content{
