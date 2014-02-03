@@ -5,30 +5,22 @@
 		
 		<%if (!user) {%>
 			<div class="container" id="content">
-			<div style="text-align:right">
-				<a href="/profile" style="color:white; text-decoration:none">Profile</a>
-				<br>
-				<a href="/logout" style="color:white; text-decoration:none">Logout</a>
+				<p>
+					<img src = "img/sportsmap.png" alt = "Sportr - Sweat.. with strangers!" />
+				</p>
+				<p>
+					<a href="/auth/facebook">
+					<img src = "img/fbsignin.png" alt = "Sportr - Sweat.. with strangers!" />
+					</a>
+				</p>
+				<p style="font-family:Tahoma;font-size:20px; color:white;">
+					Meeting people who are game has never been easier.<br>
+					Build the perfect team.<br>
+					Create the most epic of rivalries.<br>
+					Have legendary amounts of fun.<br>
+					Get in the game!
+				</p>
 			</div>
-			
-			<p>
-				<img src = "img/sportsmap.png" alt = "Sportr - Sweat.. with strangers!" />
-			</p>
-			
-			<p>
-				<a href="/auth/facebook">
-				<img src = "img/fbsignin.png" alt = "Sportr - Sweat.. with strangers!" />
-				</a>
-			</p>
-			
-			<p style="font-family:Tahoma;font-size:20px; color:white;">
-				Meeting people who are game has never been easier.<br>
-				Build the perfect team.<br>
-				Create the most epic of rivalries.<br>
-				Have legendary amounts of fun.<br>
-				Get in the game!
-			</p>
-	</div>
 		<% } %>
 		<div style="position:absolute; left:450px; top:25px; font-family:tahoma;">
 			<%if (user) {%>
