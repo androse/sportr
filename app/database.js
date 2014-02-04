@@ -34,18 +34,9 @@ exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
     });
 }
 
-// var userSports = new mongoose.Schema({
-//     type: String,
-//     skill: String
-// });
-// var userSport = mongoose.model('sport', userSports);
-
-exports.addSport = function addSport(userID, sport, skill, callback){
-    // var sportS = new userSport({'type': sport, 'skill': skill});
-    // console.log(sportS)
-
-    // var sport = {typeOf: sport, skill: skill};
-
+// Use function to add a sport to a user passing in userID, sport, and skill
+// TODO: change the DB so that the typeOf is the primary key
+exports.addSport = function addSport(userID, sport, skill){
     console.log("HERHEHRHE");
     User.findOne({'userID': userID}, function(err, user){
         console.log(user.sports);
@@ -60,6 +51,18 @@ exports.addSport = function addSport(userID, sport, skill, callback){
                 if(err) console.log(err);
                 else console.log(data);
             });
+        }
+    });
+}
+
+// User function to get all sports of user passing userID
+// callback: used to return the array of sports
+//           takes 1 argument
+exports.getSports = function getSports(userID, callback){
+    User.findOne({'userID': userID}, function(err, user){
+        if(err) throw err;
+        else{
+            callback(user.sports);
         }
     });
 }

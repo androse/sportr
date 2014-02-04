@@ -9,8 +9,12 @@ var navbarLinks = {
 	'loggedout': {}
 };
 
+// used to test DB connections
 // database.addSport("534950216", "hockey", "intermediate", function(){
 // 	console.log("ADDED SPORT");
+// });
+// database.getSports("534950216", function(sports){
+// 	console.log(sports);
 // });
 
 module.exports = function(app, passport) {
