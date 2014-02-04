@@ -33,3 +33,33 @@ exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
         }
     });
 }
+
+// var userSports = new mongoose.Schema({
+//     type: String,
+//     skill: String
+// });
+// var userSport = mongoose.model('sport', userSports);
+
+exports.addSport = function addSport(userID, sport, skill, callback){
+    // var sportS = new userSport({'type': sport, 'skill': skill});
+    // console.log(sportS)
+
+    // var sport = {typeOf: sport, skill: skill};
+
+    console.log("HERHEHRHE");
+    User.findOne({'userID': userID}, function(err, user){
+        console.log(user.sports);
+        if(err) console.log(err);
+        else{
+            console.log(user);
+            User.update({_id: user._id}, {
+                $push:{
+                    "sports": {typeOf: sport, skill: skill}
+                }
+            }, function(err, data){
+                if(err) console.log(err);
+                else console.log(data);
+            });
+        }
+    });
+}
