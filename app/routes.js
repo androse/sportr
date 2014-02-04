@@ -1,5 +1,14 @@
 var database = require("./database.js");
 
+// Add more navbar links here as necessary
+var navbarLinks = {
+	'loggedin': {
+		'Profile': '/profile',
+		'Logout': '/logout'
+	},
+	'loggedout': {}
+};
+
 // database.addSport("534950216", "hockey", "intermediate", function(){
 // 	console.log("ADDED SPORT");
 // });
@@ -8,7 +17,13 @@ module.exports = function(app, passport) {
 
 	//homepage
 	app.get('/', function(req, res) {
-		res.render('index');
+		renderProperNav(req, function(navPages) {
+			res.render('index', {
+				user: req.user,
+				page: req.url,
+				nav: navPages
+			})
+		});
 	});
 
 	// Use this route on any facebook login button
@@ -26,6 +41,15 @@ module.exports = function(app, passport) {
 	// access /profile. The rendered page uses req.user to display the user's
 	// info
 	app.get('/profile', ensureAuthenticated, function(req, res) {
+		renderProperNav(req, function(navPages) {
+			res.render('profile', {
+				user: req.user,
+				page: req.url,
+				nav: navPages
+			})
+		});
+
+		/*
 		// Views are what are rendered and need to be made
 		console.log("sdgfhjgsdfkwfkjbkef");
 
@@ -40,6 +64,7 @@ module.exports = function(app, passport) {
 			}
 		});
 		// res.render('profile', { user: req.user, welcome: "Welcome back!" });
+		*/
 	});
 
 	app.get('/newUser', ensureAuthenticated, function(req, res){
@@ -67,6 +92,14 @@ module.exports = function(app, passport) {
             res.end();
 		});
 	});
+
+	// Used to determine what kind of navbar to display
+	function renderProperNav(req, callback) {
+		if (req.isAuthenticated()) { var navPages = navbarLinks.loggedin }
+		else {var navPages = navbarLinks.loggedout }
+
+		callback(navPages);
+	}
 
 	// A route middleware that checks whether a user is authenticated
 	// If they are the request proceeds, if not they are redirected to login

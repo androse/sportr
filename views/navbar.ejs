@@ -7,8 +7,8 @@
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span>
 	  </button>
-	  <div id="logo" style="position:absolute; top:0px; left:0px;" width=300px">
-		<a href="">
+	  <div id="logo" style="position:absolute; top:0px; left:0px;" width=300px>
+		<a href="#">
 		<img src = "img/banner.png" alt = "Sportr - Sweat.. with strangers!" />
 		</a>
 	  </div>
@@ -17,9 +17,13 @@
 	  <ul class="nav navbar-nav navbar-right">
 		<li><br /></li>
 		<li><br /></li>
-		<li class="active"><a href="#">Home</a></li>
-		<li><a href="#about">About</a></li>
-		<li><a href="#contact">Contact</a></li>
+		<% for (var title in nav) { %>
+			<% if(nav[title] == page) { %>
+				<li class="active"><a href="<%= nav[title] %>"><%= title %></a></li>
+			<% } else { %>
+				<li><a href="<%= nav[title] %>"><%= title %></a></li>
+			<% } %>
+		<% } %>
 	  </ul>
 	</div>
   </div>

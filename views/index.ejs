@@ -3,8 +3,8 @@
 	<div style="width:100%; height:100%;">
 		
 		<div class="container" id="content">
-			<%if (!user) {%>
-				<% include banner %>
+			<% if (!user) { %>
+				<% include navbar %>
 					<p>
 						<img src = "img/sportsmap.png" alt = "Sportr - Sweat.. with strangers!" />
 					</p>
@@ -21,13 +21,10 @@
 						Have legendary amounts of fun.<br>
 						Get in the game!
 					</p>
+			<% } else { %>
+				<% include navbar %>
+				<p class="white">You are logged in as: <%= user.userName%> </p>
 			<% } %>
-			
-				<%if (user) {%>
-					<% include navbar-home %>
-					<p class="white">You are logged in as: <%= user.userName%> </p>
-				<% } %>
-				
 		</div>
 	</div>
 	
