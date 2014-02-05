@@ -4,6 +4,7 @@ var database = require("./database.js");
 var navbarLinks = {
 	'loggedin': {
 		'Profile': '/profile',
+		'Edit Profile': '/editaccount',
 		'Logout': '/logout'
 	},
 	'loggedout': {}
@@ -31,7 +32,7 @@ module.exports = function(app, passport) {
 				user: req.user,
 				page: req.url,
 				nav: navPages
-			})
+			});
 		});
 	});
 
@@ -46,6 +47,17 @@ module.exports = function(app, passport) {
 		successRedirect: '/profile',
 		failureRedirect: '/'})
 	);
+
+	app.get('/editaccount', function(req, res) {
+		renderProperNav(req, function(navPages) {
+			res.render('editaccount', {
+				user: req.user,
+				page: req.url,
+				nav: navPages
+			});
+		});
+	});
+
 	// The ensureAuthenticated middleware only allows authenticated users to
 	// access /profile. The rendered page uses req.user to display the user's
 	// info
@@ -55,7 +67,7 @@ module.exports = function(app, passport) {
 				user: req.user,
 				page: req.url,
 				nav: navPages
-			})
+			});
 		});
 
 		/*
