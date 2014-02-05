@@ -19,9 +19,6 @@ var navbarLinks = {
 // });
 // database.addSport("ice hockey", "nutters on ice");
 // database.addSport("Australian rules football", "just straight nutters");
-database.getAllSports(function(sports){
-	console.log(sports);
-});
 
 module.exports = function(app, passport) {
 
@@ -48,7 +45,7 @@ module.exports = function(app, passport) {
 		failureRedirect: '/'})
 	);
 
-	app.post('')
+
 
 	app.get('/editaccount', addAllSports, function(req, res) {
 		renderProperNav(req, function(navPages) {
