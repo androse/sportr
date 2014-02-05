@@ -1,4 +1,4 @@
-var database = require("./database.js");
+var db = require("./database.js");
 
 // Add more navbar links here as necessary
 var navbarLinks = {
@@ -48,10 +48,13 @@ module.exports = function(app, passport) {
 		failureRedirect: '/'})
 	);
 
-	app.get('/editaccount', function(req, res) {
+	app.post('')
+
+	app.get('/editaccount', addAllSports, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('editaccount', {
 				user: req.user,
+				sports: req.sports,
 				page: req.url,
 				nav: navPages
 			});
@@ -113,6 +116,15 @@ module.exports = function(app, passport) {
             res.end();
 		});
 	});
+
+	// Adds sports to request object
+	function addAllSports(req, res, next) {
+		db.getAllSports(function(sports) {
+			req.sports = sports;
+
+			return next();
+		});
+	}
 
 	// Used to determine what kind of navbar to display
 	function renderProperNav(req, callback) {
