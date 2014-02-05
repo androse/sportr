@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = require('./models/user.js');
+var Sport = require('./models/sport.js');
 
 // Find a user by their ID
 exports.checkUser = function checkUser(userID, callback) {
@@ -36,7 +37,7 @@ exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
 
 // Use function to add a sport to a user passing in userID, sport, and skill
 // TODO: change the DB so that the typeOf is the primary key
-exports.addSport = function addSport(userID, sport, skill){
+exports.addUserSport = function addSport(userID, sport, skill){
     console.log("HERHEHRHE");
     User.findOne({'userID': userID}, function(err, user){
         console.log(user.sports);
@@ -55,14 +56,36 @@ exports.addSport = function addSport(userID, sport, skill){
     });
 }
 
-// User function to get all sports of user passing userID
+// function to get all sports of user passing userID
 // callback: used to return the array of sports
 //           takes 1 argument
-exports.getSports = function getSports(userID, callback){
+exports.getUserSports = function getSports(userID, callback){
     User.findOne({'userID': userID}, function(err, user){
         if(err) throw err;
         else{
             callback(user.sports);
         }
+    });
+}
+
+// function to get all sports in the DB
+// callback: used to return array of all sports
+//           takes 1 argument 
+exports.getAllSports = function getAllSports(callback){
+    Sport.find(function(err, sports){
+        if(err) throw err;
+        else{
+            callback(sports);
+        }
+    });
+}
+
+// function to add sport to DB, pass name and description 
+exports.addSport = function addSport(sname, sdescription){
+    console.log(sname);
+    console.log(sdescription);
+    var sport = new Sport({Sname: sname, Sdescription: sdescription});
+    sport.save(function(err){
+        if(err) throw err;
     });
 }
