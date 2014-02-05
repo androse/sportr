@@ -48,7 +48,7 @@ module.exports = function(app, passport) {
 		failureRedirect: '/'})
 	);
 
-	app.get('/editaccount', function(req, res) {
+	app.get('/editaccount', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('editaccount', {
 				user: req.user,
@@ -72,7 +72,6 @@ module.exports = function(app, passport) {
 
 		/*
 		// Views are what are rendered and need to be made
-		console.log("sdgfhjgsdfkwfkjbkef");
 
 		console.log(req.user);
 		// console.log("ID: ?   name: ?", [req.user.userID, req.user.userName]);

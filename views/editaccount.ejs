@@ -4,7 +4,18 @@
 		<% include navbar %>
 		<div style="position:absolute; left:450px; top:50px; font-family:tahoma;">
 		<h1 class="white"> Edit Account </h3>	
-		<a class="white" href="/editsports">Manage Sports</a><br>
+		<!--a class="white" href="/editsports">Manage Sports</a><br-->
+		
+		<% //console.log(user.sports) %>
+	        <% var items = [];
+		if (user.sports) { %>
+			<p>Your curent sports: </p>
+			<ul>
+				<%   for (var i = 0; i < user.sports.length; i++) { %>
+					<li><%=   user.sports[i] %></li>
+				<%  } %>
+			</ul>
+                <% } else { %>You did not add any sports.<% } %></h3><br>
 		<a class="white" href="/editlocation">Change Location</a><br><br>
 	</div>
 </body>
