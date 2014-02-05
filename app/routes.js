@@ -1,4 +1,4 @@
-var database = require("./database.js");
+var db = require("./database.js");
 
 // Add more navbar links here as necessary
 var navbarLinks = {
@@ -19,9 +19,6 @@ var navbarLinks = {
 // });
 // database.addSport("ice hockey", "nutters on ice");
 // database.addSport("Australian rules football", "just straight nutters");
-database.getAllSports(function(sports){
-	console.log(sports);
-});
 
 module.exports = function(app, passport) {
 
@@ -48,10 +45,12 @@ module.exports = function(app, passport) {
 		failureRedirect: '/'})
 	);
 
-	app.get('/editaccount', ensureAuthenticated, function(req, res) {
+
+	app.get('/editaccount', addAllSports, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('editaccount', {
 				user: req.user,
+				sports: req.sports,
 				page: req.url,
 				nav: navPages
 			});
@@ -112,6 +111,15 @@ module.exports = function(app, passport) {
             res.end();
 		});
 	});
+
+	// Adds sports to request object
+	function addAllSports(req, res, next) {
+		db.getAllSports(function(sports) {
+			req.sports = sports;
+
+			return next();
+		});
+	}
 
 	// Used to determine what kind of navbar to display
 	function renderProperNav(req, callback) {
