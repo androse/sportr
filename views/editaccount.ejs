@@ -1,37 +1,50 @@
 <% include header %>
 <body>
-	<div style="width:100%; height:100%;">
-		<% include navbar %>
-		<div style="position:absolute; left:450px; top:50px; font-family:tahoma;">
-		<h1 class="white"> Edit Account </h3>	
-		<!--a class="white" href="/editsports">Manage Sports</a><br-->
-		
-		<% console.log(user.sports) %>
-		<% var items = [];
-		if (user.sports) { %>
-			<p>Your curent sports: </p>
-			<ul>
-				<%   for (var i = 0; i < user.sports.length; i++) { %>
-					<li><%= user.sports[i] %></li>
-				<%  } %>
-				
-			</ul>
-		<% } else { %>You did not add any sports.<% } %></h3><br>
-		<p>Add new sport:</p>
-		<div id="newsport>
-			New sport:<select><% var sports = getSports(); %> 
-			<% for (var i=0; i < sports.length; i++) { %> 
-				<option value="<%= sports[i]%>"><%= sports[i]%></option>
-			<% } %></select>
-			<input type="radio" name="skill" value="Noob">Noob
-			<input type="radio" name="skill" value="Intermediate">Intermediate
-			<input type="radio" name="skill" value="Pro">Pro</p>
-			<button style="color:black" id="submitsport" type="button">Add Sport</button>
+	<% include navbar %>
+	<div class="container" id="content">
+		<h1 class="white"> Edit Account </h1>	
+
+		<div class="row" id="newsport">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<select class="form-control">
+						<option value="ice hockey">ice hockey</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label class="radio-inline">
+						<input type="radio" name="skill" value="Noob" checked>Noob
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="skill" value="Intermediate">Intermediate
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="skill" value="Pro">Pro
+					</label>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<button type="button" class="btn btn-primary form-control" id="submitsport">Add Sport</button>
+				</div>
+			</div>
 		</div>
-		<div id="editlocation">
-			<input type="text" style="color:black" name="editlocation">
-			<button style="color:black" id="submitlocation" type="button">Submit Location</button>
+
+		<div class="row" id="editlocation">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Enter Your Location" name="editlocation">
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<button type="button" class="btn btn-primary form-control" id="submitlocation">Submit Location</button>
+				<div class="form-group">
+			</div>
 		</div>
 	</div>
+	<% include js %>
 </body>
 </html>
