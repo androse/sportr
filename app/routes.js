@@ -11,12 +11,12 @@ var navbarLinks = {
 };
 
 // used to test DB connections
-// database.addUserSport("534950216", "hockey", "intermediate", function(){
-// 	console.log("ADDED SPORT");
-// });
-// database.getUserSports("534950216", function(sports){
-// 	console.log(sports);
-// });
+db.addUserSport("501140475", "hockey", "intermediate", function(){
+	console.log("ADDED SPORT");
+});
+db.getUserSports("534950216", function(sports){
+	console.log(sports);
+});
 // database.addSport("ice hockey", "nutters on ice");
 // database.addSport("Australian rules football", "just straight nutters");
 
