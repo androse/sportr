@@ -1,7 +1,7 @@
 <% include header %>
 <body>
 	<% include navbar %>
-	<div class="container" id="content">
+	<div class="container content">
 		<h3 class="white"> ID: <%= user.userID%> </h3>	
 		<h3 class="white"> Name: <%= user.userName%> </h3>
 		<h3 class="white"> Location: <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
