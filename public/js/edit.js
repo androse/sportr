@@ -1,24 +1,24 @@
 $(document).ready(function() {
 	
 	$('#submitlocation').click(function() {
-		$.post('/editlocation', {
-			// select the location form
-			location: $('#editlocation input:text').val(),
-		})
-		
-		.done(function(data) {
-			console.log(data);
-			//clear the textbox
-			//show a checkmark or something
-		});
-		
-		//make alert message appear and disappear after 2 seconds
-		if($('.locationalert').length == 0){
-		$('#alertmessages').append('<div class="locationalert alert alert-success close fade in" data-dismiss="alert">Location Changed!</div>')
+		//if user inputted nothing into the location box, then do not send edit location request and display warning
+		if ($('#editlocation input:text').val() == ""){
+			appendDangerAlert('locationfail', 'Please enter a Location!');	
 		}
-		setTimeout( function() {
-		$(".locationalert").alert('close');
-		}, 2000 );
+		else{
+			$.post('/editlocation', {
+				// select the location form
+				location: $('#editlocation input:text').val(),
+			})
+			
+			.done(function(data) {
+				console.log(data);
+				//clear the textbox
+				//show a checkmark or something
+			});
+			appendSuccessAlert('locationsuccess', 'Location changed!')
+			
+		}
 	});
 
 	$('#submitsport').click(function() {
@@ -32,12 +32,7 @@ $(document).ready(function() {
 		});
 		
 		//sport addition alert message
-		if($('.sportalert').length == 0){
-		$('#alertmessages').append('<div class="sportalert alert alert-success close fade in" data-dismiss="alert">Sport Added!</div>')
-		}
-		setTimeout( function() {
-		$(".sportalert").alert('close');
-		}, 2000);
+		appendSuccessAlert('sportalert','Sport added!');
 		
 	});
 
@@ -54,6 +49,30 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	//Usage: alertName = any arbitrary class name. 
+	//Prints 'message' if no alerts of name 'alertName' are already present
+	function appendDangerAlert(alertName, message){
+		var type = document.getElementsByClassName(alertName);
+		if(type.length == 0){
+				$('#alertmessages').append('<div class="' + alertName + ' alert alert-danger close fade in" data-dismiss="alert">' + message + '</div>')
+				setTimeout( function() {
+				$('.'+alertName).alert('close');
+				}, 2000 );
+		}
+	}
+	
+	//Usage: alertName = any arbitrary class name. 
+	//Prints 'message' if no alerts of name 'alertName' are already present
+	function appendSuccessAlert(alertName, message){
+		var type = document.getElementsByClassName(alertName);
+		if(type.length == 0){
+				$('#alertmessages').append('<div class="' + alertName + ' alert alert-success close fade in" data-dismiss="alert">' + message + '</div>')
+				setTimeout( function() {
+				$('.'+alertName).alert('close');
+				}, 2000 );
+		}
+	}
 
 	function updateAllSports() {
 		// get all sports
@@ -76,7 +95,7 @@ $(document).ready(function() {
 
 	function listUserSports(sports) {
 		$('#usersports').empty();
-
+		
 		$.each(sports, function(index, sport) {
 			$('#usersports').append(
 				'<a href="#" class="list-group-item list-group-item-danger" '
