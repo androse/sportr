@@ -10,20 +10,12 @@ var navbarLinks = {
 	'loggedout': {}
 };
 
-// used to test DB connections
-db.addUserSport("501140475", "hockey", "intermediate", function(){
-	console.log("ADDED SPORT");
-});
-db.getUserSports("534950216", function(sports){
-	console.log(sports);
-});
-// database.addSport("ice hockey", "nutters on ice");
-// database.addSport("Australian rules football", "just straight nutters");
 
 module.exports = function(app, passport) {
 
 	//homepage
 	app.get('/', function(req, res) {
+		//db.addSport("Australian rules football", "just straight nutters");
 		renderProperNav(req, function(navPages) {
 			res.render('index', {
 				user: req.user,
@@ -45,11 +37,10 @@ module.exports = function(app, passport) {
 		failureRedirect: '/'})
 	);
 
-	app.get('/editaccount', ensureAuthenticated, addAllSports, function(req, res) {
+	app.get('/editaccount', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('editaccount', {
 				user: req.user,
-				sports: req.sports,
 				page: req.url,
 				nav: navPages
 			});
@@ -67,22 +58,6 @@ module.exports = function(app, passport) {
 				nav: navPages
 			});
 		});
-
-		/*
-		// Views are what are rendered and need to be made
-
-		console.log(req.user);
-		// console.log("ID: ?   name: ?", [req.user.userID, req.user.userName]);
-		database.findOrAddUser(req.user.id, req.user.name, function(isNew){
-			if(isNew){
-				res.render('profile', {user: req.user, welcome: "Welcome!"});
-			}
-			else{
-				res.render('profile', { user: req.user, welcome: "Welcome back!" });
-			}
-		});
-		// res.render('profile', { user: req.user, welcome: "Welcome back!" });
-		*/
 	});
 
 	app.get('/newUser', ensureAuthenticated, function(req, res){
@@ -111,21 +86,42 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.post('/editsport', function(req, res) {
+	// Sends the client an object containing a list of their current sports 
+	// and a list of those they can add 
+	app.get('/allsports', function(req, res) {
+		db.getAllSports(function(allSports) {
+			db.getUserSports(req.user.userID, function(userSports) {
+				var sports = {
+					available: [],
+					user: userSports
+				};
+
+				for (var i = 0; i < allSports.length; i++) {
+					if (!userPlaysSport(allSports[i], userSports)) {
+						sports.available.push(allSports[i].Sname);
+					}
+				}
+
+				res.json(sports);
+			});	
+		});
+	});
+
+	app.post('/addsport', function(req, res) {
 		db.addUserSport(req.user._id, req.body.sport, req.body.skill);
 	});
 
 	app.post('/editlocation', function(req, res) {
-		//db.editLocation(req.user._id, req.body.location);
+		db.updateLocation(req.user._id, req.body.location);
 	});
 
-	// Adds sports to request object
-	function addAllSports(req, res, next) {
-		db.getAllSports(function(sports) {
-			req.sports = sports;
+	// Determine if a user plays a certain sport
+	function userPlaysSport(sport, userSports) {
+		for (var i = 0; i < userSports.length; i++) {
+			if (sport.Sname == userSports[i].typeOf) return true;
+		}
 
-			return next();
-		});
+		return false;
 	}
 
 	// Used to determine what kind of navbar to display

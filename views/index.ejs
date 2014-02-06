@@ -1,34 +1,33 @@
 <% include header %>
 <body>
-	<div style="width:100%; height:100%;">
-		
-		<div class="container" id="content">
-			<% if (!user) { %>
-				<% include navbar %>
-					<p>
-						<img src = "img/sportsmap.png" alt = "Sportr - Sweat.. with strangers!" />
-					</p>
-					<p>
-						<a href="/auth/facebook">
-						<img src = "img/fbsignin.png" alt = "Sportr - Sweat.. with strangers!" />
-						</a>
-					</p>
-					<p style="font-family:Verdana;font-size:20px; color:white;">
-						<br>
-						Meeting people who are game has never been easier.<br>
-						Build the perfect team.<br>
-						Create the most epic of rivalries.<br>
-						Have legendary amounts of fun.<br>
-						Get in the game!
-					</p>
-			<% } else { %>
-				<% include navbar %>
-				<p class="white">You are logged in as: <%= user.userName%> </p>
-			<% } %>
-		</div>
+	<div class="container content">
+		<% if (!user) { %>
+			<% include navbar %>
+				<p>
+					<img src = "img/sportsmap.png" alt = "Sportr - Sweat.. with strangers!" />
+				</p>
+				<p>
+					<a href="/auth/facebook">
+					<img src = "img/fbsignin.png" alt = "Sportr - Sweat.. with strangers!" />
+					</a>
+				</p>
+				<p style="font-family:Verdana;font-size:20px; color:white;">
+					<br>
+					Meeting people who are game has never been easier.<br>
+					Build the perfect team.<br>
+					Create the most epic of rivalries.<br>
+					Have legendary amounts of fun.<br>
+					Get in the game!
+				</p>
+		<% } else { %>
+			<% include navbar %>
+			<p class="white">You are logged in as: <%= user.userName%> </p>
+			<div class="box">
+					Test Test Test
+					<img src = "img/nba-dunk.png"/>
+			</div>
+		<% } %>
 	</div>
-	
-	<% include jquery %>
-	
+	<% include js %>
 </body>
 </html>

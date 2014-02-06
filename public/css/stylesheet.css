@@ -18,12 +18,27 @@ body{
 	white-space: nowrap
 	margin: 0;
 }
+
 .white{
 	color:white;
 }
+input[type=text] {
+	color: #174d6c;
+}
 
-#content{
+.content{
 	padding-top:125px;
+}
+
+.box{
+	background-color: white;
+	border-radius:15px;
+	padding-bottom:25px;
+	padding-top:25px;
+}
+
+img.box{
+	text-align:center;
 }
 
 .navbar-collapse{
