@@ -45,9 +45,7 @@ module.exports = function(app, passport) {
 		failureRedirect: '/'})
 	);
 
-
-
-	app.get('/editaccount', addAllSports, function(req, res) {
+	app.get('/editaccount', ensureAuthenticated, addAllSports, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('editaccount', {
 				user: req.user,
