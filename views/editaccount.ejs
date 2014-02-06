@@ -6,22 +6,26 @@
 		<h1 class="white"> Edit Account </h3>	
 		<!--a class="white" href="/editsports">Manage Sports</a><br-->
 		
-		<% //console.log(user.sports) %>
-	        <% var items = [];
+		<% console.log(user.sports) %>
+		<% var items = [];
 		if (user.sports) { %>
 			<p>Your curent sports: </p>
 			<ul>
 				<%   for (var i = 0; i < user.sports.length; i++) { %>
-					<li><%=   user.sports[i] %></li>
+					<li><%= user.sports[i] %></li>
 				<%  } %>
-			</ul>
-                <% } else { %>You did not add any sports.<% } %></h3><br>
-		<a class="white" href="/editlocation">Change Location</a><br><br>
-		<form roll="form">
-			<div class="form-group">
 				
-			</div>
-		</form>
+			</ul>
+		<% } else { %>You did not add any sports.<% } %></h3><br>
+		<p>Add new sport:</p>
+		</p>
+		<p>New sport: <input type="text" name="newsport">
+		<input type="radio" name="skill" value="Noob">Noob
+		<input type="radio" name="skill" value="Intermediate">Intermediate
+		<input type="radio" name="skill" value="Pro">Pro</p>
+		<button type="button">Add Sport</button>
+		</p>
+		<a class="white" href="/editlocation">Change Location</a><br><br>
 	</div>
 </body>
 </html>
