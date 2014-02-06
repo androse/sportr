@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$('#submitlocation').click(function() {
 		$.post('/editlocation', {
 			// select the location form
-			location: $('#newlocation input:text').val(),
+			location: $('#editlocation input:text').val(),
 		})
 		.done(function(data) {
 			//show a checkmark or something
@@ -12,8 +12,8 @@ $(document).ready(function() {
 
 	$('#submitsport').click(function() {
 		$.post('/editsports', {
-			sport: $('#newsport select').val(),
-			skill: $('#newsport :radio').val()
+			sport: $('#newsport select option:selected').val(),
+			skill: $('#newsport :radio:checked').val()
 		})
 		.done(function(data) {
 			//update the added sports
