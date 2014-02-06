@@ -2,16 +2,26 @@
 <body>
 	<% include navbar %>
 	<div class="container content">
-
+		<h1 class="white"> Your Profile </h1>
 		<div class="panel panel-primary">
-		<h3> ID: <%= user.userID%> </h3>
-				<img class="img-responsive" src="img/placeholder.jpg"/>
-		<h3> Name: <%= user.userName%> </h3>
-		<h3> Location: <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
-		<h3> Sports: 
-		<% if (user.sports) { %> 
-			<%= user.sports %> 
-		<% } else { %>You did not add any sports.<% } %></h3><br>
+			<div class="media">
+			  <a class="pull-left">
+				<img class="img-responsive media-object" src="img/placeholder.jpg"/>
+			  </a>
+			  <div class="media-body">
+				<h3 class="media-heading"> Name: <%= user.userName%> </h3>
+				<h3 class="media-heading"> User ID: <%= user.userID%> </h3>
+				<h4> Location: <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
+				<h4> Sports: 
+				<% if (user.sports) { %> 
+					<%= user.sports %> 
+				<% } else { %>You did not add any sports.<% } %></h3><br>
+			  </div>
+			</div>
+		
+				
+		
+
 		</div>
 	</div>
 	<% include js %>
