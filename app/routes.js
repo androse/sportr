@@ -70,7 +70,6 @@ module.exports = function(app, passport) {
 
 		/*
 		// Views are what are rendered and need to be made
-		console.log("sdgfhjgsdfkwfkjbkef");
 
 		console.log(req.user);
 		// console.log("ID: ?   name: ?", [req.user.userID, req.user.userName]);
