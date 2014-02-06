@@ -35,9 +35,27 @@ exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
     });
 }
 
+// Update a user's location
+exports.updateLocation = function updateLocation(userID, userLocation) {
+    User.findByIdAndUpdate(userID, { $set: { location: userLocation }}, function(err, user) {
+        if (err) console.log(err);
+        else {
+            console.log(user.userName + ' updated their location to ' + user.location);
+        }
+    });
+}
+
 // Use function to add a sport to a user passing in userID, sport, and skill
 // TODO: change the DB so that the typeOf is the primary key
-exports.addUserSport = function addSport(userID, sport, skill){
+exports.addUserSport = function addUserSport(userID, sport, skill){
+    User.findByIdAndUpdate(userID, { $push: { 
+        sports: { typeOf: sport, skill: skill }}
+    }, function(err, user) {
+        if(err) console.log(err);
+        else console.log(user.userName + ' now has these sports ' + user.sports);
+    });
+
+    /*
     console.log("HERHEHRHE");
     User.findOne({'userID': userID}, function(err, user){
         console.log(user.sports);
@@ -54,6 +72,7 @@ exports.addUserSport = function addSport(userID, sport, skill){
             });
         }
     });
+*/
 }
 
 // function to get all sports of user passing userID

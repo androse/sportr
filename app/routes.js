@@ -111,12 +111,12 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.post('/editsport', function(req, res) {
+	app.post('/addsport', function(req, res) {
 		db.addUserSport(req.user._id, req.body.sport, req.body.skill);
 	});
 
 	app.post('/editlocation', function(req, res) {
-		//db.editLocation(req.user._id, req.body.location);
+		db.updateLocation(req.user._id, req.body.location);
 	});
 
 	// Adds sports to request object
