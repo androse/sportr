@@ -18,14 +18,20 @@
 			</ul>
 		<% } else { %>You did not add any sports.<% } %></h3><br>
 		<p>Add new sport:</p>
-		</p>
-		<p>New sport: <input type="text" name="newsport">
-		<input type="radio" name="skill" value="Noob">Noob
-		<input type="radio" name="skill" value="Intermediate">Intermediate
-		<input type="radio" name="skill" value="Pro">Pro</p>
-		<button type="button">Add Sport</button>
-		</p>
-		<a class="white" href="/editlocation">Change Location</a><br><br>
+		<div id="newsport>
+			New sport:<select><% var sports = getSports(); %> 
+			<%= for (var i=0; i < sports.length; i++) { %> 
+				<option value="<%= sports[i]%>"><%= sports[i]%></option>
+			<% } %></select>
+			<input type="radio" name="skill" value="Noob">Noob
+			<input type="radio" name="skill" value="Intermediate">Intermediate
+			<input type="radio" name="skill" value="Pro">Pro</p>
+			<button style="color:black" id="submitsport" type="button">Add Sport</button>
+		</div>
+		<div id="editlocation">
+			<input type="text" style="color:black" name="editlocation">
+			<button style="color:black" id="submitlocation" type="button">Submit Location</button>
+		</div>
 	</div>
 </body>
 </html>
