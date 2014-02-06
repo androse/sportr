@@ -1,9 +1,10 @@
-var database = require("./database.js");
+var db = require("./database.js");
 
 // Add more navbar links here as necessary
 var navbarLinks = {
 	'loggedin': {
 		'Profile': '/profile',
+		'Edit Profile': '/editaccount',
 		'Logout': '/logout'
 	},
 	'loggedout': {}
@@ -18,9 +19,6 @@ var navbarLinks = {
 // });
 // database.addSport("ice hockey", "nutters on ice");
 // database.addSport("Australian rules football", "just straight nutters");
-database.getAllSports(function(sports){
-	console.log(sports);
-});
 
 module.exports = function(app, passport) {
 
@@ -31,7 +29,7 @@ module.exports = function(app, passport) {
 				user: req.user,
 				page: req.url,
 				nav: navPages
-			})
+			});
 		});
 	});
 
@@ -46,6 +44,18 @@ module.exports = function(app, passport) {
 		successRedirect: '/profile',
 		failureRedirect: '/'})
 	);
+
+	app.get('/editaccount', ensureAuthenticated, addAllSports, function(req, res) {
+		renderProperNav(req, function(navPages) {
+			res.render('editaccount', {
+				user: req.user,
+				sports: req.sports,
+				page: req.url,
+				nav: navPages
+			});
+		});
+	});
+
 	// The ensureAuthenticated middleware only allows authenticated users to
 	// access /profile. The rendered page uses req.user to display the user's
 	// info
@@ -55,12 +65,11 @@ module.exports = function(app, passport) {
 				user: req.user,
 				page: req.url,
 				nav: navPages
-			})
+			});
 		});
 
 		/*
 		// Views are what are rendered and need to be made
-		console.log("sdgfhjgsdfkwfkjbkef");
 
 		console.log(req.user);
 		// console.log("ID: ?   name: ?", [req.user.userID, req.user.userName]);
@@ -101,6 +110,23 @@ module.exports = function(app, passport) {
             res.end();
 		});
 	});
+
+	app.post('/editsport', function(req, res) {
+		db.addUserSport(req.user._id, req.body.sport, req.body.skill);
+	});
+
+	app.post('/editlocation', function(req, res) {
+		//db.editLocation(req.user._id, req.body.location);
+	});
+
+	// Adds sports to request object
+	function addAllSports(req, res, next) {
+		db.getAllSports(function(sports) {
+			req.sports = sports;
+
+			return next();
+		});
+	}
 
 	// Used to determine what kind of navbar to display
 	function renderProperNav(req, callback) {
