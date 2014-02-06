@@ -49,8 +49,8 @@ exports.updateLocation = function updateLocation(userID, userLocation) {
 // TODO: change the DB so that the typeOf is the primary key
 exports.addUserSport = function addUserSport(userID, sport, skill){
     User.findByIdAndUpdate(userID, { $push: { 
-        sports: { typeOf: sport, skill: skill }}
-    }, function(err, user) {
+        sports: { typeOf: sport, skill: skill }
+    }}, function(err, user) {
         if(err) console.log(err);
         else console.log(user.userName + ' now has these sports ' + user.sports);
     });
@@ -65,6 +65,15 @@ exports.getUserSports = function getSports(userID, callback){
         else{
             callback(user.sports);
         }
+    });
+}
+
+exports.deleteUserSport = function deleteUserSport(userID, sportID) {
+    User.findByIdAndUpdate(userID, { $pull: {
+        sports: { _id: sportID }
+    }}, function(err, user) {
+        if(err) console.log(err);
+        else console.log(user.userName + ' now has these sports ' + user.sports);
     });
 }
 

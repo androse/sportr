@@ -19,8 +19,21 @@ $(document).ready(function() {
 		})
 		.done(function(data) {
 			console.log(data);
-			//update the added sports
-			//clear the form
+			// make sure updated values are displayed
+		});
+	});
+
+	$('.list-group').on('click', '.list-group-item', function() {
+		var selection = $(this).attr('value');
+
+		console.log('Selected: ' + selection);
+
+		$.ajax({
+			type: 'DELETE',
+			url: '/deleteusersport/' + selection,
+			success: function(data) {
+				// make sure updated values are displayed
+			}
 		});
 	});
 
@@ -44,7 +57,15 @@ $(document).ready(function() {
 	}
 
 	function listUserSports(sports) {
+		$('#usersports').empty();
 
+		$.each(sports, function(index, sport) {
+			$('#usersports').append(
+				'<a href="#" class="list-group-item list-group-item-danger" '
+				+ 'value="' + sport._id + '">'
+				+ sport.typeOf + ' ' + '(' + sport.skill + ')' + '</a>'
+			);
+		})
 	}
 
 	updateAllSports();

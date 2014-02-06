@@ -114,6 +114,10 @@ module.exports = function(app, passport) {
 		db.updateLocation(req.user._id, req.body.location);
 	});
 
+	app.delete('/deleteusersport/:id', function(req, res) {
+		db.deleteUserSport(req.user._id, req.params.id);
+	});
+
 	// Determine if a user plays a certain sport
 	function userPlaysSport(sport, userSports) {
 		for (var i = 0; i < userSports.length; i++) {
