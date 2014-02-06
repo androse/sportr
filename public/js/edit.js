@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+
 	$('#submitlocation').click(function() {
 		$.post('/editlocation', {
 			// select the location form
@@ -27,7 +27,25 @@ $(document).ready(function() {
 	function updateAllSports() {
 		// get all sports
 		$.get('/allsports', function(data) {
-			
+			console.log(data);
+			listAvailableSports(data.available);
+			listUserSports(data.user);
 		});
 	}
+
+	function listAvailableSports(sports) {
+		$('#newsport select').empty();
+
+		$.each(sports, function(index, sport) {
+			$('#newsport select').append(
+				$('<option></option>').val(sport).html(sport)
+			);
+		});
+	}
+
+	function listUserSports(sports) {
+
+	}
+
+	updateAllSports();
 });
