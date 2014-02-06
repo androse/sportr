@@ -20,7 +20,7 @@
 		<p>Add new sport:</p>
 		<div id="newsport>
 			New sport:<select><% var sports = getSports(); %> 
-			<%= for (var i=0; i < sports.length; i++) { %> 
+			<% for (var i=0; i < sports.length; i++) { %> 
 				<option value="<%= sports[i]%>"><%= sports[i]%></option>
 			<% } %></select>
 			<input type="radio" name="skill" value="Noob">Noob
