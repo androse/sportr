@@ -1,15 +1,24 @@
 $(document).ready(function() {
-
+	
 	$('#submitlocation').click(function() {
 		$.post('/editlocation', {
 			// select the location form
 			location: $('#editlocation input:text').val(),
 		})
+		
 		.done(function(data) {
 			console.log(data);
 			//clear the textbox
 			//show a checkmark or something
 		});
+		
+		//make alert message appear and disappear after 2 seconds
+		if($('.locationalert').length == 0){
+		$('#alertmessages').append('<div class="locationalert alert alert-success close fade in" data-dismiss="alert">Location Changed!</div>')
+		}
+		setTimeout( function() {
+		$(".locationalert").alert('close');
+		}, 2000 );
 	});
 
 	$('#submitsport').click(function() {
@@ -21,6 +30,15 @@ $(document).ready(function() {
 			console.log(data);
 			// make sure updated values are displayed
 		});
+		
+		//sport addition alert message
+		if($('.sportalert').length == 0){
+		$('#alertmessages').append('<div class="sportalert alert alert-success close fade in" data-dismiss="alert">Sport Added!</div>')
+		}
+		setTimeout( function() {
+		$(".sportalert").alert('close');
+		}, 2000);
+		
 	});
 
 	$('.list-group').on('click', '.list-group-item', function() {
