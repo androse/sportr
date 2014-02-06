@@ -45,11 +45,10 @@ module.exports = function(app, passport) {
 		failureRedirect: '/'})
 	);
 
-	app.get('/editaccount', ensureAuthenticated, addAllSports, function(req, res) {
+	app.get('/editaccount', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('editaccount', {
 				user: req.user,
-				sports: req.sports,
 				page: req.url,
 				nav: navPages
 			});
@@ -111,6 +110,11 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	app.get('/allsports', function(req, res) {
+		// make object with sports the user has and all remaining sports
+		// send it to the client
+	});
+
 	app.post('/addsport', function(req, res) {
 		db.addUserSport(req.user._id, req.body.sport, req.body.skill);
 	});
@@ -118,15 +122,6 @@ module.exports = function(app, passport) {
 	app.post('/editlocation', function(req, res) {
 		db.updateLocation(req.user._id, req.body.location);
 	});
-
-	// Adds sports to request object
-	function addAllSports(req, res, next) {
-		db.getAllSports(function(sports) {
-			req.sports = sports;
-
-			return next();
-		});
-	}
 
 	// Used to determine what kind of navbar to display
 	function renderProperNav(req, callback) {

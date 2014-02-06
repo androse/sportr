@@ -23,4 +23,11 @@ $(document).ready(function() {
 			//clear the form
 		});
 	});
+
+	function updateAllSports() {
+		// get all sports
+		$.get('/allsports', function(data) {
+			
+		});
+	}
 });
