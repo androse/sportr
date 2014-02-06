@@ -2,17 +2,17 @@
 <body>
 	<% include navbar %>
 	<div class="container content">
-		<h1 class="white"> Your Profile </h1>
-		<div class="panel panel-primary">
+		<h1 class="white header"> Your Profile </h1>
+		<div class="panel panel-primary" style="font-family: 'Source Sans';">
 			<div class="media">
 			  <a class="pull-left">
 				<img class="img-responsive media-object" src="img/placeholder.jpg"/>
 			  </a>
 			  <div class="media-body">
-				<h3 class="media-heading"> Name: <%= user.userName%> </h3>
+				<h3 class="media-heading""> Name: <%= user.userName%> </h3>
 				<h3 class="media-heading"> User ID: <%= user.userID%> </h3>
-				<h4> Location: <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
-				<h4> What do I play?: <br>
+				<h4> <b>Location:</b> <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
+				<h4> <b>What do I play?:</b> <br>
 				<div id="sportslist">
 				<% if (user.sports) { %>
 					<% user.sports.forEach(function(entry){ %>
@@ -24,10 +24,6 @@
 				<% } else { %>You did not add any sports.<% } %></h3><br>
 			  </div>
 			</div>
-		
-				
-		
-
 		</div>
 	</div>
 	<% include js %>
