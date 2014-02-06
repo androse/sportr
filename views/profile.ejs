@@ -12,9 +12,15 @@
 				<h3 class="media-heading"> Name: <%= user.userName%> </h3>
 				<h3 class="media-heading"> User ID: <%= user.userID%> </h3>
 				<h4> Location: <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
-				<h4> Sports: 
-				<% if (user.sports) { %> 
-					<%= user.sports %> 
+				<h4> What do I play?: <br>
+				<div id="sportslist">
+				<% if (user.sports) { %>
+					<% user.sports.forEach(function(entry){ %>
+						Sport: <%= entry.typeOf %> <br>
+						Skill: <%= entry.skill %> <br>
+						<br>
+					<% }) %>
+				</div>
 				<% } else { %>You did not add any sports.<% } %></h3><br>
 			  </div>
 			</div>
