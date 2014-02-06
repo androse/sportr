@@ -2,13 +2,17 @@
 <body>
 	<% include navbar %>
 	<div class="container content">
-		<h3 class="white"> ID: <%= user.userID%> </h3>	
-		<h3 class="white"> Name: <%= user.userName%> </h3>
-		<h3 class="white"> Location: <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
-		<h3 class="white"> Sports: 
+
+		<div class="panel panel-primary">
+		<h3> ID: <%= user.userID%> </h3>
+				<img class="img-responsive" src="img/placeholder.jpg"/>
+		<h3> Name: <%= user.userName%> </h3>
+		<h3> Location: <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
+		<h3> Sports: 
 		<% if (user.sports) { %> 
 			<%= user.sports %> 
 		<% } else { %>You did not add any sports.<% } %></h3><br>
+		</div>
 	</div>
 	<% include js %>
 </body>

@@ -10,6 +10,7 @@ var navbarLinks = {
 	'loggedout': {}
 };
 
+
 module.exports = function(app, passport) {
 
 	//homepage

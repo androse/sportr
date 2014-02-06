@@ -37,9 +37,12 @@ input[type=text] {
 	padding-top:25px;
 }
 
-img.box{
-	text-align:center;
+.panel{
+	padding-left: 15px;
+	padding-right: 15px;
+	color:#174d6c;
 }
+
 
 .navbar-collapse{
 	font-size: 18px;
