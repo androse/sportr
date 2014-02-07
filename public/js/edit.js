@@ -40,13 +40,16 @@ $(document).ready(function() {
 		var selection = $(this).attr('value');
 
 		console.log('Selected: ' + selection);
+		$.get('/allsports', function(data) {
+			console.log('deleting sport');
+			appendSuccessAlert('sport delete alert', 'Sport deleted!');
+			listUserSports(data.user);
+
+		});
 
 		$.ajax({
 			type: 'DELETE',
 			url: '/deleteusersport/' + selection,
-			success: function(data) {
-				// make sure updated values are displayed
-			}
 		});
 	});
 	
