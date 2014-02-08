@@ -36,23 +36,28 @@ exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
 }
 
 // Update a user's location
-exports.updateLocation = function updateLocation(userID, userLocation) {
+exports.updateLocation = function updateLocation(userID, userLocation, successCB, errorCB) {
     User.findByIdAndUpdate(userID, { $set: { location: userLocation }}, function(err, user) {
-        if (err) console.log(err);
-        else {
-            console.log(user.userName + ' updated their location to ' + user.location);
+        if (err) {
+            console.log(err);
+            errorCB();
+        } else {
+            successCB();
         }
     });
 }
 
 // Use function to add a sport to a user passing in userID, sport, and skill
 // TODO: change the DB so that the typeOf is the primary key
-exports.addUserSport = function addUserSport(userID, sport, skill){
+exports.addUserSport = function addUserSport(userID, sport, skill, successCB, errorCB){
     User.findByIdAndUpdate(userID, { $push: { 
         sports: { typeOf: sport, skill: skill }
     }}, function(err, user) {
-        if(err) console.log(err);
-        else console.log(user.userName + ' now has these sports ' + user.sports);
+        if(err) {
+            errorCB();
+        } else {
+            successCB();
+        }
     });
 }
 
@@ -68,12 +73,15 @@ exports.getUserSports = function getSports(userID, callback){
     });
 }
 
-exports.deleteUserSport = function deleteUserSport(userID, sportID) {
+exports.deleteUserSport = function deleteUserSport(userID, sportID, successCB, errorCB) {
     User.findByIdAndUpdate(userID, { $pull: {
         sports: { _id: sportID }
     }}, function(err, user) {
-        if(err) console.log(err);
-        else console.log(user.userName + ' now has these sports ' + user.sports);
+        if(err) {
+            errorCB();
+        } else {
+            successCB();
+        }
     });
 }
 

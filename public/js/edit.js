@@ -22,20 +22,24 @@ $(document).ready(function() {
 	});
 
 	$('#submitsport').click(function() {
-		$.get('/allsports', function(data) {
-			console.log('deleting sport');
-			appendSuccessAlert('sportalert','Sport added!');
-			listAvailableSports(data.available);
-			listUserSports(data.user);
-		});
-
-		$.post('/addsport', {
+		var added = {
 			sport: $('#newsport select option:selected').val(),
 			skill: $('#newsport :radio:checked').val()
-		})
-		.done(function(data) {
-			console.log(data);
-			// make sure updated values are displayed
+		};
+
+		$.ajax({
+			type: 'POST',
+			url: '/addsport',
+			data: added,
+			success: function(data, textStatus, jqXHR) {
+				updateAllSports(function() {
+					console.log('adding sport');
+					appendSuccessAlert('sportalert', 'Sport added!');
+				});
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
+			}
 		});
 	});
 
@@ -44,16 +48,18 @@ $(document).ready(function() {
 
 		console.log('Selected: ' + selection);
 
-		$.get('/allsports', function(data) {
-			console.log('deleting sport');
-			appendSuccessAlert('sportalert', 'Sport deleted!');
-			listAvailableSports(data.available);
-			listUserSports(data.user);
-		});
-
 		$.ajax({
 			type: 'DELETE',
 			url: '/deleteusersport/' + selection,
+			success: function(data) {
+				updateAllSports(function() {
+					console.log('deleting sport');
+					appendSuccessAlert('sportalert', 'Sport deleted!');
+				});
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
+			}
 		});
 	});
 	
@@ -81,13 +87,15 @@ $(document).ready(function() {
 		}
 	}
 
-	function updateAllSports() {
+	function updateAllSports(callback) {
 		// get all sports
 		$.get('/allsports', function(data) {
 			console.log(data);
 			listAvailableSports(data.available);
 			listUserSports(data.user);
 		});
+
+		callback();
 	}
 
 	function listAvailableSports(sports) {

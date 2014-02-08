@@ -108,15 +108,36 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/addsport', function(req, res) {
-		db.addUserSport(req.user._id, req.body.sport, req.body.skill);
+		db.addUserSport(req.user._id, req.body.sport, req.body.skill, 
+			function() {
+				res.send(200, {success: 'Sport added'});
+			},
+			function() {
+				res.status(500, {error: 'Error adding sport'});
+			}
+		);
 	});
 
 	app.post('/editlocation', function(req, res) {
-		db.updateLocation(req.user._id, req.body.location);
+		db.updateLocation(req.user._id, req.body.location,
+			function() {
+				res.send(200, {success: 'Location changed'});
+			},
+			function() {
+				res.send(500, {error: 'Error changing location'});
+			}
+		);
 	});
 
 	app.delete('/deleteusersport/:id', function(req, res) {
-		db.deleteUserSport(req.user._id, req.params.id);
+		db.deleteUserSport(req.user._id, req.params.id,
+			function() {
+				res.send(200, {success: 'Sport removed'});
+			},
+			function() {
+				res.send(500, {error: 'Error removing sport'});
+			}
+		);
 	});
 
 	// Determine if a user plays a certain sport
