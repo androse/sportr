@@ -32,10 +32,8 @@ $(document).ready(function() {
 			url: '/addsport',
 			data: added,
 			success: function(data, textStatus, jqXHR) {
-				updateAllSports(function() {
-					console.log('adding sport');
-					appendSuccessAlert('sportalert', 'Sport added!');
-				});
+				updateAllSports();
+				appendSuccessAlert('sportalert', 'Sport added!');
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log(textStatus);
@@ -52,10 +50,8 @@ $(document).ready(function() {
 			type: 'DELETE',
 			url: '/deleteusersport/' + selection,
 			success: function(data) {
-				updateAllSports(function() {
-					console.log('deleting sport');
-					appendSuccessAlert('sportalert', 'Sport deleted!');
-				});
+				updateAllSports();
+				appendSuccessAlert('sportalert', 'Sport deleted!');
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log(textStatus);
@@ -94,8 +90,6 @@ $(document).ready(function() {
 			listAvailableSports(data.available);
 			listUserSports(data.user);
 		});
-
-		callback();
 	}
 
 	function listAvailableSports(sports) {
