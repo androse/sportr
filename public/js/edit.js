@@ -1,23 +1,26 @@
 $(document).ready(function() {
 	
 	$('#submitlocation').click(function() {
+		var location = $('#editlocation input:text').val();
+
 		//if user inputted nothing into the location box, then do not send edit location request and display warning
-		if ($('#editlocation input:text').val() == ""){
-			appendDangerAlert('locationfail', 'Please enter a Location!');	
+		if (location == ""){
+			appendDangerAlert('locationerror', 'Please enter a Location!');	
 		}
 		else{
-			$.post('/editlocation', {
-				// select the location form
-				location: $('#editlocation input:text').val(),
-			})
-			
-			.done(function(data) {
-				console.log(data);
-				//clear the textbox
-				//show a checkmark or something
+			$.ajax({
+				type: 'PUT',
+				url: '/editlocation',
+				data: {location: location},
+				success: function(data, textStatus, jqXHR) {
+					$('#editlocation input:text').val('');
+					updateAllSports();
+					appendSuccessAlert('locationsuccess', 'Location changed to ' + location);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log(textStatus);
+				}
 			});
-			appendSuccessAlert('locationsuccess', 'Location changed!')
-			
 		}
 	});
 
@@ -94,6 +97,12 @@ $(document).ready(function() {
 
 	function listAvailableSports(sports) {
 		$('#newsport select').empty();
+
+		if (sports.length == 0) {
+			$('#submitsport').prop('disabled', true);
+		} else {
+			$('#submitsport').prop('disabled', false);
+		}
 
 		$.each(sports, function(index, sport) {
 			$('#newsport select').append(

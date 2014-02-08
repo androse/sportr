@@ -118,7 +118,7 @@ module.exports = function(app, passport) {
 		);
 	});
 
-	app.post('/editlocation', function(req, res) {
+	app.put('/editlocation', function(req, res) {
 		db.updateLocation(req.user._id, req.body.location,
 			function() {
 				res.send(200, {success: 'Location changed'});
