@@ -22,6 +22,13 @@ $(document).ready(function() {
 	});
 
 	$('#submitsport').click(function() {
+		$.get('/allsports', function(data) {
+			console.log('deleting sport');
+			appendSuccessAlert('sportalert','Sport added!');
+			listAvailableSports(data.available);
+			listUserSports(data.user);
+		});
+
 		$.post('/addsport', {
 			sport: $('#newsport select option:selected').val(),
 			skill: $('#newsport :radio:checked').val()
@@ -30,21 +37,18 @@ $(document).ready(function() {
 			console.log(data);
 			// make sure updated values are displayed
 		});
-		
-		//sport addition alert message
-		appendSuccessAlert('sportalert','Sport added!');
-		
 	});
 
 	$('.list-group').on('click', '.list-group-item', function() {
 		var selection = $(this).attr('value');
 
 		console.log('Selected: ' + selection);
+
 		$.get('/allsports', function(data) {
 			console.log('deleting sport');
-			appendSuccessAlert('sport delete alert', 'Sport deleted!');
+			appendSuccessAlert('sportalert', 'Sport deleted!');
+			listAvailableSports(data.available);
 			listUserSports(data.user);
-
 		});
 
 		$.ajax({
