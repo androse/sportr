@@ -31,18 +31,32 @@ $(document).ready(function() {
 		};
 
 		$.ajax({
-			type: 'POST',
+			type: 'post',
 			url: '/addsport',
 			data: added,
-			success: function(data, textStatus, jqXHR) {
-				updateAllSports();
-				appendSuccessAlert('sportalert', 'Sport added!');
+			success: function(data, textstatus, jqxhr) {
+				updateallsports();
+				appendsuccessalert('sportalert', 'sport added!');
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				console.log(textStatus);
+			error: function(jqxhr, textstatus, errorthrown) {
+				console.log(textstatus);
 			}
 		});
 	});
+
+	$('#deleteaccount').click(function() {
+		$.ajax({
+			type: 'DELETE',
+			url: '/deleteaccount',
+			success: function(data) {
+				location.href = '/';
+			},
+			error: function(jqxhr, textstatus, errorthrown) {
+				console.log(textstatus);
+			}
+		});
+	});
+
 
 	$('.list-group').on('click', '.list-group-item', function() {
 		var selection = $(this).attr('value');
