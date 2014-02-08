@@ -85,6 +85,17 @@ exports.deleteUserSport = function deleteUserSport(userID, sportID, successCB, e
     });
 }
 
+exports.deleteAccount = function deleteUserSport(userID, successCB, errorCB) {
+    User.findByIdAndRemove(userID, function(err, user) {
+        if(err) {
+            errorCB();
+        } else {
+            successCB();
+        }
+    });
+	console.log('in db deleted user'+userID);
+}
+
 // function to get all sports in the DB
 // callback: used to return array of all sports
 //           takes 1 argument 

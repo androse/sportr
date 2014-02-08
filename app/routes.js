@@ -139,6 +139,21 @@ module.exports = function(app, passport) {
 			}
 		);
 	});
+	
+	app.delete('/deleteaccount', function(req, res) {
+		db.deleteAccount(req.user._id,
+			function() {
+				res.send(200, {success: 'User removed'});
+			},
+			function() {
+				res.send(500, {error: 'Error removing user'});
+			}
+		);
+		
+		res.send(200, "ok");
+		console.log(req.user._id);
+	});
+	
 
 	// Determine if a user plays a certain sport
 	function userPlaysSport(sport, userSports) {
