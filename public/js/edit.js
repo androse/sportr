@@ -43,20 +43,36 @@ $(document).ready(function() {
 			}	
 		});
 	});
-
-	$('#deleteaccount').click(function() {
+	
+	$('#areyousure').popover({
+		html : true,
+		placement: "bottom",
+		content: function() {
+          return $('#popover_content_wrapper').html();
+        }
+	});
+	
+	$(document).on("click", ".dontdelete", function() {
+		$('#areyousure').popover('toggle');
+	});
+	
+	$(document).on("click", ".deleteaccount", function() {
 		$.ajax({
 			type: 'DELETE',
 			url: '/deleteaccount',
 			success: function(data) {
 				location.href = '/';
 			},
-			error: function(jqxhr, textstatus, errorthrown) {
-				console.log(textstatus);
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
 			}
 		});
 	});
+	
 
+	
+
+	
 
 	$('.list-group').on('click', '.list-group-item', function() {
 		var selection = $(this).attr('value');

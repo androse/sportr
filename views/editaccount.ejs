@@ -50,15 +50,33 @@
 			</div>
 		</div>
 		</br>
-		<div class="col-sm-4">
-			<div class="list-group">
-				<button type="button" class="btn btn-primary form-control" id="deleteaccount">Delete Account</button>
+		
+		<div class="row">
+			<div class="col-sm-6">
+				<button type="button" class="btn btn-primary form-control" rel="popover" data-original-title="Nooo! Don't go!" id="areyousure">Delete Account</button>
 			</div>
-
 		</div>
-
 		<!-- Alert messages are appended to the alertmessages div in edit.js, please see appendSuccessAlert function-->
 		<div id="alertmessages"></div>
+		
+		<!-- Hidden popup content -->
+		<div id="popover_content_wrapper" style="display: none;">
+			Sportr is going to miss you! 
+			<br>
+			All your records will be lost... 
+			<br>
+			Are you sure you want to break up with Sportr?
+			<br>
+			<br>
+			<div class="row">
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-primary form-control deleteaccount">Yes</button>
+				</div>
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-primary form-control dontdelete">No</button>
+				</div>
+			</div>
+		</div>
 		
 	</div>
 	<% include js %>

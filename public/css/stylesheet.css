@@ -70,6 +70,15 @@ input[type=text] {
 }
 
 
+.popover-title {
+    color:#174d6c;
+	font-weight:bold;
+}
+.popover-content {
+    color:#174d6c;
+	padding-bottom:10px;
+}
+
 .navbar-collapse{
 	font-size: 18px;
 }
