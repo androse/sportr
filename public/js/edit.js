@@ -31,16 +31,16 @@ $(document).ready(function() {
 		};
 
 		$.ajax({
-			type: 'post',
+			type: 'POST',
 			url: '/addsport',
 			data: added,
-			success: function(data, textstatus, jqxhr) {
-				updateallsports();
-				appendsuccessalert('sportalert', 'sport added!');
+			success: function(data, textStatus, jqXHR) {
+				updateAllSports();
+				appendSuccessAlert('sportalert', 'Sport added!');
 			},
-			error: function(jqxhr, textstatus, errorthrown) {
-				console.log(textstatus);
-			}
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
+			}	
 		});
 	});
 
