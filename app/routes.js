@@ -17,7 +17,6 @@ module.exports = function(app, passport) {
 
 	//homepage
 	app.get('/', function(req, res) {
-		//db.addSport("Australian rules football", "just straight nutters");
 		renderProperNav(req, function(navPages) {
 			res.render('index', {
 				user: req.user,
