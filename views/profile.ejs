@@ -6,7 +6,7 @@
 		<div class="panel panel-primary">
 			<div class="media">
 			  <a class="pull-left">
-				<img class="img-responsive media-object" src="img/placeholder.jpg"/>
+				<img class="img-responsive media-object profilepic" src="img/doge.jpg"/>
 			  </a>
 			  <div class="media-body">
 				<h3 class="media-heading"> Name: <%= user.userName%> </h3>
@@ -14,9 +14,11 @@
 			  </div>
 			</div>
 			<h4> <b>Location:</b> <% if (user.location) { %> <%= user.location %> <% } else { %> <%= user.userName%> has not set a location yet!<% } %></h4>
-			<h4> <b><%= user.userName %> Plays:</b>
-
+			<br>
+			<h4> <b><%= user.userName %> Plays:</b> 
 			<% if (user.sports.length>0) { var sportCount = 1; %>
+			</h4>
+			<h4>
 				<table class="sporttable table">
 				<thead>
 					<tr>

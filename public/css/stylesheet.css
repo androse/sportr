@@ -50,6 +50,11 @@ body{
 	font-weight:bold;
 }
 
+.media{
+	font-weight:bold;
+	padding-bottom:20px;
+}
+
 .sporttable{
 	padding-top:25px;
 }
@@ -57,6 +62,15 @@ body{
 .white{
 	color:white;
 }
+
+.profilepic{
+	padding: 4px;
+	line-height: 1.428571429;
+	background-color: #fff;
+	border: 3px solid #ddd;
+	border-radius: 25%;
+}
+
 input[type=text] {
 	color: #174d6c;
 }
