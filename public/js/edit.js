@@ -84,7 +84,7 @@ $(document).ready(function() {
 			url: '/deleteusersport/' + selection,
 			success: function(data) {
 				updateAllSports();
-				appendSuccessAlert('sportalert', 'Sport deleted!');
+				appendDangerAlert('sportdelalert', 'Sport deleted!');
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log(textStatus);
