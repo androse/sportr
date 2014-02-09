@@ -13,6 +13,8 @@ var navbarLinks = {
 
 module.exports = function(app, passport) {
 
+	// ---------- Webpage rendering routes ----------
+
 	//homepage
 	app.get('/', function(req, res) {
 		//db.addSport("Australian rules football", "just straight nutters");
@@ -24,18 +26,6 @@ module.exports = function(app, passport) {
 			});
 		});
 	});
-
-	// Use this route on any facebook login button
-	// Use the facebook authentication strategy found in config/passport.js as
-	// a route middleware
-	app.get('/auth/facebook', passport.authenticate('facebook'));
-
-	// If the authentication is successful redirect to the user's profile
-	// If it fails redirect them back to the index page
-	app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-		successRedirect: '/profile',
-		failureRedirect: '/'})
-	);
 
 	app.get('/editaccount', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
@@ -60,9 +50,19 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.get('/newUser', ensureAuthenticated, function(req, res){
-		res.render('profile', {user: req.user, welcome: "Welcome!"});
-	});
+	// ---------- Login / Logout routes ----------
+
+	// Use this route on any facebook login button
+	// Use the facebook authentication strategy found in config/passport.js as
+	// a route middleware
+	app.get('/auth/facebook', passport.authenticate('facebook'));
+
+	// If the authentication is successful redirect to the user's profile
+	// If it fails redirect them back to the index page
+	app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+		successRedirect: '/profile',
+		failureRedirect: '/'})
+	);
 
 	// Simple logout route, that sends the user to the home page post logout
 	app.get('/logout', function(req, res) {
@@ -70,21 +70,7 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
-	//testing DB connection
-	app.get('/testadd', function(req, res){
-		database.addUser("123", "Jordan", function(temp){
-			res.writeHeader(200, {"Content-Type": "text/plain"});
-            res.write(temp);
-            res.end();
-		});
-	});
-	app.get('/testquery', function(req, res){
-		database.checkUser("kfm", "dkjfb", function(temp){
-			res.writeHeader(200, {"Content-Type": "text/plain"});
-            res.write("check log");
-            res.end();
-		});
-	});
+	// ---------- API routes ----------
 
 	// Sends the client an object containing a list of their current sports 
 	// and a list of those they can add 
@@ -150,10 +136,10 @@ module.exports = function(app, passport) {
 			}
 		);
 		
-		res.send(200, "ok");
 		console.log(req.user._id);
 	});
 	
+	// ---------- Utitily functions ----------
 
 	// Determine if a user plays a certain sport
 	function userPlaysSport(sport, userSports) {
@@ -171,6 +157,8 @@ module.exports = function(app, passport) {
 
 		callback(navPages);
 	}
+
+	// ---------- Custum middlewares ----------
 
 	// A route middleware that checks whether a user is authenticated
 	// If they are the request proceeds, if not they are redirected to login
