@@ -3,26 +3,38 @@
 	<% include navbar %>
 	<div class="container content">
 		<h1 class="white header"> Your Profile </h1>
-		<div class="panel panel-primary" style="font-family: 'Source Sans';">
+		<div class="panel panel-primary">
 			<div class="media">
 			  <a class="pull-left">
 				<img class="img-responsive media-object" src="img/placeholder.jpg"/>
 			  </a>
 			  <div class="media-body">
-				<h3 class="media-heading""> Name: <%= user.userName%> </h3>
+				<h3 class="media-heading"> Name: <%= user.userName%> </h3>
 				<h3 class="media-heading"> User ID: <%= user.userID%> </h3>
-				<h4> <b>Location:</b> <% if (user.location) { %> <%= user.location %> <% } else { %>You did not set your location.<% } %></h3>
-				<h4> <b>What do I play?:</b> <br>
-				<br>
-				<% if (user.sports) { %>
-					<% user.sports.forEach(function(entry){ %>
-						Sport: <%= entry.typeOf %> <br>
-						Skill: <%= entry.skill %> <br>
-						<br>
-					<% }) %>
-				<% } else { %>You did not add any sports.<% } %></h3><br>
 			  </div>
 			</div>
+			<h4> <b>Location:</b> <% if (user.location) { %> <%= user.location %> <% } else { %> <%= user.userName%> has not set a location yet!<% } %></h4>
+			<h4> <b><%= user.userName %> Plays:</b>
+
+			<% if (user.sports.length>0) { var sportCount = 1; %>
+				<table class="sporttable table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Sport</th>
+						<th>Skill Level</th>
+					</tr>
+				</thead>
+				<% user.sports.forEach(function(entry){ %>
+					<tr>
+						<td><%= sportCount %></td>
+						<td><%= entry.typeOf %></td>
+						<td><%= entry.skill %></td>
+					</tr>
+					<% sportCount++;}) %>
+				</table>
+			<% } else { %> <%= user.userName%> hasn't added any sports yet!<% } %>
+			</h4>
 		</div>
 	</div>
 	<% include js %>
