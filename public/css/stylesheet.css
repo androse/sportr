@@ -69,6 +69,13 @@ input[type=text] {
 	color:#174d6c;
 }
 
+.sportlist{
+	color:#174d6c;
+}
+
+.list-group-item-danger{
+	background-color: white;
+}
 
 .popover-title {
     color:#174d6c;
