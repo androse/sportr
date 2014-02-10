@@ -48,6 +48,7 @@ body{
 
 .media-heading{
 	font-weight:bold;
+	padding-left:15px;
 }
 
 .media{
@@ -106,6 +107,14 @@ input[type=text] {
 
 .navbar-collapse{
 	font-size: 18px;
+}
+
+
+.navbar-toggle{
+	z-index: 100;
+}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form, .collapsing{
+	border:0px;
 }
 
 .navbar{
