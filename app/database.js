@@ -126,9 +126,10 @@ exports.addSport = function addSport(sname, sdescription){
 //  location: String,      This can change once location schema is made
 //  sport: String,
 //  users: [{userID: String}] }        The useriD of the creator in an array
-exports.createEvent = function createEvent(data){
+exports.createEvent = function createEvent(data, successDB, errorCB){
     var event = new Event(data);
     event.save(function(err){
-        if(err) throw err;
+        if(err) errorCB();
+        else successDB;
     });
 }
