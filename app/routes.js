@@ -10,6 +10,23 @@ var navbarLinks = {
 	'loggedout': {}
 };
 
+//TESTING createEvent
+var evnt = {
+	Edescription: "no equipment game",
+	startTime: new Date(2014, 2, 24, 5, 30, 0),
+	location: "Jeanne Mance",
+	sport: "Hockey",
+	users: [{userID: "534950216"}]
+};
+
+db.createEvent(evnt);
+
+// {
+//  startTime: Data,      
+//  location: String,      This can change once location schema is made
+//  sport: String,
+//  users: [{userID: String}] }
+
 
 module.exports = function(app, passport) {
 

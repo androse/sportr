@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var User = require('./models/user.js');
 var Sport = require('./models/sport.js');
+var Event = require('./models/event.js');
 
 // Find a user by their ID
 exports.checkUser = function checkUser(userID, callback) {
@@ -114,6 +115,20 @@ exports.addSport = function addSport(sname, sdescription){
     console.log(sdescription);
     var sport = new Sport({Sname: sname, Sdescription: sdescription});
     sport.save(function(err){
+        if(err) throw err;
+    });
+}
+
+// function to create a new event, 
+// takes: data object with form
+// {Edescription: String,
+//  startTime: Data,      
+//  location: String,      This can change once location schema is made
+//  sport: String,
+//  users: [{userID: String}] }        The useriD of the creator in an array
+exports.createEvent = function createEvent(data){
+    var event = new Event(data);
+    event.save(function(err){
         if(err) throw err;
     });
 }
