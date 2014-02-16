@@ -3,6 +3,7 @@ var db = require("./database.js");
 // Add more navbar links here as necessary
 var navbarLinks = {
 	'loggedin': {
+		'Create Event': '/createevent',
 		'Profile': '/profile',
 		'Edit Profile': '/editaccount',
 		'Logout': '/logout'
@@ -32,7 +33,7 @@ module.exports = function(app, passport) {
 
 	// ---------- Webpage rendering routes ----------
 
-	//homepage
+	// Home page
 	app.get('/', function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('index', {
@@ -43,6 +44,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	// Edit account page
 	app.get('/editaccount', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('editaccount', {
@@ -53,12 +55,22 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// The ensureAuthenticated middleware only allows authenticated users to
-	// access /profile. The rendered page uses req.user to display the user's
-	// info
+	// Profile page
 	app.get('/profile', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('profile', {
+				user: req.user,
+				page: req.url,
+				nav: navPages
+			});
+		});
+	});
+
+	// Event creation page
+	// Need to create page with form
+	app.get('/createevent', ensureAuthenticated, function(req, res) {
+		renderProperNav(req, function(navPages) {
+			res.render('createevent', {
 				user: req.user,
 				page: req.url,
 				nav: navPages
@@ -151,10 +163,46 @@ module.exports = function(app, passport) {
 				res.send(500, {error: 'Error removing user'});
 			}
 		);
-		
-		console.log(req.user._id);
 	});
-	
+
+	// Need to create the db function to add the new event to the db
+	app.put('/newevent', function(req, res) {
+		db.addEvent(req.user._id, req.body.name, req.body.sport, 
+			req.body.minPlayers, req.body.maxPlayers, req.body.location,
+			req.body.date, req.body.time,
+			function() {
+				res.send(200, {success: 'Event created'});
+			},
+			function() {
+				res.send(500, {error: 'Error creating event'});
+			}
+		);
+	});
+
+	// Need to create the db function to associate an event to a user 
+	app.post('/joinevent/:id', function(req, res) {
+		db.joinEvent(req.user._id, req.params.id,
+			function() {
+				res.send(200, {success: 'Event joined'});
+			},
+			function() {
+				res.send(500, {error: 'Error joining event'});
+			}
+		);
+	});
+
+	// Need to create the db function to disassociate a user with an event
+	app.delete('/leaveevent/:id', function(req, res) {
+		db.leaveEvent(req.user._id, req.params.id,
+			function() {
+				res.send(200, {success: 'Event left'});
+			},
+			function() {
+				res.send(500, {error: 'Error leaving event'});
+			}
+		);
+	});
+
 	// ---------- Utitily functions ----------
 
 	// Determine if a user plays a certain sport
