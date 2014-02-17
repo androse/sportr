@@ -46,7 +46,7 @@ $(document).ready(function() {
 	
 	$('#areyousure').popover({
 		html : true,
-		placement: "bottom",
+		placement: "top",
 		content: function() {
           return $('#popover_content_wrapper').html();
         }

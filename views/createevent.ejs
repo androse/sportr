@@ -1,0 +1,65 @@
+<% include header %>
+<body>
+	<% include navbar %>
+	<div class="container content">
+		<h1 class="white header"> Create Event </h1>
+
+		<h3>Event Name:</h3>
+
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="Enter an Event Name" name="eventname">
+		</div>
+		
+		<h3>Event Location:</h3>
+		
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="Enter a Location" name="eventlocation">
+		</div>
+		
+		<h3>Time:</h3>
+		
+		<h3>Sport:</h3>
+		<div class="row" id="selectsport">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<select class="form-control">
+						<option>Luge Relay</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<h3>Initial Number of players attending:</h3>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<input type="text" class="form-control" name="initplayers">
+				</div>
+			</div>
+		</div>
+		
+		<h3>Minimum Number of attendees:</h3>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<input type="text" class="form-control" name="minplayers">
+				</div>
+			</div>
+		</div>
+		
+		<h3>Maximum Number of attendees:</h3>
+		<div class="row">
+			<div class="col-xs-2">
+				<div class="form-group">
+					<input type="text" class="form-control" name="minplayers">
+				</div>
+			</div>
+		</div>
+
+		
+		<button type="button" class="btn btn-primary form-control" id="submitevent">Create Event!</button>
+		
+	<% include js %>
+	<script src="js/edit.js"></script>
+</body>
+</html>
