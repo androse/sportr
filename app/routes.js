@@ -6,6 +6,7 @@ var navbarLinks = {
 		'Create Event': '/createevent',
 		'Profile': '/profile',
 		'Edit Profile': '/editaccount',
+		'Search': '/search',
 		'Logout': '/logout'
 	},
 	'loggedout': {}
@@ -71,6 +72,17 @@ module.exports = function(app, passport) {
 	app.get('/createevent', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
 			res.render('createevent', {
+				user: req.user,
+				page: req.url,
+				nav: navPages
+			});
+		});
+	});
+	
+	//Search page
+	app.get('/search', ensureAuthenticated, function(req, res) {
+		renderProperNav(req, function(navPages) {
+			res.render('search', {
 				user: req.user,
 				page: req.url,
 				nav: navPages
