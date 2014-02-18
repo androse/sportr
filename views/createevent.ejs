@@ -23,7 +23,9 @@
 			<div class="col-sm-4">
 				<div class="form-group">
 					<select class="form-control">
-						<option>Luge Relay</option>
+						<% for (var i = 0; i < sports.length; i++) { %>
+							<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
+						<%	} %>
 					</select>
 				</div>
 			</div>

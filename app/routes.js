@@ -71,10 +71,13 @@ module.exports = function(app, passport) {
 	// Need to create page with form
 	app.get('/createevent', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
-			res.render('createevent', {
-				user: req.user,
-				page: req.url,
-				nav: navPages
+			addAllSports(function(sports) {
+				res.render('createevent', {
+					user: req.user,
+					page: req.url,
+					nav: navPages,
+					sports: sports
+				});
 			});
 		});
 	});
@@ -179,7 +182,7 @@ module.exports = function(app, passport) {
 
 	// Need to create the db function to add the new event to the db
 	app.put('/newevent', function(req, res) {
-		var evnt = {
+		var sEvent = {
 			Edescription: "no equipment game",
 			startTime: new Date(2014, 2, 24, 5, 30, 0),
 			location: req.body.location,
@@ -190,7 +193,7 @@ module.exports = function(app, passport) {
 		// db.addEvent(req.user._id, req.body.name, req.body.sport, 
 		// 	req.body.minPlayers, req.body.maxPlayers, req.body.location,
 		// 	req.body.date, req.body.time,
-		db.createEvent(evnt,
+		db.createEvent(sEvent,
 			function() {
 				res.send(200, {success: 'Event created'});
 			},
@@ -225,6 +228,11 @@ module.exports = function(app, passport) {
 	});
 
 	// ---------- Utitily functions ----------
+
+	// Used to add all sports to the template object
+	function addAllSports(callback) {
+		db.getAllSports(callback);
+	}
 
 	// Determine if a user plays a certain sport
 	function userPlaysSport(sport, userSports) {
