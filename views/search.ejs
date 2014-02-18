@@ -1,0 +1,22 @@
+<% include header %>
+<body>
+	<% include navbar %>
+	<div class="container content">
+		<h1 class="white header"> Your Profile </h1>
+		<div class="panel panel-primary">
+			<div class="media">
+			  <a class="pull-left">
+				<img class="img-responsive media-object profilepic" src="img/doge.jpg"/>
+			  </a>
+			  <div class="media-body">
+				<h3 class="media-heading"> Name: <%= user.userName%> </h3>
+				<h3 class="media-heading"> User ID: <%= user.userID%> </h3>
+			  </div>
+			</div>
+
+			<h2>Search page</h2>
+		</div>
+	</div>
+	<% include js %>
+</body>
+</html>
