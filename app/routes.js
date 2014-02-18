@@ -12,15 +12,15 @@ var navbarLinks = {
 };
 
 //TESTING createEvent
-var evnt = {
-	Edescription: "no equipment game",
-	startTime: new Date(2014, 2, 24, 5, 30, 0),
-	location: "Jeanne Mance",
-	sport: "Hockey",
-	users: [{userID: "534950216"}]
-};
+// var evnt = {
+// 	Edescription: "no equipment game",
+// 	startTime: new Date(2014, 2, 24, 5, 30, 0),
+// 	location: "Jeanne Mance",
+// 	sport: "Hockey",
+// 	users: [{userID: "534950216"}]
+// };
 
-db.createEvent(evnt);
+// db.createEvent(evnt);
 
 // {
 //  startTime: Data,      
@@ -174,21 +174,18 @@ module.exports = function(app, passport) {
 			sport: req.body.sport,
 			users: [{userID: req.user._id}]
 		};
+
 		// db.addEvent(req.user._id, req.body.name, req.body.sport, 
 		// 	req.body.minPlayers, req.body.maxPlayers, req.body.location,
 		// 	req.body.date, req.body.time,
-		
-		//COMMENTED THIS OUT TEMPORARILY, please reinsert if you get the chance
-		/*
+		db.createEvent(evnt,
 			function() {
 				res.send(200, {success: 'Event created'});
 			},
 			function() {
 				res.send(500, {error: 'Error creating event'});
 			}
-		*/
-		
-		
+		);
 	});
 
 	// Need to create the db function to associate an event to a user 
