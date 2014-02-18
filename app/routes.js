@@ -181,7 +181,7 @@ module.exports = function(app, passport) {
 	});
 
 	// Need to create the db function to add the new event to the db
-	app.put('/newevent', function(req, res) {
+	app.post('/newevent', function(req, res) {
 		var sEvent = {
 			Edescription: "no equipment game",
 			startTime: new Date(2014, 2, 24, 5, 30, 0),

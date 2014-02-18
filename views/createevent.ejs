@@ -4,64 +4,57 @@
 	<div class="container content">
 		<h1 class="white header"> Create Event </h1>
 
-		<h3>Event Name:</h3>
+		<form role="form" action="/newevent" method="post">
+			<div class="form-group">
+				<label for="eventName">Event Name:</label>
+				<input type="text" class="form-control" id="eventName" placeholder="Enter an Event Name" name="eventname">
+			</div>
+			
+			<div class="form-group">
+				<label for="eventLocation">Event Location:</label>
+				<input type="text" class="form-control" id="eventLocation" placeholder="Enter a Location" name="eventlocation">
+			</div>
+			
+			<div class="form-group">
+				<label for="">Time:</label>
+			</div>
+			
+			<div class="form-group">
+				<label for="eventSport">Sport:</label>
+				<select class="form-control" id="eventSport">
+					<% for (var i = 0; i < sports.length; i++) { %>
+						<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
+					<%	} %>
+				</select>
+			</div>
 
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Enter an Event Name" name="eventname">
-		</div>
-		
-		<h3>Event Location:</h3>
-		
-		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Enter a Location" name="eventlocation">
-		</div>
-		
-		<h3>Time:</h3>
-		
-		<h3>Sport:</h3>
-		<div class="row" id="selectsport">
-			<div class="col-sm-4">
-				<div class="form-group">
-					<select class="form-control">
-						<% for (var i = 0; i < sports.length; i++) { %>
-							<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
-						<%	} %>
-					</select>
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label for="initPlayers">Expected Player Number</label>
+						<input type="number" min="0" class="form-control" id="initPlayers" name="initplayers">
+					</div>
 				</div>
-			</div>
-		</div>
-		
-		<h3>Initial Number of players attending:</h3>
-		<div class="row">
-			<div class="col-xs-2">
-				<div class="form-group">
-					<input type="text" class="form-control" name="initplayers">
-				</div>
-			</div>
-		</div>
-		
-		<h3>Minimum Number of attendees:</h3>
-		<div class="row">
-			<div class="col-xs-2">
-				<div class="form-group">
-					<input type="text" class="form-control" name="minplayers">
-				</div>
-			</div>
-		</div>
-		
-		<h3>Maximum Number of attendees:</h3>
-		<div class="row">
-			<div class="col-xs-2">
-				<div class="form-group">
-					<input type="text" class="form-control" name="minplayers">
-				</div>
-			</div>
-		</div>
 
-		
-		<button type="button" class="btn btn-primary form-control" id="submitevent">Create Event!</button>
-		
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label for="minPlayers">Min. Player Number</label>
+						<input type="number" min="0" class="form-control" id="minPlayers" name="minplayers">
+					</div>
+				</div>
+
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label for="maxPlayers">Max. Player Number</label>
+						<input type="number" min="0" class="form-control" id="maxPlayers" name="minplayers">
+					</div>
+				</div>
+			</div>
+			
+			<button type="submit" class="btn btn-primary form-control" id="submitevent">Create Event!</button>
+		</form>
+	</div>
 	<% include js %>
-	<script src="js/edit.js"></script>
+	<script src="js/createevent.js"></script>
 </body>
 </html>
