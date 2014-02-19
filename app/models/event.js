@@ -8,7 +8,9 @@ var eventSchema = new Schema({
   startTime: Date,
   location: String,
   sport: String,
-  users: [{userID: String}]
+  users: [{_ID: String}]
+  comment: [{_ID: String, date:Date, body:String}]
+
 
 });
 

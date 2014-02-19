@@ -7,6 +7,7 @@ var userSchema = new mongoose.Schema({
 	userName: String,
 	location: String,
     sports: [{typeOf: String, skill: String}]
+    following: [{_ID}]
 });
 
 module.exports = mongoose.model('User', userSchema);
