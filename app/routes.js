@@ -182,23 +182,22 @@ module.exports = function(app, passport) {
 
 	// Need to create the db function to add the new event to the db
 	app.post('/newevent', function(req, res) {
-		var sEvent = {
-			Edescription: "no equipment game",
-			startTime: new Date(2014, 2, 24, 5, 30, 0),
-			location: req.body.location,
-			sport: req.body.sport,
-			users: [{userID: req.user._id}]
-		};
-
-		// db.addEvent(req.user._id, req.body.name, req.body.sport, 
-		// 	req.body.minPlayers, req.body.maxPlayers, req.body.location,
-		// 	req.body.date, req.body.time,
-		db.createEvent(sEvent,
-			function() {
-				res.send(200, {success: 'Event created'});
+		// Should indicate to the user that their event has been added
+		db.createEvent({
+				name: req.body.eventname,
+				description: req.body.eventdescription,
+				startTime: req.body.eventdatetime,
+  				location: req.body.eventlocation,
+  				sport: req.body.eventsport,
+  				users: [{userID: req.user._id}]
 			},
 			function() {
-				res.send(500, {error: 'Error creating event'});
+				console.log('Event created')
+				res.redirect('/profile');
+			},
+			function() {
+				console.log('Error creating event');
+				res.redirect('/profile');
 			}
 		);
 	});
