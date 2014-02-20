@@ -4,19 +4,24 @@
 	<div class="container content">
 		<h1 class="white header"> Search Events</h1>
 		
+		<p><br></p>
+		
 		<form role="form" action="/searchSport" method="post" id="searchSportForm">
 			<div class="form-group">
-				<label for="sport">Sport:</label>
+				<label for="searchSport">Sport:</label>
 				
-				<select class="form-control" id="eventSport" name="eventsport">
-						
+				<select class="form-control" id="searchSport" name="searchsport">
+					<% for (var i = 0; i < sports.length; i++) { %>
+						<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
+					<%	} %>	
 				</select>			
 			</div>
 				
-			<button type="submit" class="btn btn-primary form-control" id="submitsportsearch">Search by Sport</button>
-		
+			<button type="submit" class="btn btn-primary form-control" id="submitsportsearch">Search by Sport</button>	
 		</form>
 		
+		<p><br></p>
+
 		<form role="form" action="/searchLocation" method="post" id="searchLocationForm">
 			<div class="form-group">
 				<label for="location">Location:</label>
@@ -24,9 +29,10 @@
 				<input type="text" maxlength="24" class="form-control" id="location" placeholder="Enter a desired location..." name="locationName">
 			</div>
 				
-			<button type="submit" class="btn btn-primary form-control" id="submitlocationsearch">Search by Location</button>
-		
+			<button type="submit" class="btn btn-primary form-control" id="submitlocationsearch">Search by Location</button>	
 		</form>
+		
+		<p><br></p>
 		
 		<form role="form" action="/searchDate" method="post" id="searchDateForm">
 			<div class="form-group">
@@ -35,14 +41,11 @@
 				<input type="text" maxlength="24" class="form-control" id="date" placeholder="Enter the desired date..." name="dateEntered">
 			</div>
 				
-			<button type="submit" class="btn btn-primary form-control" id="submitdatesearch">Search by Date</button>
-		
+			<button type="submit" class="btn btn-primary form-control" id="submitdatesearch">Search by Date</button>	
 		</form>
 		
 	</div>
 	<% include js %>
 	<script src="js/search.js"></script>
-	<script src="jquery.js" type="text/javascript"></script>
-	<script src="jquery.maskedinput.js" type="text/javascript"></script>
 </body>
 </html>

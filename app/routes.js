@@ -85,11 +85,14 @@ module.exports = function(app, passport) {
 	//Search page
 	app.get('/search', ensureAuthenticated, function(req, res) {
 		renderProperNav(req, function(navPages) {
-			res.render('search', {
-				user: req.user,
-				page: req.url,
-				nav: navPages
-			});
+            addAllSports(function(sports) {
+                res.render('search', {
+                    user: req.user,
+                    page: req.url,
+                    nav: navPages,
+                    sports: sports
+                });
+            });
 		});
 	});
 
