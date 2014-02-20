@@ -2,21 +2,23 @@
 <body>
 	<% include navbar %>
 	<div class="container content">
-		<h1 class="white header"> Your Profile </h1>
-		<div class="panel panel-primary">
-			<div class="media">
-			  <a class="pull-left">
-				<img class="img-responsive media-object profilepic" src="img/doge.jpg"/>
-			  </a>
-			  <div class="media-body">
-				<h3 class="media-heading"> Name: <%= user.userName%> </h3>
-				<h3 class="media-heading"> User ID: <%= user.userID%> </h3>
-			  </div>
+		<h1 class="white header"> Search Events</h1>
+		
+		<form role="form" action="/search" method="post" id="searchForm">
+			<div class="form-group">
+				<label for="sport">Sport:</label>
+				
+				<select class="form-control" id="eventSport" name="eventsport">
+						
+				</select>			
 			</div>
-
-			<h2>Search page</h2>
-		</div>
+				
+			<button type="submit" class="btn btn-primary form-control" id="submitsportsearch">Search by Sports</button>
+		
+		</form>
+		
 	</div>
 	<% include js %>
+	<script src="js/search.js"></script>
 </body>
 </html>
