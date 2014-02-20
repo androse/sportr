@@ -1,8 +1,9 @@
 <% include header %>
 <body>
 	<% include navbar %>
+	
 	<div class="container content">
-		<h1 class="white header"> Search Events</h1>
+		<h1 class="white header"> Search for Events</h1>
 		
 		<p><br></p>
 		
@@ -37,15 +38,24 @@
 		<form role="form" action="/searchDate" method="post" id="searchDateForm">
 			<div class="form-group">
 				<label for="date">Date:</label>
-				
-				<input type="text" maxlength="24" class="form-control" id="date" placeholder="Enter the desired date..." name="dateEntered">
+
+				<input type="text" maxlength="0" class="form-control" id="datepicker" placeholder="Select the desired date..." name="dateEntered" readonly>
 			</div>
 				
 			<button type="submit" class="btn btn-primary form-control" id="submitdatesearch">Search by Date</button>	
 		</form>
-		
 	</div>
 	<% include js %>
 	<script src="js/search.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script>
+		$(function() {
+			$( "#datepicker" ).datepicker({
+				minDate: 0,
+			});	
+		});
+	</script>
 </body>
 </html>
