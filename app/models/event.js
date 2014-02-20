@@ -10,8 +10,6 @@ var eventSchema = new Schema({
   sport: String,
   users: [{_ID: String}],
   comment: [{date:Date, body:String}]
-
-
 });
 
 module.exports = mongoose.model('Events', eventSchema);
