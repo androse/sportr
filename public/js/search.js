@@ -18,6 +18,8 @@ $(document).ready(function() {
 		}
 	});
 	
+    $( "#datepicker" ).datepicker({minDate: 0});	
+
 	//Usage: alertName = any arbitrary class name. 
 	//Prints 'message' if no alerts of name 'alertName' are already present
 	function appendDangerAlert(alertName, message){

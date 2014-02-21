@@ -6,95 +6,71 @@ var navbarLinks = {
 		'Create Event': '/createevent',
 		'Profile': '/profile',
 		'Edit Profile': '/editaccount',
-		'Search': '/search',
+		'Search': '/searchevent',
 		'Logout': '/logout'
 	},
 	'loggedout': {}
 };
-
-//TESTING createEvent
-// var evnt = {
-// 	Edescription: "no equipment game",
-// 	startTime: new Date(2014, 2, 24, 5, 30, 0),
-// 	location: "Jeanne Mance",
-// 	sport: "Hockey",
-// 	users: [{userID: "534950216"}]
-// };
-
-// db.createEvent(evnt);
-
-// {
-//  startTime: Data,      
-//  location: String,      This can change once location schema is made
-//  sport: String,
-//  users: [{userID: String}] }
-
 
 module.exports = function(app, passport) {
 
 	// ---------- Webpage rendering routes ----------
 
 	// Home page
-	app.get('/', function(req, res) {
-		renderProperNav(req, function(navPages) {
-			res.render('index', {
-				user: req.user,
-				page: req.url,
-				nav: navPages
-			});
+	app.get('/', addProperNav, function(req, res) {
+		res.render('index', {
+			user: req.user,
+			page: req.url,
+			nav: req.navPages
 		});
 	});
 
 	// Edit account page
-	app.get('/editaccount', ensureAuthenticated, function(req, res) {
-		renderProperNav(req, function(navPages) {
-			res.render('editaccount', {
-				user: req.user,
-				page: req.url,
-				nav: navPages
-			});
+	app.get('/editaccount', ensureAuthenticated, addProperNav, function(req, res) {
+		res.render('editaccount', {
+			user: req.user,
+			page: req.url,
+			nav: req.navPages
 		});
 	});
 
 	// Profile page
-	app.get('/profile', ensureAuthenticated, function(req, res) {
-		renderProperNav(req, function(navPages) {
-			res.render('profile', {
-				user: req.user,
-				page: req.url,
-				nav: navPages
-			});
+	app.get('/profile', ensureAuthenticated, addProperNav, function(req, res) {
+		res.render('profile', {
+			user: req.user,
+			page: req.url,
+			nav: req.navPages
 		});
 	});
 
 	// Event creation page
 	// Need to create page with form
-	app.get('/createevent', ensureAuthenticated, function(req, res) {
-		renderProperNav(req, function(navPages) {
-			addAllSports(function(sports) {
-				res.render('createevent', {
-					user: req.user,
-					page: req.url,
-					nav: navPages,
-					sports: sports
-				});
+	app.get('/createevent', ensureAuthenticated, addProperNav, function(req, res) {
+		addAllSports(function(sports) {
+			res.render('createevent', {
+				user: req.user,
+				page: req.url,
+				nav: req.navPages,
+				sports: sports
 			});
 		});
 	});
 	
 	//Search page
-	app.get('/search', ensureAuthenticated, function(req, res) {
-		renderProperNav(req, function(navPages) {
-            addAllSports(function(sports) {
-                res.render('search', {
-                    user: req.user,
-                    page: req.url,
-                    nav: navPages,
-                    sports: sports
-                });
+	app.get('/searchevent', ensureAuthenticated, addProperNav, function(req, res) {
+        addAllSports(function(sports) {
+            res.render('search', {
+                user: req.user,
+                page: req.url,
+                nav: req.navPages,
+                sports: sports
             });
-		});
+        });
 	});
+
+	app.get('/search', ensureAuthenticated, addProperNav, function(req, res) {
+		
+	})
 
 	// ---------- Login / Logout routes ----------
 
@@ -246,11 +222,11 @@ module.exports = function(app, passport) {
 	}
 
 	// Used to determine what kind of navbar to display
-	function renderProperNav(req, callback) {
-		if (req.isAuthenticated()) { var navPages = navbarLinks.loggedin }
-		else {var navPages = navbarLinks.loggedout }
+	function addProperNav(req, res, next) {
+		if (req.isAuthenticated()) { req.navPages = navbarLinks.loggedin }
+		else {req.navPages = navbarLinks.loggedout }
 
-		callback(navPages);
+		return next();
 	}
 
 	// ---------- Custum middlewares ----------
