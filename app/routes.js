@@ -69,8 +69,19 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/search', ensureAuthenticated, addProperNav, function(req, res) {
-		
-	})
+		db.search(req.query.searchsport, req.query.searchlocation, req.query.searchdate, 
+			function(events) {
+				// Display events instead of printing to console and redirecting
+				console.log(events);
+				res.redirect('/searchevent');
+			},
+			function() {
+				// Return 500 (or something more specific) and display error message maybe?
+				console.log('Search Error!');
+				res.redirect('/searchevent');
+			}
+		);
+	});
 
 	// ---------- Login / Logout routes ----------
 
@@ -165,7 +176,7 @@ module.exports = function(app, passport) {
 		db.createEvent({
 				name: req.body.eventname,
 				description: req.body.eventdescription,
-				startTime: req.body.eventdatetime,
+				startTime: new Date(req.body.eventdatetime),
   				location: req.body.eventlocation,
   				sport: req.body.eventsport,
   				users: [{userID: req.user._id}]
@@ -221,14 +232,6 @@ module.exports = function(app, passport) {
 		return false;
 	}
 
-	// Used to determine what kind of navbar to display
-	function addProperNav(req, res, next) {
-		if (req.isAuthenticated()) { req.navPages = navbarLinks.loggedin }
-		else {req.navPages = navbarLinks.loggedout }
-
-		return next();
-	}
-
 	// ---------- Custum middlewares ----------
 
 	// A route middleware that checks whether a user is authenticated
@@ -239,5 +242,13 @@ module.exports = function(app, passport) {
 		} else {
 			res.redirect('/');
 		}
+	}
+
+	// Used to determine what kind of navbar to display
+	function addProperNav(req, res, next) {
+		if (req.isAuthenticated()) { req.navPages = navbarLinks.loggedin }
+		else {req.navPages = navbarLinks.loggedout }
+
+		return next();
 	}
 }

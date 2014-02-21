@@ -135,3 +135,28 @@ exports.createEvent = function createEvent(data, successCB, errorCB){
         else successCB();
     });
 }
+
+// ---------- Search ----------
+
+exports.search = function search(sport, location, date, successCB, errorCB) {
+    var query= {};
+
+    // Query if specified
+    if (sport) {query.sport = sport;}
+    if (location) {
+        var regLoc = new RegExp(location, 'i');
+        // regex search for any location containing location
+        query.location = regLoc;
+    } if (date) {
+        var startDate = new Date(date);
+        var endDate = new Date(date);
+        endDate.setTime(endDate.getTime() + 864e5); // +1 day
+
+        query.startTime = {$gte: startDate, $lt: endDate};
+    }
+
+    Event.find(query).exec(function(err, events) {
+        if (err) errorCB();
+        else successCB(events);
+    });
+}
