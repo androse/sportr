@@ -3,13 +3,14 @@
 	<% include navbar %>
 	
 	<div class="container content">
-		<h1 class="white header"> Search for Events</h1>
+		<h1 class="white header"> Search For Events</h1>
 		
+		<div id="alertmessages"></div>	
 		<p><br></p>
 		
 		<form role="form" action="/searchSport" method="post" id="searchSportForm">
 			<div class="form-group">
-				<label for="searchSport">Sport:</label>
+				<h3>Sport:</h3>
 				
 				<select class="form-control" id="searchSport" name="searchsport">
 					<% for (var i = 0; i < sports.length; i++) { %>
@@ -20,32 +21,30 @@
 				
 			<button type="submit" class="btn btn-primary form-control" id="submitsportsearch">Search by Sport</button>	
 		</form>
-		
-		<p><br></p>
 
-		<form role="form" action="/searchLocation" method="post" id="searchLocationForm">
-			<div class="form-group">
-				<label for="location">Location:</label>
+		<div class="form-group" id="searchlocation">
+				<h3>Location:</h3>
 				
-				<input type="text" maxlength="24" class="form-control" id="location" placeholder="Enter a desired location..." name="locationName">
-			</div>
-				
-			<button type="submit" class="btn btn-primary form-control" id="submitlocationsearch">Search by Location</button>	
-		</form>
-		
-		<p><br></p>
-		
-		<form role="form" action="/searchDate" method="post" id="searchDateForm">
-			<div class="form-group">
-				<label for="date">Date:</label>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Enter A Desired Location..." name="searchlocation">
+				</div>
+				<div class="form-group">
+					<button type="button" class="btn btn-primary form-control" id="submitsearchlocation">Submit Location</button>
+				</div>
+		</div>
 
-				<input type="text" maxlength="0" class="form-control" id="datepicker" placeholder="Select the desired date..." name="dateEntered" readonly>
-			</div>
+		<div class="form-group" id="searchdate">
+				<h3>Date:</h3>
 				
-			<button type="submit" class="btn btn-primary form-control" id="submitdatesearch">Search by Date</button>	
-		</form>
+				<div class="form-group">
+					<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
+				</div>
+				<div class="form-group">
+					<button type="button" class="btn btn-primary form-control" id="submitsearchdate">Submit Date</button>
+				</div>
+		</div>
 	</div>
-	<% include js %>
+	<% include js %>	
 	<script src="js/search.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
