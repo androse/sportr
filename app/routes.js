@@ -3,7 +3,7 @@ var db = require("./database.js");
 // Add more navbar links here as necessary
 var navbarLinks = {
 	'loggedin': {
-		'Create Event': '/createevent',
+		'Events': '/events',
 		'Profile': '/profile',
 		'Edit Profile': '/editaccount',
 		'Search': '/searchevent',
@@ -56,6 +56,18 @@ module.exports = function(app, passport) {
 		});
 	});
 	
+	//Events page
+	app.get('/events', ensureAuthenticated, addProperNav, function(req, res) {
+        addAllSports(function(sports) {
+            res.render('events', {
+                user: req.user,
+                page: req.url,
+                nav: req.navPages,
+                sports: sports
+            });
+        });
+	});
+	
 	//Search page
 	app.get('/searchevent', ensureAuthenticated, addProperNav, function(req, res) {
         addAllSports(function(sports) {
@@ -67,6 +79,8 @@ module.exports = function(app, passport) {
             });
         });
 	});
+	
+	
 
 	app.get('/search', ensureAuthenticated, addProperNav, function(req, res) {
 		db.search(req.query.searchsport, req.query.searchlocation, req.query.searchdate, 
