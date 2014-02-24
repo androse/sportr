@@ -13,8 +13,13 @@
 				<h3 class="media-heading"> User ID: <%= user.userID%> </h3>
 			  </div>
 			</div>
-			<h4> <b>Location:</b> <% if (user.location) { %> <%= user.location %> <% } else { %> <%= user.userName%> has not set a location yet!<% } %></h4>
-			<br>
+			<h4> <b>Location:</b>
+				<% if (user.location) { %> 
+					<%= user.location %> 
+				<% } else { %> 
+					<%= user.userName%> has not set a location yet!
+				<% } %>
+			</h4>
 			<h4> <b><%= user.userName %> Plays:</b> 
 			<% if (user.sports.length>0) { var sportCount = 1; %>
 			</h4>

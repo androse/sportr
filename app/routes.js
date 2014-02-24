@@ -58,14 +58,19 @@ module.exports = function(app, passport) {
 	
 	//Events page
 	app.get('/events', ensureAuthenticated, addProperNav, function(req, res) {
-        addAllSports(function(sports) {
-            res.render('events', {
-                user: req.user,
-                page: req.url,
-                nav: req.navPages,
-                sports: sports
-            });
-        });
+        db.search(null, null, null, 
+        	function(events) {
+	        	res.render('events', {
+		            user: req.user,
+		            page: req.url,
+		            nav: req.navPages,
+		            events: events
+        		});
+        	}, 
+        	function() {
+        		res.redirect('/events');
+        	}
+  		);
 	});
 	
 	//Search page
