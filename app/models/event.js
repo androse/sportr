@@ -8,7 +8,7 @@ var eventSchema = new Schema({
   startTime: Date,
   location: String,
   sport: String,
-  users: [{_ID: String}],
+  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   comment: [{date:Date, body:String}]
 });
 

@@ -198,7 +198,7 @@ module.exports = function(app, passport) {
 				startTime: new Date(req.body.eventdatetime),
   				location: req.body.eventlocation,
   				sport: req.body.eventsport,
-  				users: [{userID: req.user._id}]
+  				users: [req.user._id]
 			},
 			function() {
 				console.log('Event created')
