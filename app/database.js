@@ -197,7 +197,10 @@ exports.search = function search(sport, location, date, successCB, errorCB) {
         query.startTime = {$gte: startDate, $lt: endDate};
     }
 
-    Event.find(query).exec(function(err, events) {
+    Event
+    .find(query)
+    .populate('users', 'userName')
+    .exec(function(err, events) {
         if (err) errorCB();
         else successCB(events);
     });

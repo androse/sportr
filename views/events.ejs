@@ -11,17 +11,17 @@
 			<br>
 			<br>
 
-			<% for (var eIndex in events) { %>
+			<% for (var i = 0; i < events.length; i++) { %>
 				<div class="panel panel-default nopadding">
 				
 					<div class="panel-heading row eventrows">
 							<div class="col-sm-5">
-								<h4><b><img src="../img/sportsmall.png"> </img><%= events[eIndex].name %></b></h4>
+								<h4><b><img src="../img/sportsmall.png"> </img><%= events[i].name %></b></h4>
 							</div>
 							<div class="col-sm-5">
 								<h4>
-									<p><b>Time:</b> <%= events[eIndex].startTime %></p>
-									<p><b>Location:</b> <%= events[eIndex].location %></p>
+									<p><b>Time:</b> <%= events[i].startTime %></p>
+									<p><b>Location:</b> <%= events[i].location %></p>
 								</h4>
 							</div>
 							<div class="col-sm-2">
@@ -38,13 +38,15 @@
 					
 					<div class="panel-body">
 						<h4><b>Event Description:</b></h4>
-						<p><%= events[eIndex].description %></p>
-						<a href="/event/<%= events[eIndex]._id %>" class="read_more">...click to see more</a><br/>
+						<p><%= events[i].description %></p>
+						<a href="/event/<%= events[i]._id %>" class="read_more">...click to see more</a><br/>
 					</div>
 
 					<div class="panel-footer">
 						<h4><b>Who's Attending?</b></h4>
-						<p>Placeholder that needs to be replaced</p>
+						<% for (var j = 0; j < events[i].users.length; j++) { %>
+							<p><%= events[i].users[j].userName %></p>
+						<% } %>
 					</div>
 				</div>
 			<% } %>
