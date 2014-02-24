@@ -38,8 +38,6 @@ body{
 	color: white;
 	line-height: 1.428571429;
 	background-color:#174d6c;
-	white-space: nowrap
-	margin: 0;
 }
 
 .header{
@@ -72,6 +70,11 @@ body{
 	border-radius: 25%;
 }
 
+img.small{
+	width:80px;
+	height:auto;
+}
+
 input[type=text] {
 	color: #174d6c;
 }
@@ -88,9 +91,20 @@ input[type=text] {
 	color:#174d6c;
 }
 
+.nopadding{
+	padding:0px;
+}
+
 .sportlist{
 	color:#174d6c;
 }
+
+.eventrows {
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 10px 0px 10px 0px;
+}
+
 
 .list-group-item-danger{
 	background-color: white;
@@ -109,7 +123,6 @@ input[type=text] {
 	font-size: 18px;
 }
 
-
 .navbar-toggle{
 	z-index: 100;
 }
@@ -125,4 +138,8 @@ input[type=text] {
 
 a:visited{
      color: inherit;
+}
+
+a.read_more{
+	color:blue;
 }

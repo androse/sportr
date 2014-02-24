@@ -3,13 +3,41 @@
 	<% include navbar %>
 	<div class="container content">
 		<h1 class="white header"> Your Events </h1>
-		<div class="panel panel-default">
 			<a href="/createevent">
 				<button type="button" class="btn btn-default btn-lg">
 					<span class="glyphicon glyphicon-flag"></span> Create an Event
 				</button>
 			</a>
-		</div>
+			<br>
+			<br>
+			<div class="panel panel-default nopadding">
+				
+				<div class="panel-heading row eventrows">
+						<div class="col-sm-6">
+						<h4><b><img src="../img/sportsmall.png"> </img>Hockey at Putin's</b></h4>
+						</div>
+						<div class="col-sm-6">
+						<h4>
+							<b>Time:</b> 19:00 Tuesday Feb.30, 2014
+							<br>
+							<b>Location:</b> Sochi
+						</h4>
+						</div>
+				</div>
+				
+				<div class="panel-body">
+				<h4><b>Event Description:</b></h4>
+					    Hi guys, my friends and I will be hosting a Hockey game in Sochi at 7pm next week.
+						Please bring your own sticks! 
+						<a href="#" class="read_more">...click to see more</a><br/>
+				</div>
+				<div class="panel-footer">
+					<h4><b>Who's Attending?</b></h4>
+					<img class="profilepic small" src="../img/doge.jpg"> </img>
+					<img class="profilepic small" src="../img/placeholder.jpg"> </img>
+				</div>
+			</div>
+			
 	</div>
 	<% include js %>
 	<script src="js/events.js"></script>
