@@ -136,6 +136,48 @@ exports.createEvent = function createEvent(data, successCB, errorCB){
     });
 }
 
+exports.joinEvent = function joinEvent(userID, eventID) {
+    // Add user to the event and the event to the user
+    User.findByIdAndUpdate(userID, { $push: { 
+        events: { eventID: eventID }
+    }}, function(err, user) {
+        if(err) {
+            errorCB();
+        } else {
+            Event.findByIdAndUpdate(eventID, { $push: {
+                users: { userID: userID }
+            }}, function(err, event) {
+                if (err) {
+                    errorCB();
+                } else {
+                    successCB();
+                }
+            });
+        }
+    });
+}
+
+exports.leaveEvent = function leaveEvent(userID, eventID) {
+    // Remove user from the event and the event from the user
+    User.findByIdAndUpdate(userID, { $pull: { 
+        events: { eventID: eventID }
+    }}, function(err, user) {
+        if(err) {
+            errorCB();
+        } else {
+            Event.findByIdAndUpdate(eventID, { $pull: {
+                users: { userID: userID }
+            }}, function(err, event) {
+                if (err) {
+                    errorCB();
+                } else {
+                    successCB();
+                }
+            });
+        }
+    });
+}
+
 // ---------- Search ----------
 
 exports.search = function search(sport, location, date, successCB, errorCB) {

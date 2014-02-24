@@ -184,7 +184,7 @@ module.exports = function(app, passport) {
 		);
 	});
 
-	// Need to create the db function to add the new event to the db
+	// Creates a new event in the db
 	app.post('/newevent', function(req, res) {
 		// Should indicate to the user that their event has been added
 		db.createEvent({
