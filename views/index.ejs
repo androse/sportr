@@ -2,23 +2,23 @@
 <body>
 	<div class="container content">
 		<% if (!user) { %>
-			<% include navbar %>
+			<div id="bg">
+				<img src="img/hockey_bg.jpg" alt="Sportr - Sweat.. with strangers!">
+			</div>
+			<div class="jumbotron">
 				<p>
-					<img src = "img/sportsmap.png" alt = "Sportr - Sweat.. with strangers!" />
-				</p>
-				<p>
-					<a href="/auth/facebook">
-					<img src = "img/fbsignin.png" alt = "Sportr - Sweat.. with strangers!" />
-					</a>
-				</p>
-				<p style="font-size:20px; color:white;">
-					<br>
-					Meeting people who are game has never been easier.<br>
-					Build the perfect team.<br>
-					Create the most epic of rivalries.<br>
-					Have legendary amounts of fun.<br>
-					Get in the game!
-				</p>
+				<a href="/auth/facebook">
+				<img src = "img/fbsignin.png" alt = "Sportr - Sweat.. with strangers!" />
+				</a>
+			</p>
+			<p>
+				Meeting people who are game has never been easier.<br>
+				Build the perfect team.<br>
+				Create the most epic of rivalries.<br>
+				Have legendary amounts of fun.<br>
+				Get in the game!
+			</p>
+			</div>
 		<% } else { %>
 			<% include navbar %>
 			<p class="white">You are logged in as: <%= user.userName%> </p>
