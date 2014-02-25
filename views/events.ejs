@@ -15,7 +15,7 @@
 				<div class="panel panel-default nopadding">
 				
 					<div class="panel-heading row eventrows">
-							<div class="col-sm-5">
+							<div class="col-sm-4">
 								<h4><b><img src="../img/sportsmall.png"> </img><%= events[i].name %></b></h4>
 							</div>
 							<div class="col-sm-5">
@@ -24,8 +24,8 @@
 									<p><b>Location:</b> <%= events[i].location %></p>
 								</h4>
 							</div>
-							<div class="col-sm-2">
-								<a href="/leaveevent/<%= events[i]._id %>" class="btn btn-danger btn-lg" method="POST">Leave Event</a>
+							<div class="col-sm-3">
+								<a href="/leaveevent/<%= events[i]._id %>" class="btn btn-danger btn-lg btn-block">Leave Event</a>
 								<!-- Use this for the search page
 								<div class="btn-group">
 								  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
