@@ -58,7 +58,7 @@ module.exports = function(app, passport) {
 	
 	//Events page
 	app.get('/events', ensureAuthenticated, addProperNav, function(req, res) {
-        db.search(null, null, null, 
+        db.getUserEvents(req.user._id,
         	function(events) {
 	        	res.render('events', {
 		            user: req.user,
@@ -192,13 +192,12 @@ module.exports = function(app, passport) {
 	// Creates a new event in the db
 	app.post('/newevent', function(req, res) {
 		// Should indicate to the user that their event has been added
-		db.createEvent({
+		db.createEvent(req.user._id, {
 				name: req.body.eventname,
 				description: req.body.eventdescription,
 				startTime: new Date(req.body.eventdatetime),
   				location: req.body.eventlocation,
-  				sport: req.body.eventsport,
-  				users: [req.user._id]
+  				sport: req.body.eventsport
 			},
 			function() {
 				console.log('Event created')
@@ -224,10 +223,12 @@ module.exports = function(app, passport) {
 	});
 
 	// Need to create the db function to disassociate a user with an event
-	app.delete('/leaveevent/:id', function(req, res) {
+	// Get is not the proper RESTful verb but it works
+	app.get('/leaveevent/:id', function(req, res) {
 		db.leaveEvent(req.user._id, req.params.id,
 			function() {
 				res.send(200, {success: 'Event left'});
+				res.redirect('/events');
 			},
 			function() {
 				res.send(500, {error: 'Error leaving event'});

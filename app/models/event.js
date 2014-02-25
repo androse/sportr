@@ -12,4 +12,4 @@ var eventSchema = new Schema({
   comment: [{date:Date, body:String}]
 });
 
-module.exports = mongoose.model('Events', eventSchema);
+module.exports = mongoose.model('Event', eventSchema);

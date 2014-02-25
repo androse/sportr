@@ -4,7 +4,7 @@ var Sport = require('./models/sport.js');
 var Event = require('./models/event.js');
 
 // Find a user by their ID
-exports.checkUser = function checkUser(userID, callback) {
+function checkUser(userID, callback) {
     User.findOne({'userID': userID}, function(err, user) {
         if (user) {    
             console.log('User: ' + user.userID + ' found!');
@@ -17,7 +17,7 @@ exports.checkUser = function checkUser(userID, callback) {
 
 // If a user is already in the db then that user is returned in the callback
 // If not a new user is created, added then returned in the callback
-exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
+function findOrAddUser(userID, userName, callback) {
 	User.findOne({'userID': userID}, function(err, user) {
         if (err) throw err;
         else if (user) {
@@ -37,7 +37,7 @@ exports.findOrAddUser = function findOrAddUser(userID, userName, callback) {
 }
 
 // Update a user's location
-exports.updateLocation = function updateLocation(userID, userLocation, successCB, errorCB) {
+function updateLocation(userID, userLocation, successCB, errorCB) {
     User.findByIdAndUpdate(userID, { $set: { location: userLocation }}, function(err, user) {
         if (err) {
             console.log(err);
@@ -50,7 +50,7 @@ exports.updateLocation = function updateLocation(userID, userLocation, successCB
 
 // Use function to add a sport to a user passing in userID, sport, and skill
 // TODO: change the DB so that the typeOf is the primary key
-exports.addUserSport = function addUserSport(userID, sport, skill, successCB, errorCB){
+function addUserSport(userID, sport, skill, successCB, errorCB){
     User.findByIdAndUpdate(userID, { $push: { 
         sports: { typeOf: sport, skill: skill }
     }}, function(err, user) {
@@ -65,7 +65,7 @@ exports.addUserSport = function addUserSport(userID, sport, skill, successCB, er
 // function to get all sports of user passing userID
 // callback: used to return the array of sports
 //           takes 1 argument
-exports.getUserSports = function getSports(userID, callback){
+function getUserSports(userID, callback){
     User.findOne({'userID': userID}, function(err, user){
         if(err) throw err;
         else{
@@ -74,7 +74,7 @@ exports.getUserSports = function getSports(userID, callback){
     });
 }
 
-exports.deleteUserSport = function deleteUserSport(userID, sportID, successCB, errorCB) {
+function deleteUserSport(userID, sportID, successCB, errorCB) {
     User.findByIdAndUpdate(userID, { $pull: {
         sports: { _id: sportID }
     }}, function(err, user) {
@@ -86,7 +86,7 @@ exports.deleteUserSport = function deleteUserSport(userID, sportID, successCB, e
     });
 }
 
-exports.deleteAccount = function deleteUserSport(userID, successCB, errorCB) {
+function deleteAccount(userID, successCB, errorCB) {
     User.findByIdAndRemove(userID, function(err, user) {
         if(err) {
             errorCB();
@@ -100,7 +100,7 @@ exports.deleteAccount = function deleteUserSport(userID, successCB, errorCB) {
 // function to get all sports in the DB
 // callback: used to return array of all sports
 //           takes 1 argument 
-exports.getAllSports = function getAllSports(callback){
+function getAllSports(callback){
     Sport.find(function(err, sports){
         if(err) throw err;
         else{
@@ -110,7 +110,7 @@ exports.getAllSports = function getAllSports(callback){
 }
 
 // function to add sport to DB, pass name and description 
-exports.addSport = function addSport(sname, sdescription){
+function addSport(sname, sdescription){
     console.log(sname);
     console.log(sdescription);
     var sport = new Sport({Sname: sname, Sdescription: sdescription});
@@ -120,67 +120,70 @@ exports.addSport = function addSport(sname, sdescription){
 }
 
 // function to create a new event, 
-// takes: data object with form
-// {Edescription: String,
-//  startTime: Data,      
-//  location: String,      This can change once location schema is made
-//  sport: String,
-//  users: [{userID: String}] }        The useriD of the creator in an array
-exports.createEvent = function createEvent(data, successCB, errorCB){
-    console.log('Event data:');
-    console.log(data);
+function createEvent(userID, data, successCB, errorCB){
     var event = new Event(data);
-    event.save(function(err){
+    event.save(function(err, event){
         if(err) errorCB();
-        else successCB();
+        else {
+            joinEvent(userID, event._id, successCB, errorCB);
+        }
     });
 }
 
-exports.joinEvent = function joinEvent(userID, eventID) {
+function joinEvent(userID, eventID, successCB, errorCB) {
     // Add user to the event and the event to the user
-    User.findByIdAndUpdate(userID, { $push: { 
-        events: { eventID: eventID }
-    }}, function(err, user) {
-        if(err) {
-            errorCB();
-        } else {
-            Event.findByIdAndUpdate(eventID, { $push: {
-                users: { userID: userID }
-            }}, function(err, event) {
-                if (err) {
-                    errorCB();
-                } else {
-                    successCB();
-                }
-            });
-        }
+    User.findByIdAndUpdate(userID, { $push: { events: eventID }}, 
+        function(err, user) {
+            if(err) {
+                errorCB();
+            } else {
+                Event.findByIdAndUpdate(eventID, { $push: { users: userID }}, 
+                    function(err, event) {
+                        if (err) {
+                            errorCB();
+                        } else {
+                            successCB();
+                        }
+                });
+            }
     });
 }
 
-exports.leaveEvent = function leaveEvent(userID, eventID) {
+function leaveEvent(userID, eventID, successCB, errorCB) {
     // Remove user from the event and the event from the user
-    User.findByIdAndUpdate(userID, { $pull: { 
-        events: { eventID: eventID }
-    }}, function(err, user) {
-        if(err) {
-            errorCB();
-        } else {
-            Event.findByIdAndUpdate(eventID, { $pull: {
-                users: { userID: userID }
-            }}, function(err, event) {
-                if (err) {
-                    errorCB();
-                } else {
-                    successCB();
-                }
-            });
-        }
+    User.findByIdAndUpdate(userID, { $pull: { events: eventID }}, 
+        function(err, user) {
+            if(err) {
+                errorCB();
+            } else {
+                Event.findByIdAndUpdate(eventID, { $pull: { users: userID }}, 
+                    function(err, event) {
+                        if (err) {
+                            errorCB();
+                        } else {
+                            successCB();
+                        }
+                });
+            }
+    });
+}
+
+// Get all events a specific user has joined
+function getUserEvents(userID, successCB, errorCB) {
+    User.findById(userID, 'events', function(err, user) {
+        Event
+        .find({ '_id': { $in: user.events }})
+        .populate('users', 'userName')
+        .exec(function(err, events) {
+            if (err) errorCB();
+            else successCB(events);
+        })
     });
 }
 
 // ---------- Search ----------
 
-exports.search = function search(sport, location, date, successCB, errorCB) {
+function search(sport, location, date, successCB, errorCB) {
     var query= {};
 
     // Query if specified
@@ -204,4 +207,23 @@ exports.search = function search(sport, location, date, successCB, errorCB) {
         if (err) errorCB();
         else successCB(events);
     });
+}
+
+// This allows functions to be used by others in this file
+// Make sure to add any function you add to the module to this
+module.exports = {
+    checkUser: checkUser,
+    findOrAddUser: findOrAddUser,
+    updateLocation: updateLocation,
+    addUserSport: addUserSport,
+    getUserSports: getUserSports,
+    deleteUserSport: deleteUserSport,
+    deleteAccount: deleteAccount,
+    getAllSports: getAllSports,
+    addSport: addSport,
+    createEvent: createEvent,
+    joinEvent: joinEvent,
+    leaveEvent: leaveEvent,
+    getUserEvents: getUserEvents,
+    search: search
 }
