@@ -19,7 +19,6 @@
 								<h4><b><img src="../img/sportsmall.png"> </img><%= events[i].name %></b></h4>
 							</div>
 							<div class="col-sm-5">
-								<h4><b>Sport:</b> <%= events[i].sport %></h4>
 								<h4><b>Time:</b> <%= events[i].startTime %></h4>
 								<h4><b>Location:</b> <%= events[i].location %></h4>
 							</div>
