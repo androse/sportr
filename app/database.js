@@ -181,6 +181,17 @@ function getUserEvents(userID, successCB, errorCB) {
     });
 }
 
+function getAllEvents(successCB, errorCB) {
+	Event.find()
+	.exec(function(err, events) {
+        if (err) errorCB();
+		else {
+		    console.log("couldnt get all events");
+            successCB(events);
+        }
+    });
+}
+
 // ---------- Search ----------
 
 function search(sport, location, date, successCB, errorCB) {
@@ -225,5 +236,6 @@ module.exports = {
     joinEvent: joinEvent,
     leaveEvent: leaveEvent,
     getUserEvents: getUserEvents,
+    getAllEvents: getAllEvents,
     search: search
 }

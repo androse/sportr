@@ -58,19 +58,31 @@ module.exports = function(app, passport) {
 	
 	//Events page
 	app.get('/events', ensureAuthenticated, addProperNav, function(req, res) {
-        db.getUserEvents(req.user._id,
-        	function(events) {
-	        	res.render('events', {
-		            user: req.user,
-		            page: req.url,
-		            nav: req.navPages,
-		            events: events
-        		});
-        	}, 
-        	function() {
-        		res.redirect('/events');
-        	}
+        	db.getUserEvents(req.user._id,
+			function(events) {
+				res.render('events', {
+				    user: req.user,
+				    page: req.url,
+				    nav: req.navPages,
+				    events: events
+				});
+			}, 
+			function() {
+				res.redirect('/events');
+			}
   		);
+//to get all events call this
+//	db.getAllEvents(function(events) {
+//				res.render('events', {
+//				    page: req.url,
+//				    nav: req.navPages,
+//				    events: events
+//				});
+//			}, 
+//			function() {
+//				res.redirect('/events');
+//			}
+//  		);
 	});
 	
 	//Search page
