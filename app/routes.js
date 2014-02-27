@@ -71,18 +71,21 @@ module.exports = function(app, passport) {
 				res.redirect('/events');
 			}
   		);
-//to get all events call this
-//	db.getAllEvents(function(events) {
-//				res.render('events', {
-//				    page: req.url,
-//				    nav: req.navPages,
-//				    events: events
-//				});
-//			}, 
-//			function() {
-//				res.redirect('/events');
-//			}
-//  		);
+	});
+
+    //All events page
+	app.get('/allevents', ensureAuthenticated, addProperNav, function(req, res) {
+	    db.getAllEvents(function(events) {
+				res.render('events', {
+				    page: req.url,
+				    nav: req.navPages,
+				    events: events
+				});
+			}, 
+			function() {
+				res.redirect('/events');
+			}
+  		);
 	});
 	
 	//Search page
