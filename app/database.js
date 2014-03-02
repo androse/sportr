@@ -182,7 +182,9 @@ function getUserEvents(userID, successCB, errorCB) {
 }
 
 function getAllEvents(successCB, errorCB) {
-	Event.find()
+	Event
+    .find()
+    .populate('users', 'userName')
 	.exec(function(err, events) {
         if (err) errorCB();
 		else {

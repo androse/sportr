@@ -58,13 +58,27 @@ module.exports = function(app, passport) {
 	
 	//Events page
 	app.get('/events', ensureAuthenticated, addProperNav, function(req, res) {
-        	db.getUserEvents(req.user._id,
-			function(events) {
-				res.render('events', {
-				    user: req.user,
-				    page: req.url,
-				    nav: req.navPages,
-				    events: events
+        db.getUserEvents(req.user._id, function(userEvents) {
+				db.getAllEvents(function(allEvents) {
+					var events = {user: [], all: []};
+
+					for (var i = 0; i < allEvents.length; i++) {
+						if (userInEvent(allEvents[i], userEvents)) {
+							events.user.push(allEvents[i]);
+						} else {
+							events.all.push(allEvents[i]);
+						}
+					}
+
+					res.render('events', {
+					    user: req.user,
+					    page: req.url,
+					    nav: req.navPages,
+					    events: events
+					});
+				},
+				function() {
+					res.redirect('/events');
 				});
 			}, 
 			function() {
@@ -237,13 +251,10 @@ module.exports = function(app, passport) {
 		);
 	});
 
-	// Need to create the db function to disassociate a user with an event
-	// Get is not the proper RESTful verb but it works
-	app.get('/leaveevent/:id', function(req, res) {
+	app.delete('/leaveevent/:id', function(req, res) {
 		db.leaveEvent(req.user._id, req.params.id,
 			function() {
 				res.send(200, {success: 'Event left'});
-				res.redirect('/events');
 			},
 			function() {
 				res.send(500, {error: 'Error leaving event'});
@@ -262,6 +273,15 @@ module.exports = function(app, passport) {
 	function userPlaysSport(sport, userSports) {
 		for (var i = 0; i < userSports.length; i++) {
 			if (sport.Sname == userSports[i].typeOf) return true;
+		}
+
+		return false;
+	}
+
+	// Determine if a user has joined an event
+	function userInEvent(event, userEvents) {
+		for (var i = 0; i < userEvents.length; i++) {
+			if (event._id + '' == userEvents[i]._id + '') return true;
 		}
 
 		return false;
