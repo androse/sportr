@@ -31,6 +31,17 @@
 	font-style: normal;
 }
 
+.nav-tabs{
+	border-bottom: 0px; 
+}
+
+.nav-tabs>li>a:hover{
+	color: black;
+}
+
+.nav-tabs>li>a{
+	color: white;
+}
 
 body{
 	font-family: Source Sans;
