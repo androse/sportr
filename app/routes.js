@@ -56,6 +56,38 @@ module.exports = function(app, passport) {
 		});
 	});
 	
+	// Sampleevent page
+	app.get('/sampleevent', ensureAuthenticated, addProperNav, function(req, res) {
+        db.getUserEvents(req.user._id, function(userEvents) {
+				db.getAllEvents(function(allEvents) {
+					var events = {user: [], all: []};
+
+					for (var i = 0; i < allEvents.length; i++) {
+						if (userInEvent(allEvents[i], userEvents)) {
+							events.user.push(allEvents[i]);
+						} else {
+							events.all.push(allEvents[i]);
+						}
+					}
+
+					res.render('sampleevent', {
+					    user: req.user,
+					    page: req.url,
+					    nav: req.navPages,
+					    events: events
+					});
+				},
+				function() {
+					res.redirect('/sampleevent');
+				});
+			}, 
+			function() {
+				res.redirect('/sampleevent');
+			}
+  		);
+	});
+
+	
 	//Events page
 	app.get('/events', ensureAuthenticated, addProperNav, function(req, res) {
         db.getUserEvents(req.user._id, function(userEvents) {

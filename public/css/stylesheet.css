@@ -101,6 +101,9 @@ input[type=text] {
 	padding-right: 15px;
 	color:#174d6c;
 }
+.putleft{
+	float:left;
+}
 
 .nopadding{
 	padding:0px;
@@ -108,6 +111,16 @@ input[type=text] {
 
 .sportlist{
 	color:#174d6c;
+}
+
+.commentheader{
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 15px;
+}
+
+.putright{
+	float:right;
 }
 
 .eventrows {
@@ -145,6 +158,12 @@ input[type=text] {
 	font-family: coolveticaregular;
 	background: white;
 	font-size: 18px;
+}
+
+.commentdate{
+	font:arial;
+	font-size:12px;
+	text-align:right;
 }
 
 a:visited{
