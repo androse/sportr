@@ -1,0 +1,67 @@
+<% include header %>
+<body>
+	<% include navbar %>
+	<div class="container content">
+		<br>
+		<br>
+		<div class="panel panel-default nopadding">
+			
+			<div class="panel-heading row eventrows">
+					<div class="col-sm-6">
+						<h4><b><img src="../img/sportsmall.png"> </img><%= event.name %></b></h4>
+					</div>
+					<div class="col-sm-6">
+						<h4><b>Sport:</b> <%= event.sport %></h4>
+						<h4><b>Time:</b> <%= event.startTime %></h4>
+						<h4><b>Location:</b> <%= event.location %></h4>
+					</div>
+			</div>
+			
+			<div class="panel-body">
+					<h4><b>Event Description:</b></h4>
+					<p><%= event.description %></p>
+			</div>
+			<div class="panel-footer">
+				<h4><b>Who's Attending?</b></h4>
+				<% for (var j = 0; j < event.users.length; j++) { %>
+					<p><a href="/user/<%= event.users[j]._id %>"><%= event.users[j].userName %></a></p>
+				<% } %>
+			</div>
+		</div>
+		
+		<div class="panel panel-default nopadding">
+			<div class="panel-heading row commentheader">
+				<div class="putleft">
+					<h4><b>Event Discussion</b><h6>(2 comment(s))</h6></h4> 
+				</div>
+			
+				<div class="putright">
+					<button type="button" id="leavecomment" class="btn btn-default btn-lg">
+						<span class="glyphicon glyphicon-bullhorn"></span>Leave a Comment
+					</button>
+				</div>
+			</div>
+
+			
+			<ul id="comments" class="list-group">
+				<li class="list-group-item">
+					<p>
+						<h4><b>John John John says:</b></h4>
+						Hello hello hurr durr durr hello
+					</p>
+					<div class="commentdate"> Posted 3:59pm March 2nd, 2014</div>
+				</li>
+				<li class="list-group-item">
+					<p>
+						<h4><b>Jon Bon Jon says:</b></h4>
+						Bye hurr durr durr bye
+					</p>
+					<div class="commentdate"> Posted 4:59pm March 2nd, 2014</div>
+				</li>
+			</ul>
+				
+		</div>
+	</div>
+	<% include js %>
+</body>
+</html>

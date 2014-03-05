@@ -46,6 +46,23 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	// User page
+	app.get('/user/:id', ensureAuthenticated, addProperNav, function(req, res) {
+		db.getUser(req.params.id,
+			function(user) {
+				res.render('user', {
+					page: req.url,
+					nav: req.navPages,
+					user: user
+				});
+			},
+			function() {
+				// Make an error page ("Sorry I couldn't find that for you!")
+				res.render('error');
+			}
+		);
+	});	
+
 	// Event creation page
 	// Need to create page with form
 	app.get('/createevent', ensureAuthenticated, addProperNav, function(req, res) {
@@ -58,38 +75,6 @@ module.exports = function(app, passport) {
 			});
 		});
 	});
-	
-	// Sampleevent page
-	app.get('/sampleevent', ensureAuthenticated, addProperNav, function(req, res) {
-        db.getUserEvents(req.user._id, function(userEvents) {
-				db.getAllEvents(function(allEvents) {
-					var events = {user: [], all: []};
-
-					for (var i = 0; i < allEvents.length; i++) {
-						if (userInEvent(allEvents[i], userEvents)) {
-							events.user.push(allEvents[i]);
-						} else {
-							events.all.push(allEvents[i]);
-						}
-					}
-
-					res.render('sampleevent', {
-					    user: req.user,
-					    page: req.url,
-					    nav: req.navPages,
-					    events: events
-					});
-				},
-				function() {
-					res.redirect('/sampleevent');
-				});
-			}, 
-			function() {
-				res.redirect('/sampleevent');
-			}
-  		);
-	});
-
 	
 	//Events page
 	app.get('/events', ensureAuthenticated, addProperNav, function(req, res) {
@@ -122,6 +107,23 @@ module.exports = function(app, passport) {
   		);
 	});
 
+	// Display an individual event
+	app.get('/event/:id', ensureAuthenticated, addProperNav, function(req, res) {
+		db.getEvent(req.params.id, 
+			function(event) {
+				res.render('event', {
+					page: req.url,
+					nav: req.navPages,
+					event: event
+				});
+			},
+			function() {
+				// Make an error page ("Sorry I couldn't find that for you!")
+				res.render('error');
+			}
+		);
+	});
+
     //All events page
 	app.get('/allevents', ensureAuthenticated, addProperNav, function(req, res) {
 	    db.getAllEvents(function(events) {
@@ -149,8 +151,6 @@ module.exports = function(app, passport) {
         });
 	});
 	
-	
-
 	app.get('/search', ensureAuthenticated, addProperNav, function(req, res) {
 		db.search(req.query.searchsport, req.query.searchlocation, req.query.searchdate, 
 			function(events) {
