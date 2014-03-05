@@ -153,14 +153,14 @@ module.exports = function(app, passport) {
 			function(events) {
 				// Display events instead of printing to console and redirecting
 				console.log(events);
-				addAllSports(function(sports) {
+				// addAllSports(function(sports) {
                     res.render('searchresult', {
                         user: req.user,
                         page: req.url,
                         nav: req.navPages,
-                        sports: sports
+                        events: events
                     });
-                });
+                // });
 			},
 			function() {
 				// Return 500 (or something more specific) and display error message maybe?
