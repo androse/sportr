@@ -6,6 +6,9 @@
 		<h1 class="white header"> Search For Events</h1>
 		
 		<form role="form" action="/search" method="get" id="searchSportForm">
+		
+			<br> </br>
+			
 			<div class="form-group">
 				<label for="searchSport">Sport:</label>
 				<select class="form-control" id="searchSport" name="searchsport">
@@ -26,9 +29,26 @@
 				<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
 			</div>
 
-			<button type="submit" class="btn btn-primary form-control" id="submitSearch">Find Events</button>
+			<br> </br>
+			
+			<p>
+				<a href="/searchevent">
+					<button type="button" class="btn btn-primary form-control">Find Events</button>
+				</a>
+			</p>
+
 		</form>
 	</div>
+	
+	<!--
+	<div class="container content">
+		<ul class="nav nav-tabs">
+			<li class="active" id="userTab"><a href="#userevents" data-toggle="tab">My Events</a></li>
+			<li id="allTab"><a href="#allevents" data-toggle="tab">All Events</a></li>
+		</ul>
+	</div>
+	-->
+	
 	<% include js %>	
 	<script src="/js/search.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
