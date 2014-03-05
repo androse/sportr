@@ -119,6 +119,23 @@ module.exports = function(app, passport) {
   		);
 	});
 
+	// Display an individual event
+	app.get('/event/:id', ensureAuthenticated, addProperNav, function(req, res) {
+		db.getEvent(req.params.id, 
+			function(event) {
+				res.render('event', {
+					page: req.url,
+					nav: req.navPages,
+					event: event
+				});
+			},
+			function() {
+				// Make an error page ("Sorry I couldn't find that for you!")
+				res.render('error');
+			}
+		);
+	});
+
     //All events page
 	app.get('/allevents', ensureAuthenticated, addProperNav, function(req, res) {
 	    db.getAllEvents(function(events) {
@@ -146,8 +163,6 @@ module.exports = function(app, passport) {
         });
 	});
 	
-	
-
 	app.get('/search', ensureAuthenticated, addProperNav, function(req, res) {
 		db.search(req.query.searchsport, req.query.searchlocation, req.query.searchdate, 
 			function(events) {

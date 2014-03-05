@@ -119,6 +119,17 @@ function addSport(sname, sdescription){
     });
 }
 
+// Find a single event
+function getEvent(eventID, successCB, errorCB) {
+    Event
+    .findById(eventID)
+    .populate('users', '_id userName')
+    .exec(function(err, event) {
+        if (err) errorCB() ;
+        else successCB(event); 
+    });
+}
+
 // function to create a new event, 
 function createEvent(userID, data, successCB, errorCB){
     var event = new Event(data);
@@ -173,7 +184,7 @@ function getUserEvents(userID, successCB, errorCB) {
     User.findById(userID, 'events', function(err, user) {
         Event
         .find({ '_id': { $in: user.events }})
-        .populate('users', 'userName')
+        .populate('users', '_id userName')
         .exec(function(err, events) {
             if (err) errorCB();
             else successCB(events);
@@ -184,7 +195,7 @@ function getUserEvents(userID, successCB, errorCB) {
 function getAllEvents(successCB, errorCB) {
 	Event
     .find()
-    .populate('users', 'userName')
+    .populate('users', '_id userName')
 	.exec(function(err, events) {
         if (err) errorCB();
 		else {
@@ -197,7 +208,7 @@ function getAllEvents(successCB, errorCB) {
 // ---------- Search ----------
 
 function search(sport, location, date, successCB, errorCB) {
-    var query= {};
+    var query = {};
 
     // Query if specified
     if (sport) {query.sport = sport;}
@@ -234,6 +245,7 @@ module.exports = {
     deleteAccount: deleteAccount,
     getAllSports: getAllSports,
     addSport: addSport,
+    getEvent: getEvent,
     createEvent: createEvent,
     joinEvent: joinEvent,
     leaveEvent: leaveEvent,
