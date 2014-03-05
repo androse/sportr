@@ -218,7 +218,19 @@ function search(sport, location, date, successCB, errorCB) {
     .populate('users', 'userName')
     .exec(function(err, events) {
         if (err) errorCB();
-        else successCB(events);
+        else {
+            console.log(events);
+            successCB(events);
+        }
+    });
+}
+
+// Function to search
+function searchUser(username, successCB, errorCB){
+    console.log("------HERE------");
+    User.find({'userName': username}, 'userName -_id', function(err, user){
+        if(err) errorCB(err);
+        else successCB(user);
     });
 }
 
@@ -239,5 +251,6 @@ module.exports = {
     leaveEvent: leaveEvent,
     getUserEvents: getUserEvents,
     getAllEvents: getAllEvents,
-    search: search
+    search: search,
+    searchUser: searchUser
 }

@@ -14,6 +14,9 @@ var navbarLinks = {
 
 module.exports = function(app, passport) {
 
+	// ---------- TESTING ----------------
+	// db.searchUser("Shawn Bramson", function(user){console.log(user);}, function(err){console.log(err);});
+
 	// ---------- Webpage rendering routes ----------
 
 	// Home page
