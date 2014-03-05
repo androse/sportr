@@ -36,6 +36,14 @@ function findOrAddUser(userID, userName, callback) {
     });
 }
 
+// Find a user to display their profile
+function getUser(userID, successCB, errorCB) {
+    User.findById(userID, function(err, user) {
+        if (err) errorCB();
+        else successCB(user);
+    });
+}
+
 // Update a user's location
 function updateLocation(userID, userLocation, successCB, errorCB) {
     User.findByIdAndUpdate(userID, { $set: { location: userLocation }}, function(err, user) {
@@ -238,6 +246,7 @@ function search(sport, location, date, successCB, errorCB) {
 module.exports = {
     checkUser: checkUser,
     findOrAddUser: findOrAddUser,
+    getUser: getUser,
     updateLocation: updateLocation,
     addUserSport: addUserSport,
     getUserSports: getUserSports,

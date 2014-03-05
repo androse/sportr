@@ -30,5 +30,4 @@ $(document).ready(function() {
 	});
 
 	$('#userTab a[href="#userevents"]').tab('show');
-	$('#allTab a[href="#allevents"]').tab('show');
 });

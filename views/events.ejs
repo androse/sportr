@@ -17,56 +17,67 @@
 
 		<div class="tab-content">
 			<div class="tab-pane active" id="userevents">
-				<% for (var i = 0; i < events.user.length; i++) { %>
-					<div class="panel panel-default nopadding">
-					
-						<div class="panel-heading row eventrows">
-								<div class="col-sm-4">
-									<h4><b><img src="../img/sportsmall.png"> </img><%= events.user[i].name %></b></h4>
-								</div>
-								<div class="col-sm-5">
-									<h4><b>Sport:</b> <%= events.user[i].sport %></h4>
-									<h4><b>Time:</b> <%= events.user[i].startTime %></h4>
-									<h4><b>Location:</b> <%= events.user[i].location %></h4>
-								</div>
-								<div class="col-sm-3">
-									<button class="btn btn-danger btn-lg btn-block leave-event" value="<%= events.user[i]._id %>">Leave Event</button>
-									<!-- Use this for the search page
-									<div class="btn-group">
-									  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-										<h4>Actions <span class="caret"></span></h4>
-									  </button>
-									  <ul class="dropdown-menu" role="menu">
-										<li><a href="#">Leave Event</a></li>
-									  </ul>
-									</div>
-									-->
-								</div>
-						</div>
-						
-						<div class="panel-body">
-							<h4><b>Event Description:</b></h4>
-							<p><%= events.user[i].description %></p>
-							<a href="/event/<%= events.user[i]._id %>" class="read_more">...click to see more</a><br/>
-						</div>
-
-						<div class="panel-footer">
-							<h4><b>Who's Attending?</b></h4>
-							<% for (var j = 0; j < events.user[i].users.length; j++) { %>
-								<p><%= events.user[i].users[j].userName %></p>
-							<% } %>
-						</div>
+				<% if (events.user.length === 0) { %>
+					<div class="panel panel-primary">
+						<h4>You don't appear to have joined any events.</h4>
+						<h4>Why don't you create one or join one that interests you!</h4>
 					</div>
+				<% } else { %>
+					<% for (var i = 0; i < events.user.length; i++) { %>
+						<div class="panel panel-default nopadding">
+						
+							<div class="panel-heading row eventrows">
+									<div class="col-sm-4">
+										<a href="/event/<%= events.user[i]._id %>"> 
+											<h4><b><img src="../img/sportsmall.png"> </img><%= events.user[i].name %></b></h4>
+										</a>
+									</div>
+									<div class="col-sm-5">
+										<h4><b>Sport:</b> <%= events.user[i].sport %></h4>
+										<h4><b>Time:</b> <%= events.user[i].startTime %></h4>
+										<h4><b>Location:</b> <%= events.user[i].location %></h4>
+									</div>
+									<div class="col-sm-3">
+										<button class="btn btn-danger btn-lg btn-block leave-event" value="<%= events.user[i]._id %>">Leave Event</button>
+										<!-- Use this for the search page
+										<div class="btn-group">
+										  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+											<h4>Actions <span class="caret"></span></h4>
+										  </button>
+										  <ul class="dropdown-menu" role="menu">
+											<li><a href="#">Leave Event</a></li>
+										  </ul>
+										</div>
+										-->
+									</div>
+							</div>
+							
+							<div class="panel-body">
+								<h4><b>Event Description:</b></h4>
+								<p><%= events.user[i].description %></p>
+								<a href="/event/<%= events.user[i]._id %>" class="read_more">...click to see more</a><br/>
+							</div>
+
+							<div class="panel-footer">
+								<h4><b>Who's Attending?</b></h4>
+								<% for (var j = 0; j < events.user[i].users.length; j++) { %>
+									<p><a href="/user/<%= events.user[i].users[j]._id %>"><%= events.user[i].users[j].userName %></a></p>
+								<% } %>
+							</div>
+						</div>
+					<% } %>
 				<% } %>
 			</div>
 
-			<div class="tab-pane active" id="allevents">
+			<div class="tab-pane" id="allevents">
 				<% for (var i = 0; i < events.all.length; i++) { %>
 					<% if (events.user.indexOf(events.all[i]) === -1) { %>
 						<div class="panel panel-default nopadding">
 							<div class="panel-heading row eventrows">
 									<div class="col-sm-4">
-										<h4><b><img src="../img/sportsmall.png"> </img><%= events.all[i].name %></b></h4>
+										<a href="/event/<%= events.all[i]._id %>"> 
+											<h4><b><img src="../img/sportsmall.png"> </img><%= events.all[i].name %></b></h4>
+										</a>
 									</div>
 									<div class="col-sm-5">
 										<h4><b>Sport:</b> <%= events.all[i].sport %></h4>
@@ -97,7 +108,7 @@
 							<div class="panel-footer">
 								<h4><b>Who's Attending?</b></h4>
 								<% for (var j = 0; j < events.all[i].users.length; j++) { %>
-									<p><%= events.all[i].users[j].userName %></p>
+									<p><a href="/user/<%= events.all[i].users[j]._id %>"><%= events.all[i].users[j].userName %></a></p>
 								<% } %>
 							</div>
 						</div>

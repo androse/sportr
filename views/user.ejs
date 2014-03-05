@@ -1,0 +1,51 @@
+<% include header %>
+<body>
+	<% include navbar %>
+	<div class="container content">
+		<h1 class="white header"> <%= user.userName %>'s Profile </h1>
+		<div class="panel panel-primary">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="media">
+					  <a class="pull-left">
+						<img class="img-responsive media-object profilepic" src="/img/doge.jpg"/>
+					  </a>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<h4> <b>Location:</b>
+						<% if (user.location) { %> 
+							<%= user.location %> 
+						<% } else { %> 
+							<%= user.userName%> has not set a location yet!
+						<% } %>
+					</h4>
+					<h4> <b><%= user.userName %> Plays:</b> 
+					<% if (user.sports.length>0) { var sportCount = 1; %>
+					</h4>
+					<h4>
+						<table class="sporttable table">
+							<thead>
+								<tr>
+									<th>Sport</th>
+									<th>Skill Level</th>
+								</tr>
+							</thead>
+							<% user.sports.forEach(function(entry){ %>
+								<tr>
+									<td><%= entry.typeOf %></td>
+									<td><%= entry.skill %></td>
+								</tr>
+							<% }); %>
+						</table>
+					<% } else { %> <%= user.userName %> hasn't added any sports yet!<% } %>
+					</h4>
+				</div>
+			</div>
+			<h3>People they follow</h3>
+			<p>friends go here</p>
+		</div>
+	</div>
+	<% include js %>
+</body>
+</html>
