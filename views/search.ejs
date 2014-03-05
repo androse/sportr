@@ -3,31 +3,50 @@
 	<% include navbar %>
 	
 	<div class="container content">
-		<h1 class="white header"> Search For Events</h1>
-		
-		<form role="form" action="/search" method="get" id="searchSportForm">
-			<div class="form-group">
-				<label for="searchSport">Sport:</label>
-				<select class="form-control" id="searchSport" name="searchsport">
-					<option value="">No Sport</option>
-					<% for (var i = 0; i < sports.length; i++) { %>
-						<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
-					<%	} %>	
-				</select>	
-			</div>		
-			
-			<div class="form-group">
-				<label for="searchLocation">Location:</label>
-				<input type="text" class="form-control" id="searchLocation" placeholder="Enter A Desired Location..." name="searchlocation">
-			</div>
+		<ul class="nav nav-tabs">
+			<li class="active" id="user"><a href="#users" data-toggle="tab">Search Users</a></li>
+		  	<li id="allTab"><a href="#events" data-toggle="tab">Search Events</a></li>
+		</ul>
 
-			<div class="form-group">
-				<label for="datepicker">Date:</label>
-				<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
+		<div class="tab-content">
+			<div class="tab-pane active" id="users">
+				<h1 class="white header"> Search For Users</h1>
+				<form role="form" action="/searchuser" method="get" id="searchUserForm">
+					
+					<div class="form-group">
+						<label for="searchLocation">User:</label>
+						<input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+					</div>
+					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Find User</button>
+				</form>
 			</div>
+			<div class="tab-pane active" id="events">
+				<h1 class="white header"> Search For Users</h1>
+				<form role="form" action="/searchuser" method="get" id="searchSportForm">
+					<div class="form-group">
+						<label for="searchSport">Sport:</label>
+						<select class="form-control" id="searchSport" name="searchsport">
+							<option value="">No Sport</option>
+							<% for (var i = 0; i < sports.length; i++) { %>
+								<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
+							<%	} %>	
+						</select>	
+					</div>		
+					
+					<div class="form-group">
+						<label for="searchLocation">Location:</label>
+						<input type="text" class="form-control" id="searchLocation" placeholder="Enter A Desired Location..." name="searchlocation">
+					</div>
 
-			<button type="submit" class="btn btn-primary form-control" id="submitSearch">Find Events</button>
-		</form>
+					<div class="form-group">
+						<label for="datepicker">Date:</label>
+						<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
+					</div>
+
+					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Find Events</button>
+				</form>
+			</div>
+		</div>
 	</div>
 	<% include js %>	
 	<script src="/js/search.js"></script>

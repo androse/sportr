@@ -166,6 +166,13 @@ module.exports = function(app, passport) {
 		);
 	});
 
+	app.get('/searchuser', ensureAuthenticated, addProperNav, function(req, res) {
+		console.log(req.query);
+		db.searchUser(req.query.username, function(userID){
+			res.redirect('/user/' + userID);
+		}, function(){console.log('Search Error!');});
+	});
+
 	// ---------- Login / Logout routes ----------
 
 	// Use this route on any facebook login button

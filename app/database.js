@@ -246,10 +246,9 @@ function search(sport, location, date, successCB, errorCB) {
 
 // Function to search
 function searchUser(username, successCB, errorCB){
-    console.log("------HERE------");
-    User.find({'userName': username}, 'userName -_id', function(err, user){
+    User.findOne({'userName': username}, '_id', function(err, user){
         if(err) errorCB(err);
-        else successCB(user);
+        else if(user) successCB(user._id);
     });
 }
 
