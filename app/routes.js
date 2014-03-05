@@ -14,9 +14,6 @@ var navbarLinks = {
 
 module.exports = function(app, passport) {
 
-	// ---------- TESTING ----------------
-	// db.searchUser("Shawn Bramson", function(user){console.log(user);}, function(err){console.log(err);});
-
 	// ---------- Webpage rendering routes ----------
 
 	// Home page
@@ -156,21 +153,28 @@ module.exports = function(app, passport) {
 			function(events) {
 				// Display events instead of printing to console and redirecting
 				console.log(events);
-				res.redirect('/searchevent');
+				addAllSports(function(sports) {
+                    res.render('searchresult', {
+                        user: req.user,
+                        page: req.url,
+                        nav: req.navPages,
+                        sports: sports
+                    });
+                });
 			},
 			function() {
 				// Return 500 (or something more specific) and display error message maybe?
 				console.log('Search Error!');
-				res.redirect('/searchevent');
+				addAllSports(function(sports) {
+                    res.render('searchresult', {
+                        user: req.user,
+                        page: req.url,
+                        nav: req.navPages,
+                        sports: sports
+                    });
+                });
 			}
 		);
-	});
-
-	app.get('/searchuser', ensureAuthenticated, addProperNav, function(req, res) {
-		console.log(req.query);
-		db.searchUser(req.query.username, function(userID){
-			res.redirect('/user/' + userID);
-		}, function(){console.log('Search Error!');});
 	});
 
 	// ---------- Login / Logout routes ----------
