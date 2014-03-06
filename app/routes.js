@@ -152,16 +152,45 @@ module.exports = function(app, passport) {
 		db.search(req.query.searchsport, req.query.searchlocation, req.query.searchdate, 
 			function(events) {
 				// Display events instead of printing to console and redirecting
-				console.log(events);
+				//console.log(events);
 				// addAllSports(function(sports) {
-                    res.render('searchresult', {
-                        user: req.user,
-                        page: req.url,
-                        nav: req.navPages,
-                        events: events
-                    });
+                //    res.render('searchresult', {
+                //        user: req.user,
+                //        page: req.url,
+                //        nav: req.navPages,
+                //        events: events
+                //    });
                 // });
-			},
+                
+                db.getUserEvents(req.user._id, function(userEvents) {
+				db.getAllEvents(function(allEvents) {
+					var eventlist = {user: [], all: []};
+
+					for (var i = 0; i < events.length; i++) {
+						if (userInEvent(events[i], userEvents)) {
+							eventlist.user.push(events[i]);
+						} else {
+							eventlist.all.push(events[i]);
+						}
+					}
+
+					res.render('searchresult', {
+					    user: req.user,
+					    page: req.url,
+					    nav: req.navPages,
+					    events: events,
+                        eventlist: eventlist
+					});
+				},
+				function() {
+					res.redirect('/searchresult');
+				});
+                }, 
+                function() {
+                    res.redirect('/searchresult');
+                }
+                );
+                },
 			function() {
 				// Return 500 (or something more specific) and display error message maybe?
 				console.log('Search Error!');
