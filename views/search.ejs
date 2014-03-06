@@ -21,18 +21,20 @@
 								<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
 							<%	} %>	
 						</select>	
-					</div>		
+					</div>
+					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Search By Sport</button>
 					
 					<div class="form-group">
 						<label for="searchLocation">Location:</label>
 						<input type="text" class="form-control" id="searchLocation" placeholder="Enter A Desired Location..." name="searchlocation">
 					</div>
+					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Search By Location</button>
 
 					<div class="form-group">
 						<label for="datepicker">Date:</label>
 						<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
 					</div>
-					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Find Events</button>
+					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Search By Date</button>
 				</form>
 			</div>
 			<div class="tab-pane" id="users">
