@@ -150,6 +150,7 @@ function getEvent(eventID, successCB, errorCB) {
     Event
     .findById(eventID)
     .populate('users', '_id userName')
+    .populate('comments', null, null, {sort: {date: -1 }})
     .exec(function(err, event) {
         if (err) errorCB() ;
         else successCB(event); 
@@ -282,8 +283,8 @@ function followUser(followerID, followeeID, successCB, errorCB){
     });
 }
 
-function addComment(eventID, userID, comment, successCB, errorCB){
-    var data = {eventID: eventID, userID: userID, comment: comment};
+function addComment(eventID, userName, comment, successCB, errorCB){
+    var data = {user: userName, comment: comment};
     var comment = new Comment(data);
     comment.save(function(err, comment){
         if(err) errorCB(err);
