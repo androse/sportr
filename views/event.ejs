@@ -75,12 +75,13 @@
 		$(document).ready(function() {
 			$('.delete-comment').click(function() {
 				var commentID = $(this).attr('value');
-
+console.log('---- HERE ------');
 				$.ajax({
 					type: 'DELETE',
 					url: '/comments/' + commentID,
 					success: function(data) {
-						location.href = '/event/<%= event._id %>';
+						console.log('---- HERE ------');
+						location.reload();
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
 						console.log(textStatus);

@@ -360,6 +360,7 @@ module.exports = function(app, passport) {
 		console.log(req.params.id);
 		db.deleteComment(req.params.id, 
 			function() {
+				console.log("DELETED COMMENT");
 				res.send(200, {success: 'Comment deleted'});
 			},
 			function() {

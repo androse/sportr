@@ -299,7 +299,10 @@ function addComment(eventID, userName, comment, successCB, errorCB){
 }
 
 function deleteComment(commentID, successCB, errorCB){
-    Comment.findById(commentID).remove().exec();
+    Comment.findById(commentID).remove().exec(function(err){
+        if (err) errorCB();
+        else successCB();
+    });
 }
 
 // This allows functions to be used by others in this file
