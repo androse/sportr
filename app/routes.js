@@ -48,11 +48,11 @@ module.exports = function(app, passport) {
 	app.get('/user/:id', ensureAuthenticated, addProperNav, function(req, res) {
 		db.getUser(req.params.id,
 			function(user) {
-				console.log(user);
 				res.render('user', {
 					page: req.url,
 					nav: req.navPages,
-					user: user
+					user: user,
+					areFriends: areFriends(req.user.following, user._id)
 				});
 			},
 			function() {
@@ -115,6 +115,7 @@ module.exports = function(app, passport) {
 				res.render('event', {
 					page: req.url,
 					nav: req.navPages,
+					user: req.user.userName,
 					event: event
 				});
 			},
@@ -355,6 +356,17 @@ module.exports = function(app, passport) {
 			});
 	});
 
+	app.delete('/comments/:id', ensureAuthenticated, addProperNav, function(req, res){
+		console.log(req.params.id);
+		db.deleteComment(req.params.id, 
+			function() {
+				res.send(200, {success: 'Comment deleted'});
+			},
+			function() {
+				res.send(500, {error: 'Error deleting comment'});
+		});
+	});
+
 	// ---------- Utitily functions ----------
 
 	// Used to add all sports to the template object
@@ -398,5 +410,17 @@ module.exports = function(app, passport) {
 		else {req.navPages = navbarLinks.loggedout }
 
 		return next();
+	}
+
+	function areFriends(following, userID){
+		console.log(following);
+		console.log(userID);
+		for(var i = 0; i < following.length; i++){
+			// console.log(following[i]._id);
+			// console.log(following[i]._id.equals(userID));
+			if(following[i]._id.equals(userID))
+				return true;
+		}
+		return false;
 	}
 }

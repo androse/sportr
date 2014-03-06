@@ -298,6 +298,10 @@ function addComment(eventID, userName, comment, successCB, errorCB){
     });
 }
 
+function deleteComment(commentID, successCB, errorCB){
+    Comment.findById(commentID).remove().exec();
+}
+
 // This allows functions to be used by others in this file
 // Make sure to add any function you add to the module to this
 module.exports = {
@@ -320,5 +324,6 @@ module.exports = {
     search: search,
     searchUser: searchUser,
     followUser: followUser,
-    addComment: addComment
+    addComment: addComment,
+    deleteComment: deleteComment
 }

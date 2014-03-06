@@ -51,10 +51,18 @@
 			<ul id="comments" class="list-group">
 				<% for(var i = 0; i < event.comments.length; i++){ %>
 					<li class="list-group-item">
+						<% if (event.comments[i].user == user){ %>
+							<div class="putright">
+								<button type="submit" id="leavecomment" class="btn btn-danger btn-lg delete-comment" value="<%= event.comments[i]._id %>">
+									Delete Your Comment
+								</button>
+							</div>
+						<% } %>
 						<p>
 							<h4><b><%= event.comments[i].user %> says:</b></h4>
 							<%= event.comments[i].comment %>
 						</p>
+
 						<div class="commentdate"> Posted <%= event.comments[i].date %></div>
 					</li>
 				<% } %>
@@ -63,5 +71,23 @@
 		</div>
 	</div>
 	<% include js %>
+	<script>
+		$(document).ready(function() {
+			$('.delete-comment').click(function() {
+				var commentID = $(this).attr('value');
+
+				$.ajax({
+					type: 'DELETE',
+					url: '/comments/' + commentID,
+					success: function(data) {
+						location.href = '/event/<%= event._id %>';
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log(textStatus);
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>
