@@ -4,12 +4,44 @@
 	
 	<div class="container content">
 		<h1 class="white header"> Search Results </h1>
-		
-		<br></br>
-	
-		<button type="button" class="btn btn-primary form-control">Find Events</button>
 
-		<% for (var i = 0; i < events.length; i++) { %>
+		<% if (events.length === 0) { %>
+			<div class="panel panel-primary">
+				<h4>Sorry no results match your search criteria.</h4>
+				<h4>Please search again or create your own event!</h4>
+				
+				<form>
+					<br></br>
+					<button type="button" class="btn btn-primary form-control" onClick="history.go(-1);return true;" >Return To Search Page</button>
+					<br></br>
+				</form>
+				
+				<p>
+					<a href="/createevent">
+						<button type="button" class="btn btn-primary form-control">Create Your Own Event</button>
+					</a>
+				</p>
+				
+			</div>
+		<% } else { %>
+			<div class="panel panel-primary">
+				<h4>We have found the following events!</h4>
+				<h4>If you are not satisfied you can search again or create your own event!</h4>
+				
+				<form>
+					<br></br>
+					<button type="button" class="btn btn-primary form-control" onClick="history.go(-1);return true;" >Return To Search Page</button>
+					<br></br>
+				</form>
+				
+				<p>
+					<a href="/createevent">
+						<button type="button" class="btn btn-primary form-control">Create Your Own Event</button>
+					</a>
+				</p>
+			</div>
+		
+			<% for (var i = 0; i < events.length; i++) { %>
 					
 						<div class="panel panel-default nopadding">
 							<div class="panel-heading row eventrows">
@@ -53,18 +85,7 @@
 						</div>
 					
 				<% } %>
-<!--
-		<p>
-			<h4 class="white header"> Sorry No Events Found... </h1>
-		</p>
-		
-		<br></br>
-		
-		<form>
-			<button type="button" class="btn btn-primary form-control" onClick="history.go(-1);return true;" >Return To Search Page</button>
-		</form>
--->
-		
+			<% } %>
 	</div>
 	
 	<% include js %>	
