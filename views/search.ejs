@@ -16,13 +16,13 @@
 					<div class="form-group">
 						<label for="searchSport">Sport:</label>
 						<select class="form-control" id="searchSport" name="searchsport">
-							<option value="">No Sport</option>
+							<option value=""></option>
 							<% for (var i = 0; i < sports.length; i++) { %>
 								<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
 							<%	} %>	
 						</select>	
 					</div>
-					<button type="submit" class="btn btn-primary form-control" id="submitSportSearch">Search By Sport</button>
+					<button type="submit" onclick="return checkSportField(searchSport);" class="btn btn-primary form-control" id="submitSportSearch">Search By Sport</button>
 				</form>
 				
 				<form role="form" action="/search" method="get" id="searchLocationForm">
@@ -30,7 +30,7 @@
 						<label for="searchLocation">Location:</label>
 						<input type="text" class="form-control" id="searchLocation" placeholder="Enter A Desired Location..." name="searchlocation">
 					</div>
-					<button type="submit" class="btn btn-primary form-control" id="submitLocationSearch">Search By Location</button>
+					<button type="submit" onclick="return checkLocationField(searchLocation);" class="btn btn-primary form-control" id="submitLocationSearch">Search By Location</button>
 				</form>
 				
 				<form role="form" action="/search" method="get" id="searchDateForm">
@@ -38,7 +38,7 @@
 						<label for="datepicker">Date:</label>
 						<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
 					</div>
-					<button type="submit" class="btn btn-primary form-control" id="submitDateSearch">Search By Date</button>
+					<button type="submit" onclick="return checkDateField(datepicker);" class="btn btn-primary form-control" id="submitDateSearch">Search By Date</button>
 				</form>
 			</div>
 			<div class="tab-pane" id="users">
@@ -56,6 +56,27 @@
 	</div>
 	
 	<% include js %>	
+	<script>
+		function checkSportField(input) {
+    		if (input.value == '') {
+        		alert("Please Enter A Sport!");
+        		return false;
+        	}
+    	}
+		function checkDateField(input) {
+    		if (input.value == '') {
+        		alert("Please Enter A Date!");
+        		return false;
+        	}
+    	}
+		function checkLocationField(input) {
+    		if (input.value == '') {
+        		alert("Please Enter A Location!");
+        		return false;
+        	}
+    	}
+	</script>
+	
 	<script src="/js/search.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
