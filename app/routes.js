@@ -36,6 +36,7 @@ module.exports = function(app, passport) {
 
 	// Profile page
 	app.get('/profile', ensureAuthenticated, addProperNav, function(req, res) {
+		console.log(req.user);
 		res.render('profile', {
 			user: req.user,
 			page: req.url,
@@ -47,6 +48,7 @@ module.exports = function(app, passport) {
 	app.get('/user/:id', ensureAuthenticated, addProperNav, function(req, res) {
 		db.getUser(req.params.id,
 			function(user) {
+				console.log(user);
 				res.render('user', {
 					page: req.url,
 					nav: req.navPages,
@@ -59,6 +61,8 @@ module.exports = function(app, passport) {
 			}
 		);
 	});	
+
+	
 
 	// Event creation page
 	// Need to create page with form
@@ -308,6 +312,15 @@ module.exports = function(app, passport) {
 		);
 	});
 
+	app.get('/user/follow/:id', ensureAuthenticated, addProperNav, function(req, res){
+		db.followUser(req.user._id, req.params.id, function(){
+			res.redirect('/profile');
+		}, function(){
+			res.send(500, {error: 'Error following user'});
+		});
+		
+	});
+
 	// ---------- Utitily functions ----------
 
 	// Used to add all sports to the template object
@@ -335,7 +348,7 @@ module.exports = function(app, passport) {
 
 	// ---------- Custum middlewares ----------
 
-	// A route middleware that checks whether a user is authenticated
+	// A route middleware that Us whether a user is authenticated
 	// If they are the request proceeds, if not they are redirected to login
 	function ensureAuthenticated(req, res, next) {
 		if (req.isAuthenticated()) {

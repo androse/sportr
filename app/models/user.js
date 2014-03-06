@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema({
 	location: String,
     sports: [{typeOf: String, skill: String}],
     events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
-    following: []
+    following: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 module.exports = mongoose.model('User', userSchema);

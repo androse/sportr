@@ -5,14 +5,28 @@ var Event = require('./models/event.js');
 
 // Find a user by their ID
 function checkUser(userID, callback) {
-    User.findOne({'userID': userID}, function(err, user) {
-        if (user) {    
-            console.log('User: ' + user.userID + ' found!');
-        } else {
-            console.log('User: ' + userID + ' was not found!');
-        }
-        callback(err, user);
-  });
+    User
+    .findOne({'userID': userID})
+    .populate('following', '_id userName')
+    .exec(function(err, user) {
+        // if (err) errorCB() ;
+        // else {
+            if (user) {    
+                console.log('User: ' + user.userID + ' found!');
+            } else {
+                console.log('User: ' + userID + ' was not found!');
+            }
+            callback(err, user);
+        // } 
+    });
+  //   User.findOne({'userID': userID}, function(err, user) {
+  //       if (user) {    
+  //           console.log('User: ' + user.userID + ' found!');
+  //       } else {
+  //           console.log('User: ' + userID + ' was not found!');
+  //       }
+  //       callback(err, user);
+  // });
 }
 
 // If a user is already in the db then that user is returned in the callback
@@ -38,10 +52,17 @@ function findOrAddUser(userID, userName, callback) {
 
 // Find a user to display their profile
 function getUser(userID, successCB, errorCB) {
-    User.findById(userID, function(err, user) {
+    User
+    .findById(userID)
+    .populate('following', '_id userName')
+    .exec(function(err, user) {
         if (err) errorCB();
         else successCB(user);
     });
+    // User.findById(userID, function(err, user) {
+    //     if (err) errorCB();
+    //     else successCB(user);
+    // });
 }
 
 // Update a user's location
@@ -244,11 +265,23 @@ function search(sport, location, date, successCB, errorCB) {
     });
 }
 
-// Function to search
+// Function to search Users
 function searchUser(username, successCB, errorCB){
     User.findOne({'userName': username}, '_id', function(err, user){
         if(err) errorCB(err);
         else if(user) successCB(user._id);
+    });
+}
+
+// Function to follow users
+function followUser(followerID, followeeID, successCB, errorCB){
+    User.findByIdAndUpdate(followerID, { $push: { following: followeeID }}, 
+        function(err, user) {
+            if(err) {
+                errorCB();
+            } else {
+               successCB();
+            }
     });
 }
 
@@ -272,5 +305,6 @@ module.exports = {
     getUserEvents: getUserEvents,
     getAllEvents: getAllEvents,
     search: search,
-    searchUser: searchUser
+    searchUser: searchUser,
+    followUser: followUser
 }

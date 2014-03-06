@@ -45,11 +45,18 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h3>People they follow</h3>
-					<p>friends go here</p>
+					<% if (user.following.length == 0) { %>	
+						<p>They Have No Friends :(</p>
+					<% } else { for(var i = 0; i < user.following.length; i++){ %>
+						<a href="user/<%= user.following[i]._id %>">
+							<p><%= user.following[i].userName %></p>
+					<% }} %>
 				</div>
 				<div class="col-lg-12">
 					<h3 class="pull-right">
-						<button class="btn btn-success btn-lg follow-user" value="<%= user._id %>">Follow <%= user.userName %></button>
+						<a href="follow/<%= user._id %>">
+							<button class="btn btn-success btn-lg follow-user" value="<%= user._id %>">Follow <%= user.userName %></button>
+						</a>
 					</h3>
 				</div>
 			</div>
