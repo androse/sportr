@@ -22,19 +22,23 @@
 							<%	} %>	
 						</select>	
 					</div>
-					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Search By Sport</button>
-					
+					<button type="submit" class="btn btn-primary form-control" id="submitSportSearch">Search By Sport</button>
+				</form>
+				
+				<form role="form" action="/search" method="get" id="searchLocationForm">
 					<div class="form-group">
 						<label for="searchLocation">Location:</label>
 						<input type="text" class="form-control" id="searchLocation" placeholder="Enter A Desired Location..." name="searchlocation">
 					</div>
-					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Search By Location</button>
-
+					<button type="submit" class="btn btn-primary form-control" id="submitLocationSearch">Search By Location</button>
+				</form>
+				
+				<form role="form" action="/search" method="get" id="searchDateForm">
 					<div class="form-group">
 						<label for="datepicker">Date:</label>
 						<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
 					</div>
-					<button type="submit" class="btn btn-primary form-control" id="submitSearch">Search By Date</button>
+					<button type="submit" class="btn btn-primary form-control" id="submitDateSearch">Search By Date</button>
 				</form>
 			</div>
 			<div class="tab-pane" id="users">
