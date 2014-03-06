@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var User = require('./models/user.js');
 var Sport = require('./models/sport.js');
 var Event = require('./models/event.js');
+var Comment = require('./models/comment.js');
 
 // Find a user by their ID
 function checkUser(userID, callback) {
@@ -59,10 +60,6 @@ function getUser(userID, successCB, errorCB) {
         if (err) errorCB();
         else successCB(user);
     });
-    // User.findById(userID, function(err, user) {
-    //     if (err) errorCB();
-    //     else successCB(user);
-    // });
 }
 
 // Update a user's location
@@ -285,6 +282,21 @@ function followUser(followerID, followeeID, successCB, errorCB){
     });
 }
 
+function addComment(eventID, userID, comment, successCB, errorCB){
+    var data = {eventID: eventID, userID: userID, comment: comment};
+    var comment = new Comment(data);
+    comment.save(function(err, comment){
+        if(err) errorCB(err);
+        else {
+            Event.findByIdAndUpdate(eventID, { $push: {comments: comment._id}},
+                function(err, event) {
+                    if (err) errorCB();
+                    else successCB();
+                });
+        }
+    });
+}
+
 // This allows functions to be used by others in this file
 // Make sure to add any function you add to the module to this
 module.exports = {
@@ -306,5 +318,6 @@ module.exports = {
     getAllEvents: getAllEvents,
     search: search,
     searchUser: searchUser,
-    followUser: followUser
+    followUser: followUser,
+    addComment: addComment
 }

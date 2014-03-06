@@ -14,6 +14,10 @@ var navbarLinks = {
 
 module.exports = function(app, passport) {
 
+	// ---------- TESTING ---------------
+	// db.addComment('5313e704aa7a079412000004', '52f82afb47da7e741c000007', 'blah blah blah',
+	// 	function(){console.log("IT WORKS")}, function(err){console.log(err)});
+
 	// ---------- Webpage rendering routes ----------
 
 	// Home page
@@ -344,6 +348,15 @@ module.exports = function(app, passport) {
 			res.send(500, {error: 'Error following user'});
 		});
 		
+	});
+
+	app.post('/comments/:id', ensureAuthenticated, addProperNav, function(req, res){
+		db.addComment(req.params.id, req.user._id, req.body.comment,
+			function(){
+				res.redirect('/event/' + req.params.id);
+			}, function(){
+				res.send(500, {error: 'Error following user'});
+			});
 	});
 
 	// ---------- Utitily functions ----------

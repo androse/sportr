@@ -31,16 +31,21 @@
 		
 		<div class="panel panel-default nopadding">
 			<div class="panel-heading row commentheader">
-				<div class="putleft">
-					<h4><b>Event Discussion</b><h6>(2 comment(s))</h6></h4> 
-				</div>
-			
-				<div class="putright">
-					<button type="button" id="leavecomment" class="btn btn-default btn-lg">
-						<span class="glyphicon glyphicon-bullhorn"></span>Leave a Comment
-					</button>
-				</div>
+				<form role="form" action="/comments/<%=event._id%>" method="post" id="newComment">
+					<div class="putleft">
+						<h4><b>Event Discussion</b><h6>(2 comment(s))</h6></h4> 
+						
+					</div>
+				
+					<div class="putright">
+						<button type="submit" id="leavecomment" class="btn btn-default btn-lg">
+							<span class="glyphicon glyphicon-bullhorn"></span>Leave a Comment
+						</button>
+					</div>
+					<textarea class="form-control" rows="3" name="comment"></textarea>
+				</form>
 			</div>
+			
 
 			
 			<ul id="comments" class="list-group">
