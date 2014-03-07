@@ -9,6 +9,8 @@
 		  	<li id="allTab"><a href="#users" data-toggle="tab">Search Users</a></li>
 		</ul>
 		
+		<div id="trial"></div>
+		
 		<div class="tab-content">
 			<div class="tab-pane active" id="events">
 				<h1 class="white header"> Search For Events</h1>
@@ -16,12 +18,13 @@
 					<div class="form-group">
 						<label for="searchSport">Sport:</label>
 						<select class="form-control" id="searchSport" name="searchsport">
-							<option value=""></option>
+							<option value="Choose A Sport...">Choose A Sport...</option>
 							<% for (var i = 0; i < sports.length; i++) { %>
 								<option value="<%= sports[i].Sname %>"><%= sports[i].Sname%></option>
 							<%	} %>	
 						</select>	
 					</div>
+					
 					<button type="submit" onclick="return checkSportField(searchSport);" class="btn btn-primary form-control" id="submitSportSearch">Search By Sport</button>
 				</form>
 				
@@ -58,20 +61,29 @@
 	<% include js %>	
 	<script>
 		function checkSportField(input) {
-    		if (input.value == '') {
-        		alert("Please Enter A Sport!");
+    		if (input.value == 'Choose A Sport...') {
+        		$('#trial').empty().append('<div class="locationerror alert alert-danger close fade in" data-dismiss="alert">Please Choose A Sport!</div>');
+        		setTimeout( function() {
+				$('.'+'locationerror').alert('close');
+				}, 2000 );
         		return false;
         	}
     	}
 		function checkDateField(input) {
     		if (input.value == '') {
-        		alert("Please Enter A Date!");
+        		$('#trial').empty().append('<div class="locationerror alert alert-danger close fade in" data-dismiss="alert">Please Enter A Date!</div>');
+        		setTimeout( function() {
+				$('.'+'locationerror').alert('close');
+				}, 2000 );
         		return false;
         	}
     	}
 		function checkLocationField(input) {
     		if (input.value == '') {
-        		alert("Please Enter A Location!");
+        		$('#trial').empty().append('<div class="locationerror alert alert-danger close fade in" data-dismiss="alert">Please Enter A Location!</div>');
+        		setTimeout( function() {
+				$('.'+'locationerror').alert('close');
+				}, 2000 );
         		return false;
         	}
     	}
