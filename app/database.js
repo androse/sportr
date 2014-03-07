@@ -268,6 +268,7 @@ function searchUser(username, successCB, errorCB){
     User.findOne({'userName': username}, '_id', function(err, user){
         if(err) errorCB(err);
         else if(user) successCB(user._id);
+        else errorCB(err);
     });
 }
 
