@@ -6,7 +6,7 @@ $(document).ready(function() {
 			type: 'DELETE',
 			url: '/unfollow/' + userID,
 			success: function(data) {
-				location.href = '/user/' + userID;
+				location.reload();
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log(textStatus);
