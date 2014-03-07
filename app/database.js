@@ -283,6 +283,16 @@ function followUser(followerID, followeeID, successCB, errorCB){
     });
 }
 
+// Unfollow a user
+function unfollowUser(followerID, followeeID, successCB, errorCB) {
+    User.findByIdAndUpdate(followerID, { $pull: { following: followeeID }},
+        function(err, user) {
+            if (err) errorCB();
+            else successCB();
+        } 
+    );
+}
+
 function addComment(eventID, userName, comment, successCB, errorCB){
     var data = {user: userName, comment: comment};
     var comment = new Comment(data);
@@ -327,6 +337,7 @@ module.exports = {
     search: search,
     searchUser: searchUser,
     followUser: followUser,
+    unfollowUser: unfollowUser,
     addComment: addComment,
     deleteComment: deleteComment
 }

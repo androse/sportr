@@ -52,6 +52,7 @@ module.exports = function(app, passport) {
 					page: req.url,
 					nav: req.navPages,
 					user: user,
+					isSelf: (user._id + '' == req.user._id + ''),
 					areFriends: areFriends(req.user.following, user._id)
 				});
 			},
@@ -338,13 +339,24 @@ module.exports = function(app, passport) {
 		);
 	});
 
-	app.get('/user/follow/:id', ensureAuthenticated, addProperNav, function(req, res){
-		db.followUser(req.user._id, req.params.id, function(){
-			res.redirect('/profile');
-		}, function(){
-			res.send(500, {error: 'Error following user'});
-		});
-		
+	app.post('/follow/:id', function(req, res){
+		db.followUser(req.user._id, req.params.id, 
+			function(){
+				res.send(200, {success: 'User followed'});
+			}, function(){
+				res.send(500, {error: 'Error following user'});
+			}
+		);
+	});
+
+	app.delete('/unfollow/:id', function(req, res) {
+		db.unfollowUser(req.user._id, req.params.id,
+			function() {
+				res.send(200, {success: 'User unfollowed'});
+			}, function() {
+				res.send(500, {error: 'Error unfollowing user'});
+			}
+		);
 	});
 
 	app.post('/comments/:id', ensureAuthenticated, addProperNav, function(req, res){
@@ -413,15 +425,11 @@ module.exports = function(app, passport) {
 		return next();
 	}
 
-	function areFriends(following, userID){
-		console.log(following);
-		console.log(userID);
-		for(var i = 0; i < following.length; i++){
-			// console.log(following[i]._id);
-			// console.log(following[i]._id.equals(userID));
-			if(following[i]._id.equals(userID))
-				return true;
+	function areFriends(following, userID) {
+		for (var i = 0; i < following.length; i++) {
+			if (userID + '' == following[i]._id + '') return true;
 		}
+
 		return false;
 	}
 }
