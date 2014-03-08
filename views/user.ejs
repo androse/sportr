@@ -2,18 +2,7 @@
 <body>
 	<% include navbar %>
 	<div class="container content">
-	
-		<h1 class="white header">Search Results</h1>
-		<div class="panel panel-primary">
-			<h4>We have found the following user!</h4>
-			<h4>If this is not who you are looking for you can search again!</h4>		
-			<form>
-				<br></br>
-				<button type="button" class="btn btn-primary form-control" onClick="history.go(-1).reload(true);return true;" >Return To Search Page</button>
-				<br></br>
-			</form>
-		</div>
-		
+
 		<h1 class="white header"> <%= user.userName %>'s Profile </h1>
 		<div class="panel panel-primary">
 			<div class="row">
