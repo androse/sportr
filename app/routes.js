@@ -209,6 +209,13 @@ module.exports = function(app, passport) {
  			}, 
 			function(){
 				res.redirect('/searchevent');
+			},
+            function(empty){
+				res.render('noresults', {
+                    user: req.user,
+                    page: req.url,
+                    nav: req.navPages,
+                });
 			}
 		);
  	});
