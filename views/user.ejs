@@ -51,6 +51,7 @@
 					<% } else { for(var i = 0; i < user.following.length; i++){ %>
 						<a href="<%= user.following[i]._id %>">
 							<p><%= user.following[i].userName %></p>
+						</a>
 					<% }} %>
 				</div>
 				<% if(!isSelf) { %>
