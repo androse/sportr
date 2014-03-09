@@ -319,7 +319,7 @@ module.exports = function(app, passport) {
 			},
 			function() {
 				console.log('Event created')
-				res.redirect('/profile');
+				res.redirect('/events');
 			},
 			function() {
 				console.log('Error creating event');
