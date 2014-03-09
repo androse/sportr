@@ -64,17 +64,6 @@
 		</form>
 	</div>
 	<% include js %>
-	<script>
-	function checkEventField(eventname,eventdescription,eventlocation,searchdate) {
-    		if (eventname.value == '' || eventdescription.value == '' || eventlocation.value == '' || searchdate.value == '') {
-        		$('#trial').empty().append('<div class="locationerror alert alert-danger close fade in" data-dismiss="alert">Please Enter Information In All Fields!</div>');
-        		setTimeout( function() {
-				$('.'+'locationerror').alert('close');
-				}, 2000 );
-        		return false;
-        	}
-    	}
-    </script>
 	<script src="/js/createevent.js"></script>
 	<script src="/js/search.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
