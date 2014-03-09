@@ -225,8 +225,7 @@ function getAllEvents(successCB, errorCB) {
     .populate('users', '_id userName')
 	.exec(function(err, events) {
         if (err) errorCB();
-		else {
-		    console.log("couldnt get all events");
+	else {
             successCB(events);
         }
     });
