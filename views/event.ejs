@@ -35,30 +35,34 @@
 			</div>
 
 			<div class="panel-body">
-				<ul id="comments" class="list-group">
-					<% for(var i = 0; i < event.comments.length; i++){ %>
-						<li class="list-group-item">
-							<% if (event.comments[i].user == user){ %>
-								<div class="putright">
-									<button type="submit" id="leavecomment" class="btn btn-danger btn-lg delete-comment" value="<%= event.comments[i]._id %>">
-										Delete Your Comment
-									</button>
-								</div>
-							<% } %>
-							<p>
-								<h4><b><%= event.comments[i].user %> says:</b></h4>
-								<%= event.comments[i].comment %>
-							</p>
+				<% if (event.comments.length === 0) { %>
+					<h4>Be the first to comment on this event!</h4>
+				<% } else { %>
+					<ul id="comments" class="list-group">
+						<% for(var i = 0; i < event.comments.length; i++){ %>
+							<li class="list-group-item">
+								<% if (event.comments[i].user == user){ %>
+									<div class="putright">
+										<button type="submit" id="leavecomment" class="btn btn-danger btn-lg delete-comment" value="<%= event.comments[i]._id %>">
+											Delete Your Comment
+										</button>
+									</div>
+								<% } %>
+								<p>
+									<h4><b><%= event.comments[i].user %> says:</b></h4>
+									<%= event.comments[i].comment %>
+								</p>
 
-							<div class="commentdate"> Posted <%= event.comments[i].date %></div>
-						</li>
-					<% } %>
-				</ul>
+								<div class="commentdate"> Posted <%= event.comments[i].date %></div>
+							</li>
+						<% } %>
+					</ul>
+				<% } %>
 			</div>
-		
+
 			<div class="panel-footer">
 				<form role="form" action="/comments/<%=event._id%>" method="post" id="newComment">
-					<textarea class="form-control" rows="3" placeholder="Enter a Comment..." name="comment"></textarea>
+					<textarea class="form-control" rows="3" placeholder="Enter a Comment..." name="comment" required></textarea>
 					<br>
 					<div class="row">
 						<div class="col-sm-12">
