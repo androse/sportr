@@ -263,12 +263,12 @@ function search(sport, location, date, successCB, errorCB) {
 }
 
 // Function to search Users
-function searchUser(username, successCB, errorCB, defaultCB){
-    User.findOne({'userName': {$regex: username, $options: 'i'}}, '_id', function(err, user){
-        if(err) errorCB(err);
-        else if(user) successCB(user._id);
-        else defaultCB('');
-    });
+function searchUser(username, successCB, errorCB) {
+    var regUser = new RegExp(username, 'i');
+    User.find({'userName': regUser}, function(err, users) {
+        if (err) errorCB(err);
+        else successCB(users);
+    })
 }
 
 // Function to follow users

@@ -1,0 +1,28 @@
+<% include header %>
+<body>
+	<% include navbar %>	
+	<div class="container content">
+		<% if (users.length === 0) { %>
+			<div class="panel panel-primary">
+				<h4>Sorry no users match your search query.</h4>
+				<h4>Please search again!</h4>
+				
+				<br>
+				<button type="button" class="btn btn-primary form-control" onClick="history.go(-1).reload(true);return true;" value="refresh">Return To Search Page</button>
+			</div>
+		<% } else { %>
+			<h1>Results:</h1>
+			<ul id="users" class="list-group">
+				<% for(var i = 0; i < users.length; i++) { %>
+					<li class="list-group-item">
+						<a href="/user/<%= users[i]._id %>">
+							<h4><%= users[i].userName %></h4>
+						</a>
+					</li>
+				<% } %>
+			</ul>
+		<% } %>
+	</div>
+	<% include js %>
+</body>
+</html>

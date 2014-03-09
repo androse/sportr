@@ -204,18 +204,19 @@ module.exports = function(app, passport) {
 	app.get('/searchuser', ensureAuthenticated, addProperNav, function(req, res) {
  		console.log(req.query);
  		db.searchUser(req.query.username, 
- 			function(userID){
- 				res.redirect('/user/' + userID);
+ 			function(users){
+ 				if (users.length === 1) {
+ 					res.redirect('/user/' + users[0]._id);
+ 				} else {
+	 				res.render('userresults', {
+	                    users: users,
+	                    page: req.url,
+	                    nav: req.navPages,
+	                });
+	            }
  			}, 
 			function(){
 				res.redirect('/searchevent');
-			},
-            function(empty){
-				res.render('noresults', {
-                    user: req.user,
-                    page: req.url,
-                    nav: req.navPages,
-                });
 			}
 		);
  	});
