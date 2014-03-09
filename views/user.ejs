@@ -49,7 +49,7 @@
 					<% if (user.following.length == 0) { %>	
 						<p>They Have No Friends :(</p>
 					<% } else { for(var i = 0; i < user.following.length; i++){ %>
-						<a href="user/<%= user.following[i]._id %>">
+						<a href="<%= user.following[i]._id %>">
 							<p><%= user.following[i].userName %></p>
 					<% }} %>
 				</div>
