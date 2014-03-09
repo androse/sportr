@@ -23,7 +23,7 @@
 			
 			<div class="form-group">
 				<label for="">Date and Time:</label>
-				<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
+				<input type="datetime-local" class="form-control" id="eventDateTime" name="eventdatetime">
 			</div>
 			
 			<div class="form-group">
@@ -60,7 +60,7 @@
 			</div>
 			-->
 			
-			<button type="submit" onclick="return checkEventField(eventname,eventdescription,eventlocation,searchdate);" class="btn btn-primary form-control" id="submitEvent">Create Event</button>
+			<button type="submit" onclick="return checkEventField(eventname,eventdescription,eventlocation,eventdatetime);" class="btn btn-primary form-control" id="submitEvent">Create Event</button>
 		</form>
 	</div>
 	<% include js %>
