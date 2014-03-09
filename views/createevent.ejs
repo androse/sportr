@@ -2,27 +2,28 @@
 <body>
 	<% include navbar %>
 	<div class="container content">
+		<div id="trial"></div>
 		<h1 class="white header"> Create Event </h1>
-
+		
 		<form role="form" action="/newevent" method="post" id="eventForm">
 			<div class="form-group">
 				<label for="eventName">Event Name:</label>
-				<input type="text" maxlength="24" class="form-control" id="eventName" placeholder="Enter an Event Name" name="eventname" required>
+				<input type="text" maxlength="24" class="form-control" id="eventName" placeholder="Enter an Event Name" name="eventname">
 			</div>
 
 			<div class="form-group">
 				<label for="eventDescription">Event Description:</label>
-				<textarea form="eventForm" rows="2" class="form-control" id="eventDescription" placeholder="Enter a Brief Event Description" name="eventdescription" required></textarea>
+				<textarea form="eventForm" rows="2" class="form-control" id="eventDescription" placeholder="Enter a Brief Event Description" name="eventdescription"></textarea>
 			</div>
 			
 			<div class="form-group">
 				<label for="eventLocation">Event Location:</label>
-				<input type="text" class="form-control" id="eventLocation" placeholder="Enter a Location" name="eventlocation" required>
+				<input type="text" class="form-control" id="eventLocation" placeholder="Enter a Location" name="eventlocation">
 			</div>
 			
 			<div class="form-group">
 				<label for="">Date and Time:</label>
-				<input type="datetime-local" class="form-control" id="eventDateTime" name="eventdatetime" required>
+				<input type="text" class="form-control" id="datepicker" placeholder="Select The Desired Date..." name="searchdate" readonly>
 			</div>
 			
 			<div class="form-group">
@@ -59,10 +60,24 @@
 			</div>
 			-->
 			
-			<button type="submit" class="btn btn-primary form-control" id="submitEvent">Create Event</button>
+			<button type="submit" onclick="return checkEventField(eventname,eventdescription,eventlocation,searchdate);" class="btn btn-primary form-control" id="submitEvent">Create Event</button>
 		</form>
 	</div>
 	<% include js %>
+	<script>
+	function checkEventField(eventname,eventdescription,eventlocation,searchdate) {
+    		if (eventname.value == '' || eventdescription.value == '' || eventlocation.value == '' || searchdate.value == '') {
+        		$('#trial').empty().append('<div class="locationerror alert alert-danger close fade in" data-dismiss="alert">Please Enter Information In All Fields!</div>');
+        		setTimeout( function() {
+				$('.'+'locationerror').alert('close');
+				}, 2000 );
+        		return false;
+        	}
+    	}
+    </script>
 	<script src="/js/createevent.js"></script>
+	<script src="/js/search.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </body>
 </html>
