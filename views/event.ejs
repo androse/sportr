@@ -30,44 +30,45 @@
 		</div>
 		
 		<div class="panel panel-default nopadding">
-			<div class="panel-heading row commentheader">
+			<div class="panel-heading">
+				<h3><b>Event Discussion</b><h6>(<%= event.comments.length %> comment(s))</h6></h3> 
+			</div>
+
+			<div class="panel-body">
+				<ul id="comments" class="list-group">
+					<% for(var i = 0; i < event.comments.length; i++){ %>
+						<li class="list-group-item">
+							<% if (event.comments[i].user == user){ %>
+								<div class="putright">
+									<button type="submit" id="leavecomment" class="btn btn-danger btn-lg delete-comment" value="<%= event.comments[i]._id %>">
+										Delete Your Comment
+									</button>
+								</div>
+							<% } %>
+							<p>
+								<h4><b><%= event.comments[i].user %> says:</b></h4>
+								<%= event.comments[i].comment %>
+							</p>
+
+							<div class="commentdate"> Posted <%= event.comments[i].date %></div>
+						</li>
+					<% } %>
+				</ul>
+			</div>
+		
+			<div class="panel-footer">
 				<form role="form" action="/comments/<%=event._id%>" method="post" id="newComment">
-					<div class="putleft">
-						<h4><b>Event Discussion</b><h6>(<%= event.comments.length %> comment(s))</h6></h4> 
-						
+					<textarea class="form-control" rows="3" placeholder="Enter a Comment..." name="comment"></textarea>
+					<br>
+					<div class="row">
+						<div class="col-sm-12">
+							<button type="submit" id="leavecomment" class="btn btn-default btn-lg pull-right">
+								<span class="glyphicon glyphicon-bullhorn"></span> Leave a Comment
+							</button>
+						</div>
 					</div>
-				
-					<div class="putright">
-						<button type="submit" id="leavecomment" class="btn btn-default btn-lg">
-							<span class="glyphicon glyphicon-bullhorn"></span>Leave a Comment
-						</button>
-					</div>
-					<textarea class="form-control" rows="3" name="comment"></textarea>
 				</form>
 			</div>
-			
-
-			
-			<ul id="comments" class="list-group">
-				<% for(var i = 0; i < event.comments.length; i++){ %>
-					<li class="list-group-item">
-						<% if (event.comments[i].user == user){ %>
-							<div class="putright">
-								<button type="submit" id="leavecomment" class="btn btn-danger btn-lg delete-comment" value="<%= event.comments[i]._id %>">
-									Delete Your Comment
-								</button>
-							</div>
-						<% } %>
-						<p>
-							<h4><b><%= event.comments[i].user %> says:</b></h4>
-							<%= event.comments[i].comment %>
-						</p>
-
-						<div class="commentdate"> Posted <%= event.comments[i].date %></div>
-					</li>
-				<% } %>
-			</ul>
-				
 		</div>
 	</div>
 	<% include js %>
@@ -75,7 +76,6 @@
 		$(document).ready(function() {
 			$('.delete-comment').click(function() {
 				var commentID = $(this).attr('value');
-console.log('---- HERE ------');
 				$.ajax({
 					type: 'DELETE',
 					url: '/comments/' + commentID,
