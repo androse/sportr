@@ -83,15 +83,12 @@ module.exports = function(app, passport) {
         db.getUserEvents(req.user._id, function(userEvents) {
 				db.getAllEvents(function(allEvents) {
 					var events = {user: [], all: []};
-
 					for (var i = 0; i < allEvents.length; i++) {
+						events.all.push(allEvents[i]);
 						if (userInEvent(allEvents[i], userEvents)) {
 							events.user.push(allEvents[i]);
-						} else {
-							events.all.push(allEvents[i]);
-						}
+						} 
 					}
-
 					res.render('events', {
 					    user: req.user,
 					    page: req.url,
@@ -125,21 +122,6 @@ module.exports = function(app, passport) {
 				res.render('error');
 			}
 		);
-	});
-
-    //All events page
-	app.get('/allevents', ensureAuthenticated, addProperNav, function(req, res) {
-	    db.getAllEvents(function(events) {
-				res.render('events', {
-				    page: req.url,
-				    nav: req.navPages,
-				    events: events
-				});
-			}, 
-			function() {
-				res.redirect('/events');
-			}
-  		);
 	});
 	
 	//Search page
