@@ -110,10 +110,17 @@ module.exports = function(app, passport) {
 	app.get('/event/:id', ensureAuthenticated, addProperNav, function(req, res) {
 		db.getEvent(req.params.id, 
 			function(event) {
+				// ensure that users that are already in an event cannot be invited again
+				for (var i = 0; i < req.user.following.length; i++) {
+					if (followeeInEvent(event, req.user.following[i]._id)) {
+						req.user.following.splice(i, 1);
+					}
+				}
+
 				res.render('event', {
 					page: req.url,
 					nav: req.navPages,
-					user: req.user.userName,
+					user: req.user,
 					event: event
 				});
 			},
@@ -359,7 +366,7 @@ module.exports = function(app, passport) {
 			function(){
 				res.redirect('/event/' + req.params.id);
 			}, function(){
-				res.send(500, {error: 'Error following user'});
+				res.send(500, {error: 'Error leaving commenting'});
 			});
 	});
 
@@ -374,6 +381,13 @@ module.exports = function(app, passport) {
 				res.send(500, {error: 'Error deleting comment'});
 		});
 	});
+
+	// invite users to an event
+	app.post('/invite', ensureAuthenticated, function(req, res) {
+		// the variables are in req.body
+		console.log(req.body)
+		// need to add db stuff and redirect
+	})
 
 	// ---------- Utitily functions ----------
 
@@ -400,6 +414,22 @@ module.exports = function(app, passport) {
 		return false;
 	}
 
+	function areFriends(following, userID) {
+		for (var i = 0; i < following.length; i++) {
+			if (userID + '' == following[i]._id + '') return true;
+		}
+
+		return false;
+	}
+
+	function followeeInEvent(event, followeeID) {
+		for (var i = 0; i < event.users.length; i++) {
+			if (followeeID + '' == event.users[i]._id + '') return true;
+		}
+
+		return false;
+	}
+
 	// ---------- Custum middlewares ----------
 
 	// A route middleware that Us whether a user is authenticated
@@ -418,13 +448,5 @@ module.exports = function(app, passport) {
 		else {req.navPages = navbarLinks.loggedout }
 
 		return next();
-	}
-
-	function areFriends(following, userID) {
-		for (var i = 0; i < following.length; i++) {
-			if (userID + '' == following[i]._id + '') return true;
-		}
-
-		return false;
 	}
 }
