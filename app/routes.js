@@ -14,6 +14,7 @@ var navbarLinks = {
 
 module.exports = function(app, passport) {
 
+
 	// ---------- Webpage rendering routes ----------
 
 	// Home page
@@ -384,11 +385,31 @@ module.exports = function(app, passport) {
 
 	// invite users to an event
 	app.post('/invite', ensureAuthenticated, function(req, res) {
-		// the variables are in req.body
-		console.log(req.body)
-		// need to add db stuff and redirect
-	})
+		db.inviteToEvent(req.body.userID, req.body.eventID, req.body.invite,
+			function() {
+				res.redirect('/events');
+			},
+			function() {
+				res.send(500, {error: 'Error inviting to event'});
+			}
 
+			);
+		// the variables are in req.body
+		console.log(req.body.userID);
+		// need to add db stuff and redirect
+	});
+
+	// Need to create the db function to associate an event to a user 
+	app.post('/joinevent/:id', function(req, res) {
+		db.joinEvent(req.user._id, req.params.id,
+			function() {
+				res.send(200, {success: 'Event joined'});
+			},
+			function() {
+				res.send(500, {error: 'Error joining event'});
+			}
+		);
+	});
 	// ---------- Utitily functions ----------
 
 	// Used to add all sports to the template object

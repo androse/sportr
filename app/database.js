@@ -4,6 +4,27 @@ var Sport = require('./models/sport.js');
 var Event = require('./models/event.js');
 var Comment = require('./models/comment.js');
 
+
+//invite user to event. userID is inviter
+function inviteToEvent(userID, eventID, invitedID, successCB, errorCB) {
+    //TODO MAKE THIS WORK LOL
+    // Add user to the event and the event to the user
+    // User.findByIdAndUpdate(invitedID, { $push: { invites: {eventID, userID}}}, 
+    //     function(err, user) {
+    //         console.log(user);
+    //         if(err) {
+    //             errorCB();
+    //         } else {
+    //             successCB();
+    //         }
+    // });
+
+
+    //TODO CHANGE SO THAT EVENT ADDED TO USER'S INVITES NOT EVENTS
+    joinEvent(invitedID, eventID, successCB, errorCB);
+}
+
+
 // Find a user by their ID
 function checkUser(userID, callback) {
     User
@@ -339,5 +360,6 @@ module.exports = {
     followUser: followUser,
     unfollowUser: unfollowUser,
     addComment: addComment,
-    deleteComment: deleteComment
+    deleteComment: deleteComment,
+    inviteToEvent: inviteToEvent
 }
