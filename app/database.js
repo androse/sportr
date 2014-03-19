@@ -4,27 +4,6 @@ var Sport = require('./models/sport.js');
 var Event = require('./models/event.js');
 var Comment = require('./models/comment.js');
 
-
-//invite user to event. userID is inviter
-function inviteToEvent(userID, eventID, invitedID, successCB, errorCB) {
-    //TODO MAKE THIS WORK LOL
-    // Add user to the event and the event to the user
-    // User.findByIdAndUpdate(invitedID, { $push: { invites: {eventID, userID}}}, 
-    //     function(err, user) {
-    //         console.log(user);
-    //         if(err) {
-    //             errorCB();
-    //         } else {
-    //             successCB();
-    //         }
-    // });
-
-
-    //TODO CHANGE SO THAT EVENT ADDED TO USER'S INVITES NOT EVENTS
-    joinEvent(invitedID, eventID, successCB, errorCB);
-}
-
-
 // Find a user by their ID
 function checkUser(userID, callback) {
     User
@@ -334,6 +313,19 @@ function deleteComment(commentID, successCB, errorCB){
         if (err) errorCB();
         else successCB();
     });
+}
+
+//invite user to event. userID is inviter
+function inviteToEvent(userID, eventID, inviteArr, successCB, errorCB) {
+    User.update({ '_id': { $in: inviteArr }}, 
+        { $push: {invites: {to: eventID, by: userID}}}, {multi: true},
+        function(err, numberAffected, raw) {
+            if (err) {
+                console.log(err);
+                errorCB();
+            } else successCB();
+        }
+    );
 }
 
 // This allows functions to be used by others in this file

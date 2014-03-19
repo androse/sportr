@@ -10,7 +10,7 @@ var userSchema = new mongoose.Schema({
     sports: [{typeOf: String, skill: String}],
     events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
     //TODO add invites field
-    invites: [{ type: Schema.Types.ObjectId, ref: 'Event' }, { type: Schema.Types.ObjectId, ref: 'User' }],
+    invites: [{ to: { type: Schema.Types.ObjectId, ref: 'Event' }, by: { type: Schema.Types.ObjectId, ref: 'User' }}],
     following: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 

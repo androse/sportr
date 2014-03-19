@@ -385,18 +385,17 @@ module.exports = function(app, passport) {
 
 	// invite users to an event
 	app.post('/invite', ensureAuthenticated, function(req, res) {
-		db.inviteToEvent(req.body.userID, req.body.eventID, req.body.invite,
+		var inviteStr = req.body.invite + '';
+		var inviteArr = inviteStr.split(',');
+		
+		db.inviteToEvent(req.body.userID, req.body.eventID, inviteArr,
 			function() {
-				res.redirect('/events');
+				res.redirect('/event/' + req.body.eventID);
 			},
 			function() {
 				res.send(500, {error: 'Error inviting to event'});
 			}
-
-			);
-		// the variables are in req.body
-		console.log(req.body.userID);
-		// need to add db stuff and redirect
+		);
 	});
 
 	// Need to create the db function to associate an event to a user 
