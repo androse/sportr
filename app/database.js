@@ -330,13 +330,29 @@ function inviteToEvent(userID, eventID, inviteArr, successCB, errorCB) {
 
 // Get the users list of invites populated with data
 function populateInvites(userID, successCB, errorCB) {
-    User
-    .findById(userID)
-    .populate('invites.to')
-    .populate('invites.by', 'userName userID')
-    .exec(function(err, user) {
+    User.findById(userID, function(err, user) {
         if (err) errorCB();
-        else successCB(user.invites);
+        else {
+            var invites = [];
+
+            for (var i = 0; i < user.invites.length; i++) {
+                var invite = {};
+
+                Event.findById(user.invites[i].to, function(err, event) {
+                    if (err) errorCB();
+                    else invite.to = event;
+                });
+
+                User.findById(user.invites[i].by, '_id userName', function(err, user) {
+                    if (err) errorCB();
+                    else invite.by = user;
+                });
+
+                invites.push(invite);
+            }
+
+            successCB(invites);
+        }
     });
 } 
 
