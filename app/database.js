@@ -333,25 +333,29 @@ function populateInvites(userID, successCB, errorCB) {
     User.findById(userID, function(err, user) {
         if (err) errorCB();
         else {
+            var toIDs = [];
+            var byIDs = [];
             var invites = [];
 
             for (var i = 0; i < user.invites.length; i++) {
-                var invite = {};
-
-                Event.findById(user.invites[i].to, function(err, event) {
-                    if (err) errorCB();
-                    else invite.to = event;
-                });
-
-                User.findById(user.invites[i].by, '_id userName', function(err, user) {
-                    if (err) errorCB();
-                    else invite.by = user;
-                });
-
-                invites.push(invite);
+                toIDs.push(user.invites[i].to);
+                byIDs.push(user.invites[i].by);
             }
 
-            successCB(invites);
+            Event.find({ '_id': { $in: toIDs }}, function(err, events) {
+                User.find({ '_id': { $in: byIDs }}, '_id userName', function(err, users) {
+                    for (var i = 0; i < events.length; i++) {
+                        var invite = {
+                            to: events[i],
+                            by: users[i]
+                        };
+
+                        invites.push(invite);
+                    }
+
+                    successCB(invites);
+                });
+            });
         }
     });
 } 
