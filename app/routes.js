@@ -211,6 +211,18 @@ module.exports = function(app, passport) {
 			}
 		);
  	});
+    
+    app.get('/acceptrequest', ensureAuthenticated, addProperNav, function(req, res) {
+        addAllSports(function(sports) {
+            res.redirect('profile');
+        });
+	});
+    
+    app.get('/rejectrequest', ensureAuthenticated, addProperNav, function(req, res) {
+        addAllSports(function(sports) {
+            res.redirect('profile');
+        });
+	});
 
 	// ---------- Login / Logout routes ----------
 
