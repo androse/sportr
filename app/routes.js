@@ -80,7 +80,7 @@ module.exports = function(app, passport) {
 	});
 	
 	//Events page
-	app.get('/events', ensureAuthenticated, addProperNav, function(req, res) {
+	app.get('/events', ensureAuthenticated, addProperNav, populateInvites, function(req, res) {
         db.getUserEvents(req.user._id, function(userEvents) {
 				db.getAllEvents(function(allEvents) {
 					var events = {user: [], all: []};
@@ -94,7 +94,8 @@ module.exports = function(app, passport) {
 					    user: req.user,
 					    page: req.url,
 					    nav: req.navPages,
-					    events: events
+					    events: events,
+					    invites: req.invites
 					});
 				},
 				function() {
@@ -468,5 +469,18 @@ module.exports = function(app, passport) {
 		else {req.navPages = navbarLinks.loggedout }
 
 		return next();
+	}
+
+	// Get a populated list of invites and put it in the request
+	function populateInvites(req, res, next) {
+		db.populateInvites(req.user._id, 
+			function(invites) {
+				req.invites = invites;
+				return next();
+			},
+			function() {
+				res.redirect('/');
+			}
+		);
 	}
 }

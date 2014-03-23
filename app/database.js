@@ -328,6 +328,18 @@ function inviteToEvent(userID, eventID, inviteArr, successCB, errorCB) {
     );
 }
 
+// Get the users list of invites populated with data
+function populateInvites(userID, successCB, errorCB) {
+    User
+    .findById(userID)
+    .populate('invites.to')
+    .populate('invites.by', 'userName userID')
+    .exec(function(err, user) {
+        if (err) errorCB();
+        else successCB(user.invites);
+    });
+} 
+
 // This allows functions to be used by others in this file
 // Make sure to add any function you add to the module to this
 module.exports = {
@@ -353,5 +365,6 @@ module.exports = {
     unfollowUser: unfollowUser,
     addComment: addComment,
     deleteComment: deleteComment,
-    inviteToEvent: inviteToEvent
+    inviteToEvent: inviteToEvent,
+    populateInvites: populateInvites
 }

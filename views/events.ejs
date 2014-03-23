@@ -111,43 +111,40 @@
 			</div>
 
 			<div class="tab-pane" id="eventInvites">
-				<h1>NOT ACTUALLY SHOWING INVITES!!!! (Please remove me when completed!)</h1>
-				<% if (events.user.length === 0) { %>
+				<% if (invites.length === 0) { %>
 					<div class="panel panel-primary">
 						<h4>You currently have no event invites.</h4>
 					</div>
 				<% } else { %>
-					<% for (var i = 0; i < events.user.length; i++) { %>
+					<% for (var i = 0; i < invites.length; i++) { %>
 						<div class="panel panel-default nopadding">
 						
 							<div class="panel-heading row eventrows">
 									<div class="col-sm-4">
-										<a href="/event/<%= events.user[i]._id %>"> 
-											<h4><b><img src="../img/sportsmall.png"> </img><%= events.user[i].name %></b></h4>
+										<a href="/event/<%= invites[i].to._id %>"> 
+											<h4><b><img src="../img/sportsmall.png"> </img><%= invites[i].to.name %></b></h4>
 										</a>
 									</div>
 									<div class="col-sm-5">
-										<h4><b>Sport:</b> <%= events.user[i].sport %></h4>
-										<h4><b>Time:</b> <%= events.user[i].startTime %></h4>
-										<h4><b>Location:</b> <%= events.user[i].location %></h4>
+										<h4><b>Sport:</b> <%= invites[i].to.sport %></h4>
+										<h4><b>Time:</b> <%= invites[i].to.startTime %></h4>
+										<h4><b>Location:</b> <%= invites[i].to.location %></h4>
 									</div>
 									<div class="col-sm-3">
-										<button class="btn btn-success btn-lg btn-block join-event">Join Event</button>
-										<button class="btn btn-danger btn-lg btn-block leave-event">Decline</button>
+										<button class="btn btn-success btn-lg btn-block accept-invite">Accept</button>
+										<button class="btn btn-danger btn-lg btn-block decline-invite">Decline</button>
 									</div>
 							</div>
 							
 							<div class="panel-body">
 								<h4><b>Event Description:</b></h4>
-								<p><%= events.user[i].description %></p>
-								<a href="/event/<%= events.user[i]._id %>" class="read_more">...click to see more</a><br/>
+								<p><%= invites[i].to.description %></p>
+								<a href="/event/<%= invites[i].to._id %>" class="read_more">...click to see more</a><br/>
 							</div>
 
 							<div class="panel-footer">
-								<h4><b>Who's Attending?</b></h4>
-								<% for (var j = 0; j < events.user[i].users.length; j++) { %>
-									<p><a href="/user/<%= events.user[i].users[j]._id %>"><%= events.user[i].users[j].userName %></a></p>
-								<% } %>
+								<h4><b>Invited By:</b></h4>
+									<p><a href="/user/<%= invites[i].by._id %>"><%= invites[i].by.userName %></a></p>
 							</div>
 						</div>
 					<% } %>
