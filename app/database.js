@@ -346,6 +346,7 @@ function populateInvites(userID, successCB, errorCB) {
                 User.find({ '_id': { $in: byIDs }}, '_id userName', function(err, users) {
                     for (var i = 0; i < events.length; i++) {
                         var invite = {
+                            id: user.invites._id,
                             to: events[i],
                             by: users[i]
                         };
