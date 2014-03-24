@@ -180,6 +180,12 @@ function joinEvent(userID, eventID, successCB, errorCB) {
                         if (err) {
                             errorCB();
                         } else {
+                            User.findByIdAndUpdate(userID, 
+                                { $pull: {'invites': {'to': eventID}}},
+                                function(err, user){
+                                    if(err) errorCB();
+                                    else successCB();
+                            });
                             successCB();
                         }
                 });
@@ -369,7 +375,7 @@ function removeInviteByID(userID, inviteID, successCB, errorCB) {
         function(err, user){
             if(err) errorCB();
             else successCB();
-        });
+    });
 }
 
 // This allows functions to be used by others in this file

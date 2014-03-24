@@ -31,8 +31,6 @@ $(document).ready(function() {
 
 	$('.decline-invite').click(function(){
 		var inviteID = $(this).attr('value');
-		console.log('--------');
-		console.log(inviteID);
 		$.ajax({
 			type: 'DELETE',
 			url: '/invite/' + inviteID,
@@ -43,7 +41,21 @@ $(document).ready(function() {
 				console.log(textStatus);
 			}
 		});
-	})
+	});
+
+	$('.accept-invite').click(function(){
+		var eventID = $(this).attr('value');
+		$.ajax({
+			type: 'POST',
+			url: '/joinevent/' + eventID,
+			success: function(data) {
+				location.href = '/events';
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
+			}
+		});
+	});
 
 	$('#userTab a[href="#userevents"]').tab('show');
 });
