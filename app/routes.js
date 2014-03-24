@@ -412,7 +412,7 @@ module.exports = function(app, passport) {
 	});
 
 	// Need to create the db function to associate an event to a user 
-	app.post('/joinevent/:id', function(req, res) {
+	app.post('/joinevent/:id', ensureAuthenticated, function(req, res) {
 		db.joinEvent(req.user._id, req.params.id,
 			function() {
 				res.send(200, {success: 'Event joined'});
@@ -423,7 +423,7 @@ module.exports = function(app, passport) {
 		);
 	});
 
-	app.delete('/invite/:id', function(req, res) {
+	app.delete('/invite/:id', ensureAuthenticated, function(req, res) {
 		console.log("HERE");
 		db.removeInviteByID(req.user._id, req.params.id,
 			function() {
