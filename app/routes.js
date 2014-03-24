@@ -406,7 +406,7 @@ module.exports = function(app, passport) {
 				res.redirect('/event/' + req.body.eventID);
 			},
 			function() {
-				res.send(500, {error: 'Error inviting to event'});
+				res.redirect('/event/' + req.body.eventID);
 			}
 		);
 	});
