@@ -29,5 +29,21 @@ $(document).ready(function() {
 		});
 	});
 
+	$('.decline-invite').click(function(){
+		var inviteID = $(this).attr('value');
+		console.log('--------');
+		console.log(inviteID);
+		$.ajax({
+			type: 'DELETE',
+			url: '/invite/' + inviteID,
+			success: function(data) {
+				location.href = '/events';
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus);
+			}
+		});
+	})
+
 	$('#userTab a[href="#userevents"]').tab('show');
 });

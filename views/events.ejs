@@ -131,13 +131,9 @@
 										<h4><b>Location:</b> <%= invites[i].to.location %></h4>
 									</div>
 									<div class="col-sm-3">
-										<a href="/acceptrequest">
-											<button class="btn btn-success btn-lg btn-block accept-invite">Accept</button>
-										</a>
+										<button class="btn btn-success btn-lg btn-block accept-invite" value="<%= invites[i]._id %>">Accept</button>
 										<br><br>
-										<a href="/rejectrequest">
-											<button class="btn btn-danger btn-lg btn-block decline-invite">Decline</button>
-										</a>
+										<button class="btn btn-danger btn-lg btn-block decline-invite" value="<%= invites[i].id %>">Decline</button>
 									</div>
 							</div>
 							

@@ -422,6 +422,19 @@ module.exports = function(app, passport) {
 			}
 		);
 	});
+
+	app.delete('/invite/:id', function(req, res) {
+		console.log("HERE");
+		db.removeInviteByID(req.user._id, req.params.id,
+			function() {
+				console.log("success");
+				res.send(200, {success: 'Invite Declined'});
+			},
+			function() {
+				console.log("error");
+				res.send(500, {error: 'Error declining event'});
+			});
+	});
 	// ---------- Utitily functions ----------
 
 	// Used to add all sports to the template object

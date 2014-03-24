@@ -335,31 +335,42 @@ function populateInvites(userID, successCB, errorCB) {
         else {
             var toIDs = [];
             var byIDs = [];
+            // var IDs = [];
             var invites = [];
 
             for (var i = 0; i < user.invites.length; i++) {
                 toIDs.push(user.invites[i].to);
                 byIDs.push(user.invites[i].by);
+                // IDs.push(user.invites[i]._id);
             }
 
             Event.find({ '_id': { $in: toIDs }}, function(err, events) {
                 User.find({ '_id': { $in: byIDs }}, '_id userName', function(err, users) {
                     for (var i = 0; i < events.length; i++) {
                         var invite = {
-                            id: user.invites._id,
+                            id: user.invites[i]._id,
                             to: events[i],
                             by: users[i]
                         };
 
                         invites.push(invite);
                     }
-
                     successCB(invites);
                 });
             });
         }
     });
 } 
+
+function removeInviteByID(userID, inviteID, successCB, errorCB) {
+    console.log("IN HERE");
+    User.findByIdAndUpdate(userID, 
+        { $pull: {'invites': {'_id': inviteID}}},
+        function(err, user){
+            if(err) errorCB();
+            else successCB();
+        });
+}
 
 // This allows functions to be used by others in this file
 // Make sure to add any function you add to the module to this
@@ -387,5 +398,6 @@ module.exports = {
     addComment: addComment,
     deleteComment: deleteComment,
     inviteToEvent: inviteToEvent,
-    populateInvites: populateInvites
+    populateInvites: populateInvites,
+    removeInviteByID: removeInviteByID
 }
