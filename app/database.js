@@ -163,7 +163,7 @@ function createEvent(userID, data, successCB, errorCB){
     event.save(function(err, event){
         if(err) errorCB();
         else {
-            joinEvent(userID, event._id, successCB, errorCB);
+            joinMyEvent(userID, event._id, successCB, errorCB);
         }
     });
 }
@@ -186,6 +186,31 @@ function joinEvent(userID, eventID, successCB, errorCB) {
                                     if(err) errorCB();
                                     else successCB();
                             });
+                            successCB();
+                        }
+                });
+            }
+    });
+}
+
+function joinMyEvent(userID, eventID, successCB, errorCB) {
+    // Add user to the event and the event to the user
+    User.findByIdAndUpdate(userID, { $push: { events: eventID }}, 
+        function(err, user) {
+            if(err) {
+                errorCB();
+            } else {
+                Event.findByIdAndUpdate(eventID, { $push: { users: userID }}, 
+                    function(err, event) {
+                        if (err) {
+                            errorCB();
+                        } else {
+                            // User.findByIdAndUpdate(userID, 
+                                // { $pull: {'invites': {'to': eventID}}},
+                                // function(err, user){
+                                    // if(err) errorCB();
+                                    // else successCB();
+                            // });
                             successCB();
                         }
                 });
